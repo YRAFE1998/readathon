@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import './App.css';
-import { BrowserRouter, Switch, Route, } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect, } from "react-router-dom";
 import Header from "./components/Header/header";
 import Footer from "./components/Footer/foorter";
 const Home = React.lazy(() => import('./containers/Home/home'));
@@ -13,13 +13,8 @@ function App() {
     <Header/>
       <Suspense fallback={<>....</>}>
         <Switch>
-          <Route
-            path="/not"
-            component={NotFound}
-          />
-
-          <Route component={Home}
-          />
+          <Route exact={true} path={"/"} component={Home}/>
+          <Route  component={NotFound}/> 
         </Switch>
       </Suspense>
       <Footer/>
