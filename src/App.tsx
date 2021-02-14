@@ -5,19 +5,21 @@ import Header from "./components/Header/header";
 import Footer from "./components/Footer/foorter";
 const Home = React.lazy(() => import('./containers/Home/home'));
 const NotFound = React.lazy(() => import('./containers/Not-Found/not-found'));
+const Auth = React.lazy(() => import('./containers/Auth/auth'));
 
 function App() {
   return (
 
     <BrowserRouter>
-    <Header/>
-      <Suspense fallback={<>....</>}>
+    
+      <Suspense fallback={<>Loading ....</>}>
         <Switch>
           <Route exact={true} path={"/"} component={Home}/>
+          <Route  path={"/auth"} component={Auth}></Route>
           <Route  component={NotFound}/> 
         </Switch>
       </Suspense>
-      <Footer/>
+    
     </BrowserRouter>
   );
 }

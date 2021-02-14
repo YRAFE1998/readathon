@@ -36,3 +36,26 @@
     transform: rotate(360deg);
   }
 }
+.row{
+  margin: 0px;
+  position: relative;
+}
+.p-0{
+  padding: 0px;
+}
+
+@font-face {
+  font-family: SourceSansPro;
+  src: url(./assets/fonts/SourceSansPro-Regular.ttf);
+}
+@font-face {
+  font-family: SourceSansProBold;
+  src: url(./assets/fonts/SourceSansPro-Bold.ttf);
+}
+.btn{
+  outline: none;
+  box-shadow: none;
+}
+body{
+  font-family: SourceSansPro;
+}
