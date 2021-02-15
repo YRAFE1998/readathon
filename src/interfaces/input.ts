@@ -2,10 +2,11 @@ import React, {ReactNode} from 'react'
 export interface InputInfterface {
     placeholder?: string;
     type?: string;
-    onChange: (v : string) => void; 
+    onChange: (v : any) => void; 
     error?: string;
     state?: string;
     icon?: React.FC;
-    value?: string;
-
+    value?: any;
+    required?: boolean;
+    selectedCountry?: any;
 }

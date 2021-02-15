@@ -7,6 +7,7 @@ const Home = React.lazy(() => import('./containers/Home/home'));
 const NotFound = React.lazy(() => import('./containers/Not-Found/not-found'));
 const Auth = React.lazy(() => import('./containers/Auth/auth'));
 
+
 function App() {
   return (
 

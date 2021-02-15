@@ -8,7 +8,7 @@ export const LoginStyles = styled.div`
     margin-bottom: 20px;
 }
 .btnSpaces{
-    margin-top: 60px;
+    margin: 60px 0px;
 }
 .link{
     font-size: 17px;

@@ -17,7 +17,7 @@ export const Login = () => {
         setForm({ ...form, [state]: value });
     }
 
-    const renderInputs = (type: string, state: (keyof LoginForm), placeholder: string, name: string, Icon: React.FC) => {
+    const renderInputs = (type: string, state: (keyof LoginForm), placeholder: string, name: string, Icon: React.FC, required: boolean) => {
         return <InputComponent
             error={error[state]}
             state={form[state]}
@@ -25,6 +25,7 @@ export const Login = () => {
             placeholder={placeholder}
             value={form[state]}
             icon={Icon}
+            required={required}
             onChange={(v) => inputChange(state, name, v)}
         />
     }
@@ -34,10 +35,8 @@ export const Login = () => {
         if (formValid.email || formValid.password) {
             setError({...error, ...formValid})
         } else {
-            console.log(form);
-            
-        }
-
+            console.log(form);       
+    }
     }
     return (
         <LoginStyles>
@@ -45,11 +44,11 @@ export const Login = () => {
             <div className={"formContainer"}>
                 <form onSubmit={handleSubmit}>
                     <div className={"inputSpaces"}>
-                        {renderInputs("text", "email", "Enter Your Email", "Email", IconEmail)}
+                        {renderInputs("text", "email", "Enter Your Email", "Email", IconEmail, true)}
                     </div>
 
                     <div className={"inputSpaces"}>
-                        {renderInputs("password", "password", "Enter Your Password", "Password", IconsEye)}
+                        {renderInputs("password", "password", "Enter Your Password", "Password", IconsEye, true)}
                     </div>
                     <div className={"link"}>
                         Forgot Password?
