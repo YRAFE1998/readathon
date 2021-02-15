@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { ThemeColor } from "../../../utils/colors";
 export const LoginStyles = styled.div`
 .formContainer{
-    margin-top: 40px;
+    
 }
 .inputSpaces{
     margin-bottom: 20px;

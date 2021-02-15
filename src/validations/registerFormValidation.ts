@@ -49,7 +49,7 @@ export const registerValiadtionForm = (value: RegisterForm) => {
         data.email = "Email Not Valid"
     }
     if ((value.password && /\s/g.test(value.password))) {
-        data.email = "Password Spaces Not Allowed"
+        data.password = "Password Spaces Not Allowed"
     }
     if (value.confirmPassword && /\s/g.test(value.confirmPassword)) {
         data.confirmPassword = "Confirm Password Spaces Not Allowed"

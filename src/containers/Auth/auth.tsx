@@ -7,6 +7,8 @@ import Image from "../../assets/Images/Auth/child.png";
 import LogoImage from "../../assets/Images/Main/logo.png";
 import { Row, Col, Button } from 'react-bootstrap';
 import { AuthModule } from "./auth.style";
+import { ResetPassword } from './ResetPassword/resetPassword';
+import { ForgetPassword } from './ForgetPassword/forgetPassword';
 export const Auth = () => {
     return (
         <AuthModule>
@@ -25,6 +27,8 @@ export const Auth = () => {
                         <Switch>
                             <Route path={"/auth/register"} component={Register}></Route>
                             <Route path={"/auth/login"} component={Login}></Route>
+                            <Route path={"/auth/forget"} component={ForgetPassword}></Route>
+                            <Route path={"/auth/reset"} component={ResetPassword}></Route>
                             <Redirect from="/" to="/auth/login" />
                         </Switch>
                         
