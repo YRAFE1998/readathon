@@ -28,3 +28,8 @@ align-items: center;
     
  }
 `;
+
+export const InputValidationStyle = styled.div`
+ color: ${ThemeColor.red};
+ font-size: 12px
+`;
