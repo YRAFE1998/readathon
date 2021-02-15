@@ -6,11 +6,12 @@ import { RedButton } from '../../../components/Buttons/redButton';
 import InputComponent from "../../../components/Input/input";
 import { ResetPasswordForm } from '../../../interfaces/resetPasswordForm';
 import { resetPasswordValidation, resePasswordValiadtionForm } from '../../../validations/resetPasswordFormValidation';
+import { useHistory } from 'react-router-dom';
 
 export const ResetPassword = () => {
     const [form, setForm] = useState<ResetPasswordForm>({})
     const [error, setError] = useState<ResetPasswordForm>({})
-
+    const history = useHistory();
     const inputChange = (state: string, placeholder: string, value: string) => {
         const errorMessage = resetPasswordValidation(state, placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
@@ -24,7 +25,8 @@ export const ResetPassword = () => {
         if (formValid.password || formValid.confirmPassword) {
             setError({...error, ...formValid})
         } else {
-            console.log(form);
+            
+            history.push("/auth/login");
             
         }
     }

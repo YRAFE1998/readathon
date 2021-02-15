@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react'
 
-import { BrowserRouter, Switch, Route, Redirect, } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect, useLocation, useHistory, } from "react-router-dom";
 import Login from './Login/login';
 import Register from './Register/register';
 import Image from "../../assets/Images/Auth/child.png";
@@ -10,6 +10,12 @@ import { AuthModule } from "./auth.style";
 import { ResetPassword } from './ResetPassword/resetPassword';
 import { ForgetPassword } from './ForgetPassword/forgetPassword';
 export const Auth = () => {
+    const path = useLocation().pathname;
+    const history = useHistory();
+    const handleNavigation = () => {
+        path.includes("login") ? history.push("/auth/register") : history.push("/auth/login")
+    }
+    
     return (
         <AuthModule>
             <Row >
@@ -19,7 +25,7 @@ export const Auth = () => {
                             <img src={LogoImage} className={"logoImage"} />
                         </div>
                         <div>
-                            <button className={"btn-route"}>Sign Up</button>
+                            <button className={"btn-route"} onClick={handleNavigation}>{path.includes("login") ? "Sign Up" : "Login"}</button>
                         </div>
 
                     </div>

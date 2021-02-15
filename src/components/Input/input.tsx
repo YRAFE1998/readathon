@@ -42,8 +42,6 @@ const InputComponent = (props: InputInfterface) => {
     }
     const getFilteredCountry = () => {
         const index = countries.findIndex((v) => v?.name == seletedCountry?.name);
-        console.log(index);
-        
         return countries.slice((index > 0 ? index : 0) , (index > 0 ? index : 0) +1)
     }
     const renderMobile = () => {

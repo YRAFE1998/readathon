@@ -15,8 +15,9 @@ function App() {
     
       <Suspense fallback={<>Loading ....</>}>
         <Switch>
-          <Route exact={true} path={"/"} component={Home}/>
+          <Route exact={true} path={"/home"} component={Home}/>
           <Route  path={"/auth"} component={Auth}></Route>
+          <Redirect from="/" to="/auth"/>
           <Route  component={NotFound}/> 
         </Switch>
       </Suspense>

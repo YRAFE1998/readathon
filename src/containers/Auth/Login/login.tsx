@@ -7,9 +7,11 @@ import { IconEmail } from '../../../assets/icons/Auth/icons-at';
 import { IconsEye } from '../../../assets/icons/Auth/icons-eye';
 import { LoginForm } from "../../../interfaces/loginForm";
 import { loginValiadtionForm, loginValidation } from '../../../validations/loginFormValidation';
+import { useHistory } from 'react-router-dom';
 export const Login = () => {
     const [form, setForm] = useState<LoginForm>({})
     const [error, setError] = useState<LoginForm>({})
+    const history = useHistory();
     const inputChange = (state: string, placeholder: string, value: string) => {
         const errorMessage = loginValidation(state, placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
@@ -50,7 +52,7 @@ export const Login = () => {
                     <div className={"inputSpaces"}>
                         {renderInputs("password", "password", "Enter Your Password", "Password", IconsEye, true)}
                     </div>
-                    <div className={"link"}>
+                    <div className={"link"} onClick={() => history.push("/auth/forget/")}>
                         Forgot Password?
                 </div>
 
