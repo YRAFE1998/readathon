@@ -40,7 +40,7 @@ export const Auth = () => {
                         
                     </div>
                 </Col>
-                <Col sm={12} md={6} className={"p-0"} >
+                <Col sm={12} md={6} className={"p-0 h-100"}  >
                     <img className={"imageAuth"} src={Image} />
                 </Col>
                 <div className={"footer"}>

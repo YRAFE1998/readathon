@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { ThemeColor } from "../../utils/colors";
 export const AuthModule = styled.div`
+display: flex;
   .flexHeaderDiv{
     display: flex;
      justify-content: space-between; 
@@ -19,7 +20,7 @@ export const AuthModule = styled.div`
   }
   .imageAuth{
     width: 100%;
-     height: fit-content;
+     height: 100%;
      object-fit: cover;
      
   }

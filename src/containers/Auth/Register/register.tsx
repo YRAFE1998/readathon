@@ -92,20 +92,23 @@ export const Register = () => {
                     </CollapseHoc>
 
                     <CollapseHoc header={"Organization Information"} stepConfig={steps[2]}>
+                        
+                        <div className={"inputSpaces"}>
+                            {renderInputs("file", "organizationLogo", "Organization Logo", "Organization Logo", IconsAttach, false)}
+                        </div>
                         <div className={"inputSpaces"}>
                             {renderInputs("text", "organizationName", "Organization Name", "Organization Name", IconOrganization, true)}
                         </div>
 
                         <div className={"inputSpaces"}>
-                            {renderInputs("file", "organizationLogo", "Organization Logo", "Organization Logo", IconsAttach, false)}
+                            {renderInputs("file", "schoolLogo", "School Logo", "School Logo", IconsAttach, false)}
                         </div>
+
                         <div className={"inputSpaces"}>
                             {renderInputs("text", "schoolName", "School Name", "School Name", IconsBus, false)}
                         </div>
 
-                        <div className={"inputSpaces"}>
-                            {renderInputs("file", "schoolLogo", "School Logo", "School Logo", IconsAttach, false)}
-                        </div></CollapseHoc>
+                        </CollapseHoc>
 
                     <div className={"btnSpaces"}>
                         <RedButton type="submit">Change</RedButton>

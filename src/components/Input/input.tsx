@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { InputStyleComponent, InputValidationStyle, InputPalceholderStyle } from "./input.styles";
+import { InputStyleComponent, InputValidationStyle, InputPalceholderStyle, MaxSizeStyle } from "./input.styles";
 import Icon from "../../assets/icons/Auth/icons-eye.svg";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { InputInfterface } from '../../interfaces/input';
 import { ThemeColor } from '../../utils/colors';
 import { countries } from '../../utils/coutries';
+import { DeleteIcon } from '../../assets/icons/Main/deleteIcon';
 const InputComponent = (props: InputInfterface) => {
     const [value, setvalue] = useState(props.value || "");
     const [seletedCountry, setSelectedCountry] = useState(countries[1]);
@@ -13,36 +14,45 @@ const InputComponent = (props: InputInfterface) => {
 
     const renderFile = () => {
         return <>
-            <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
-            <InputStyleComponent style={{ border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "" }}>
-                <label className="input input-file" >
-                    <div>{value || props.placeholder}</div>
-
-
-                    <label htmlFor={`${props.state}file`} >
+            <InputStyleComponent style={{ border: "none" }}>
+                <label className="input-file" style={{padding: value && "18px", width: value && "110px", height: value && "110px"}} >
+                    {!!value && <div className="delteIcon" onClick={(e) => {
+                        e.preventDefault();
+                        setvalue(null);
+                        props.onChange(null);
+                    }}><DeleteIcon/></div>}
+                    {
+                        value ?
+                        <img className="imageUpload" src={value} alt="img"/> 
+                        :<label htmlFor={`${props.state}file`} >
                         <IconInput />
                     </label>
+                    }
                     <input
                         id={`${props.state}file`}
                         type={"file"}
                         style={{ visibility: "hidden" }}
                         hidden={true}
                         onChange={(e) => {
-                            props?.onChange(e?.target?.value || "");
-                            setvalue(e?.target?.value);
+                            if (e.target.files && e.target.files[0]) {
+                                let image = e.target.files[0]
+                                props?.onChange(e?.target?.files[0] || "");
+                                setvalue(URL.createObjectURL(image));
+                            }
                         }}
                     />
                 </label>
 
             </InputStyleComponent>
-            <InputValidationStyle>
-                {props.error}</InputValidationStyle>
+            <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "", textAlign: "center" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
+            <MaxSizeStyle>maxmuim size 5MB</MaxSizeStyle>
+            <InputValidationStyle>{props.error}</InputValidationStyle>
         </>
 
     }
     const getFilteredCountry = () => {
         const index = countries.findIndex((v) => v?.name == seletedCountry?.name);
-        return countries.slice((index > 0 ? index : 0) , (index > 0 ? index : 0) +1)
+        return countries.slice((index > 0 ? index : 0), (index > 0 ? index : 0) + 1)
     }
     const renderMobile = () => {
         return <>
@@ -82,7 +92,7 @@ const InputComponent = (props: InputInfterface) => {
                 </span>
             </InputStyleComponent>
             <InputValidationStyle>
-                    {props.error}</InputValidationStyle>
+                {props.error}</InputValidationStyle>
 
         </>
     }

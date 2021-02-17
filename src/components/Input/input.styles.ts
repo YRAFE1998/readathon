@@ -28,16 +28,32 @@ align-items: center;
     
  }
  .input-file{
-     color: ${ThemeColor.grayPlaceHolder} !important;
-     font-weight: normal !important; 
-     height: 20px;
-     position: relative;
-     label{
-        position: absolute;
-        left: 100%;
-        right: 100%;
-        top: 0px;
-     }
+    width: 100px;
+    height: 100px;
+    margin: 0 7px 10px;
+    padding: 37px;
+    border-radius: 50px;
+    border: solid 1px #e5e3e9;
+    background-color: #ffffff;
+    margin: auto;
+    position: relative;
+ }
+ .delteIcon{
+    position: absolute;
+    top: 0px;
+    left: 80px;
+    padding: 3px 6px 6px 7px;
+    box-shadow: 0 0 5px 0 rgb(255 0 0 / 11%);
+    background-color: #fff;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+ }
+ .imageUpload{
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     margin: auto
  }
  .typeHeadContainer{
     border-inline-end: 1px solid ${ThemeColor.borderColor};
@@ -73,6 +89,20 @@ export const InputValidationStyle = styled.div`
  color: ${ThemeColor.colorError};
  font-size: 16px;
  margin-top: 10px
+`;
+
+export const MaxSizeStyle = styled.div`
+ color: ${ThemeColor.colorError};
+margin-bottom: 10px;
+ margin-top: 10px;
+ font-size: 13px;
+ font-weight: normal;
+ font-stretch: normal;
+ font-style: normal;
+ line-height: normal;
+ letter-spacing: normal;
+ text-align: center;
+ color: #666666;
 `;
 
 export const InputPalceholderStyle = styled.div`
