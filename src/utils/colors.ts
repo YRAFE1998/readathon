@@ -7,5 +7,6 @@ export const ThemeColor = {
     greySecondary: "#fbfcfd",
     grayPlaceHolder: "#bac2cb",
     colorError: "#d23f3f",
-    borderColor: "#e5e3e9"
+    borderColor: "#e5e3e9",
+    grayColor: "#666666"
 }

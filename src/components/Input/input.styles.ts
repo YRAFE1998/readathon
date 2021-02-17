@@ -42,12 +42,12 @@ align-items: center;
  .typeHeadContainer{
     border-inline-end: 1px solid ${ThemeColor.borderColor};
      border-radius: 0px;
-     width: 90px;
+     width: 70px;
      display: flex;
      justify-content: center;
      flex-direction: column;
-     margin: 15px 20px;
-     padding: 15px 0px;
+     margin: 19px 20px;
+     padding: 19px 0px;
      
  }
  .typeHead{
@@ -62,7 +62,10 @@ align-items: center;
     border: 0px;
     box-shadow: none;
     height: 0px;
-    
+    text-align: center;
+    display: flex;
+     justify-content: center;
+     flex-direction: column;
  }
 `;
 

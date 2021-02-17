@@ -33,7 +33,7 @@ export const registerValidation = (state: string, placeholder: string, value: st
         }
     }
     if (state == 'phone') {
-        if (!value.split(" ")[1]) {
+        if (!value) {
             return `${placeholder} Required`
         }
         
@@ -74,7 +74,7 @@ export const registerValiadtionForm = (value: RegisterForm) => {
     if (value.password !== value.confirmPassword) {
         data.confirmPassword = "Password And Confirm Password Not Same"
     }
-    if (!value.phone?.split(" ")[0])  {
+    if (!value.phone)  {
         data.phone = "Phone Number Required"
     }
     if (!value.password) {
@@ -96,4 +96,34 @@ export const registerValiadtionForm = (value: RegisterForm) => {
    
 
     return data;
+}
+
+export const ValidationSection = (states: RegisterForm, error: RegisterForm, steps: any) =>{
+    let newStep = steps.slice();
+    if (!states.phone || !states.contactName || !error.contactName || !error.phone) {
+        newStep[0] =  {borderLess: false, nextStep: false, complate: false, step: 1, open: steps[0].open};
+     }
+  
+    if (states.phone && states.contactName && !error.contactName && !error.phone) {
+       newStep[0] =  {borderLess: false, nextStep: true, complate: true, step: 1, open: steps[0].open};
+       newStep[1].open = true;
+    }
+    
+    if (!states.email || !states.password || !states.confirmPassword || error.confirmPassword || error.password || error.email) {
+        newStep[1] =  {borderLess: false, nextStep: false, complate: false, step: 2, open: steps[1].open};
+    }
+    
+    if (states.email && states.password && states.confirmPassword && !error.confirmPassword && !error.password && !error.email) {
+        newStep[1] =  {borderLess: false, nextStep: true, complate: true, step: 2, open: steps[1].open};
+        newStep[2].open = true;
+    }
+
+    if (!states.organizationName || !states.organizationLogo || !states.schoolName || !states.schoolLogo || error.schoolName || error.organizationLogo || error.organizationName || error.schoolLogo) {
+        newStep[2] =  {borderLess: true, nextStep: false, complate: false, step: 3, open: steps[2].open};
+    }
+
+    if (states.organizationName && states.organizationLogo && states.schoolName && states.schoolLogo && !error.schoolName && !error.organizationLogo && !error.organizationName && !error.schoolLogo) {
+        newStep[2] =  {borderLess: true, nextStep: false, complate: true, step: 3, open: steps[2].open};
+    }
+return newStep;
 }

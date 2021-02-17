@@ -20,4 +20,15 @@ export const LoginStyles = styled.div`
     color: ${ThemeColor.red};
     margin-top: 25px;
 }
+.subHeaderAuth{
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: ${ThemeColor.grayColor};
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 `;

@@ -50,7 +50,8 @@ const InputComponent = (props: InputInfterface) => {
 
             <InputStyleComponent style={{ padding: "0px", border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "", }}>
                 <div className={"typeHeadContainer"} >
-                    <Typeahead
+                    <div className="typeHead">  + 1</div>
+                    {/* <Typeahead
                         inputProps={{ className: "typeHead" }}
                         onChange={(selected) => {
                             setSelectedCountry(selected[0]);
@@ -63,14 +64,14 @@ const InputComponent = (props: InputInfterface) => {
                         defaultSelected={getFilteredCountry()}
                         labelKey={option => `${option.dial_code}`}
                         id={"phone"}
-                    />
+                    /> */}
 
                 </div>
                 <input
                     style={{ width: "60%" }}
                     value={value}
                     onChange={(e) => {
-                        props?.onChange(`${ seletedCountry.dial_code || countries[0].dial_code}${' '}${e?.target?.value.toString()}` || "");
+                        props?.onChange(`${e?.target?.value.toString()}` || "");
                         setvalue(`${e?.target?.value.toString()}` || "");
                     }}
                     type={"number"}

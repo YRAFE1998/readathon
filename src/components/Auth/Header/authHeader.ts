@@ -9,6 +9,6 @@ export const AuthHeader = styled.h2`
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: ${ThemeColor.borwan};
+  color: ${ThemeColor.black};
   margin-bottom: 40px;
 `;
