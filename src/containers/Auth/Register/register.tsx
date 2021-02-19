@@ -14,11 +14,13 @@ import { IconsUser } from '../../../assets/icons/Auth/icons-user';
 import { registerValiadtionForm, registerValidation, ValidationSection } from '../../../validations/registerFormValidation';
 import { CollapseHoc } from '../../../HOCS/collapseHoc';
 import { registerSteps } from '../../../utils/registerSteps';
+import { register } from '../../../services/auth.service';
+import { useHistory } from 'react-router-dom';
 export const Register = () => {
     const [form, setForm] = useState<RegisterForm>({})
     const [error, setError] = useState<RegisterForm>({})
     const [steps, setSteps] = useState(registerSteps);
-
+    const history = useHistory();
 
     const inputChange = (state: string, placeholder: string, value: string) => {
         const errorMessage = registerValidation(state, placeholder, value);
@@ -45,10 +47,15 @@ export const Register = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const formValid = registerValiadtionForm(form);
-        if (formValid.email || formValid.password || formValid.confirmPassword || formValid.phone || formValid.schoolName || formValid.contactName || formValid.organizationName) {
-            setError({ ...error, ...formValid })
+        if (formValid.valid) {
+            register(form).then(() => {
+                debugger;
+               history.push("/auth/login")
+            }).catch((err) => {
+               
+            })
         } else {
-            console.log(form);
+            setError({ ...error, ...formValid })
 
         }
     }
@@ -70,11 +77,11 @@ export const Register = () => {
                 <form onSubmit={handleSubmit} >
                     <CollapseHoc header={"Account Information"} onClickNextStep={() => handleNextStep(1)} stepConfig={steps[0]}>
                         <div className={"inputSpaces"}>
-                            {renderInputs("text", "contactName", "Contact Name", "Contact Name", IconEmail, true)}
+                            {renderInputs("text", "username", "Contact Name", "Contact Name", IconEmail, true)}
                         </div>
 
                         <div className={"inputSpaces"}>
-                            {renderInputs("tel", "phone", "Phone Number", "Phone Number", IconPhone, true)}
+                            {renderInputs("tel", "phoneNumber", "Phone Number", "Phone Number", IconPhone, true)}
                         </div>
 
                     </CollapseHoc>
@@ -94,10 +101,10 @@ export const Register = () => {
                     <CollapseHoc header={"Organization Information"} stepConfig={steps[2]}>
                         
                         <div className={"inputSpaces"}>
-                            {renderInputs("file", "organizationLogo", "Organization Logo", "Organization Logo", IconsAttach, false)}
+                            {renderInputs("file", "orgLogo", "Organization Logo", "Organization Logo", IconsAttach, false)}
                         </div>
                         <div className={"inputSpaces"}>
-                            {renderInputs("text", "organizationName", "Organization Name", "Organization Name", IconOrganization, true)}
+                            {renderInputs("text", "orgName", "Organization Name", "Organization Name", IconOrganization, true)}
                         </div>
 
                         <div className={"inputSpaces"}>
@@ -111,7 +118,7 @@ export const Register = () => {
                         </CollapseHoc>
 
                     <div className={"btnSpaces"}>
-                        <RedButton type="submit">Change</RedButton>
+                        <RedButton type="submit">Register</RedButton>
                     </div>
                 </form>
             </div>

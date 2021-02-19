@@ -75,10 +75,19 @@ body{
 .h-100{
   height: 100%;
 }
+input{
+ outline: none;
+}
+.containerPages{
+  margin-top: 60px;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+.align-item-center{
+  align-items: center;
 }
 
 /* Firefox */

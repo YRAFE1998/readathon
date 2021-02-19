@@ -8,5 +8,6 @@ export const ThemeColor = {
     grayPlaceHolder: "#bac2cb",
     colorError: "#d23f3f",
     borderColor: "#e5e3e9",
-    grayColor: "#666666"
+    grayColor: "#666666",
+    colorBadge: "#948f90"
 }

@@ -3,4 +3,7 @@ export interface Alert {
     header?: string;
     show?: boolean;
     status?: string;
+    color?:string;
+    childern?: any;
+    open?: boolean
 }

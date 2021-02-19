@@ -8,6 +8,7 @@ import { IconsEye } from '../../../assets/icons/Auth/icons-eye';
 import { LoginForm } from "../../../interfaces/loginForm";
 import { loginValiadtionForm, loginValidation } from '../../../validations/loginFormValidation';
 import { useHistory } from 'react-router-dom';
+import { login } from '../../../services/auth.service';
 export const Login = () => {
     const [form, setForm] = useState<LoginForm>({})
     const [error, setError] = useState<LoginForm>({})
@@ -35,10 +36,12 @@ export const Login = () => {
         e.preventDefault();
         const formValid = loginValiadtionForm(form);
         if (formValid.email || formValid.password) {
-            setError({...error, ...formValid})
+            setError({ ...error, ...formValid })
         } else {
-            console.log(form);       
-    }
+            login(form).then((res) => {
+
+            })
+        }
     }
     return (
         <LoginStyles>
