@@ -93,11 +93,20 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .align-item-center{
   align-items: center;
+}
+button:focus{
+  outline: none;
 }
 
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
 }
+/* select {
+    background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right #ddd;
+  -webkit-appearance: none;
+  background-position-x: 90%;
+} */

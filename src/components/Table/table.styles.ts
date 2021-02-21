@@ -86,4 +86,17 @@ export const TableStyles = styled.div`
     letter-spacing: normal;
     color: ${ThemeColor.red} !important;
 }
+.delete-content{
+    font-size: 20px;
+    color: ${ThemeColor.red};
+    text-align: center
+}
 `;
+
+export const DeleteModalStyle = styled.div`
+.delete-content{
+    font-size: 20px;
+    color: ${ThemeColor.red};
+    text-align: center
+}
+`

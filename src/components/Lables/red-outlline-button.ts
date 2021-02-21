@@ -27,4 +27,10 @@ text-align: center;
 
 color: ${ThemeColor.red};
 background: transparent;
+&:focus{
+    outline:  none;
+border: solid 1px ${ThemeColor.red};
+color: ${ThemeColor.red};
+background: transparent;
+}
 `;

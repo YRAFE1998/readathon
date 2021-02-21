@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import './App.css';
-import { BrowserRouter, Switch, Route, Redirect, } from "react-router-dom";
+import { HashRouter, Switch, Route, Redirect, } from "react-router-dom";
 import Header from "./components/Header/header";
 import Footer from "./components/Footer/foorter";
 import AlertComponent  from "./HOCS/alert";
@@ -12,7 +12,7 @@ const Auth = React.lazy(() => import('./containers/Auth/auth'));
 function App() {
   return (
 
-    <BrowserRouter>
+    <HashRouter>
       <Suspense fallback={<>Loading ....</>}>
     <AlertComponent></AlertComponent>
         <Switch>
@@ -23,7 +23,7 @@ function App() {
         </Switch>
       </Suspense>
     
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
