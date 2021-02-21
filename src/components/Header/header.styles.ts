@@ -1,16 +1,47 @@
 import styled from "styled-components";
 import { ThemeColor } from "../../utils/colors";
 export const HeaderStyles = styled.div`
-display: flex;
-align-items: center;
-min-height: 120px;
-padding: 24px 50px;
-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
-justify-content: space-between;
-@media (max-width: 1000px) {
-   padding: 10px;
+
+.navHeader{
+  width: 100%; 
+
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05);
+  background-color: #ffffff !important;
+  min-height: 120px;
+  padding: 0px 40px;
+  align-items: center
+}
+.right-nav{
+  align-items: center
+}
+.mr-auto{
+  margin-inline-start: 20px
+}
+.item{
+  font-family: SourceSansPro;
+  font-size: 16px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: ${ThemeColor.colorBadge};
+  margin: 0px 20px;
+  a{
+    color: ${ThemeColor.colorBadge};
+    &:active: {
+      color: ${ThemeColor.colorBadge};
+    }
   }
+}
+.active{
+  color: ${ThemeColor.red} !important;
+  a{
+    color: ${ThemeColor.red} !important;
+  }
+}
 .logoImage{
+
     transform: rotate(270deg);
     width: 90px;
     height: 72px;

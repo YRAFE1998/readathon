@@ -8,20 +8,20 @@ import { Row, Col, Button } from 'react-bootstrap';
 import Header from '../../components/Header/header';
 import SideMenu from '../../components/SideMenu/sideMenu';
 const Dashboard = React.lazy(() => import('./dashboard/dashboard'));
+const Teachers = React.lazy(() => import('../Teachers/teachers'));
+const Students = React.lazy(() => import('../Students/students'))
 export const DashboardModule = () => {
 
     return (
         <>
             <Header></Header>
-            <div style={{background: "#F8F9FC", minHeight: "95vh"}}>
+            <div style={{ background: "#F8F9FC", minHeight: "95vh" }}>
                 <Row>
-                    <Col md={4}>
-                        <SideMenu></SideMenu>
-
-                    </Col>
-                    <Col md={8} className="containerPages">
+                    <Col md={12} className="containerPages">
                         <Switch>
                             <Route path={"/page/dashboard"} component={Dashboard}></Route>
+                            <Route path={"/page/teachers"} component={Teachers}></Route>
+                            <Route path={"/page/students"} component={Students}></Route>
                         </Switch>
                     </Col>
                 </Row>

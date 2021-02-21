@@ -9,5 +9,7 @@ export const ThemeColor = {
     colorError: "#d23f3f",
     borderColor: "#e5e3e9",
     grayColor: "#666666",
-    colorBadge: "#948f90"
+    colorBadge: "#948f90",
+    tableHeadColor: "#f2f2f2",
+    paginationColor: "#b7b5b5"
 }
