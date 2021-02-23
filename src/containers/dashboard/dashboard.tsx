@@ -12,6 +12,8 @@ const Teachers = React.lazy(() => import('../Teachers/teachers'));
 const Students = React.lazy(() => import('../Students/students'))
 const Campaigns = React.lazy(() => import('../Campiagn/campiagn'));
 const CampiagnStudent = React.lazy(() => import('../CampiagnStudent/campiagnStudent'));
+const LogAchivements = React.lazy(() => import('../logAchivement/logAchivements'));
+const TeacherDashboard = React.lazy(() => import("../TeacherDashboard/teacherDashboard"));
 export const DashboardModule = () => {
 
     return (
@@ -23,9 +25,12 @@ export const DashboardModule = () => {
                         <Switch>
                             <Route path={"/page/dashboard"} component={Dashboard}></Route>
                             <Route path={"/page/teachers"} component={Teachers}></Route>
+                            <Route path={"/page/teacherDashboard"} component={TeacherDashboard}></Route>
                             <Route path={"/page/students"} component={Students}></Route>
                             <Route path={"/page/campaign"} component={Campaigns}></Route>
                             <Route path={"/page/campaign-student"} component={CampiagnStudent}></Route>
+                            <Route path={"/page/campaign-student/:id"} component={CampiagnStudent}></Route>
+                            <Route path={"/page/logAchivement/:id"} component={LogAchivements}></Route>
                         </Switch>
                     </Col>
                 </Row>

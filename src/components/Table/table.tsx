@@ -8,11 +8,13 @@ import { TableStyles, DeleteModalStyle, PaginationStyles } from './table.styles'
 import { ThemeColor } from '../../utils/colors'
 import IconsArrowLeft from '../../assets/icons/Main/icons-arrow-left'
 import IconsArrowRight from '../../assets/icons/Main/icons-arrow-right'
+import { useHistory } from 'react-router-dom'
 
 const GenericTable = (props: any) => {
     const [page, setPage] = useState(1)
     const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false)
     const [selected, setSelected] = useState([])
+    const history = useHistory();
     const handleExceptItems = (key: any) => {
         return !props?.itemsExceptions?.some((v: any) => v == key);
     }
@@ -73,34 +75,43 @@ const GenericTable = (props: any) => {
                 <Table responsive="md" className="table">
                     <thead>
                         <tr className="tr-head">
-                            <th>Del</th>
+                            {!props.readOnly && <th>Del</th>}
                             {Object.entries(props.data[0]).map(([v]) => handleExceptItems(v) && <th>{handelTabelTitle(v)}</th>)}
                             {!!props.hasDashboardView && <th>Dashboard</th>}
-                            <th>Edit</th>
+                            {!!props.hasManageView && <th>Manage</th>}
+                            {!!props.hasAchivement && <th>Log Achievment</th>}
+                            {!props.readOnly && <th>Edit</th>}
                         </tr>
                     </thead>
                     <tbody>
                         {props.data.map((item: any) => {
                             return <tr className="tr-body">
-                                <td>  <FormCheck
-                                    color={"red"}
-                                    type="checkbox"
-                                    id={`default-checkbox`}
-                                    onChange={(e) => {
-                                        const array = JSON.parse(JSON.stringify(selected));
-                                        if (e.target.checked) {
-                                            array.push(item);
-                                        } else {
-                                            const index = array.findIndex((v: any) => v[props.keyItem] == item[props.keyItem || ""])
-                                            array.splice(index, 1);
-                                        }
-                                        setSelected(array)
-                                    }}
-                                />
-                                </td>
-                                {Object.entries(item).map(([key, val]) => handleExceptItems(key) && <td style={{color: key == 'status' ? ThemeColor.successColor: ""}}>{JSON.parse(JSON.stringify(val))}</td>)}
-                                {!!props.hasDashboardView && <td style={{color: ThemeColor.red}}>View</td>}
-                                <td className="edit-btn" onClick={() => props.onEdit(item)}>Edit</td>
+                                {
+                                    !props.readOnly && <td>  <FormCheck
+                                        color={"red"}
+                                        type="checkbox"
+                                        id={`default-checkbox`}
+                                        onChange={(e) => {
+                                            const array = JSON.parse(JSON.stringify(selected));
+                                            if (e.target.checked) {
+                                                array.push(item);
+                                            } else {
+                                                const index = array.findIndex((v: any) => v[props.keyItem] == item[props.keyItem || ""])
+                                                array.splice(index, 1);
+                                            }
+                                            setSelected(array)
+                                        }}
+                                    />
+                                    </td>
+                                }
+                                {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
+                                    <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>
+                                        {JSON.parse(JSON.stringify(val))}</td>)}
+                                {!!props.hasDashboardView && <td style={{ color: ThemeColor.red }}>View</td>}
+                                {!!props.hasManageView && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem]}`)}>Manage</td>}
+                                {!!props.hasAchivement && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem]}`)}>View</td>}
+                                {!props.readOnly && <td className="edit-btn" onClick={() => props.onEdit(item)}>Edit</td>}
+
                             </tr>
 
                         })}

@@ -27,6 +27,10 @@ const CampiagnStudent = () => {
                 data={campaignsStudents}
                 keyItem="id"
                 itemsExceptions={["id", "teacherId", "studentId"]}
+                
+                achivementLink={`/page/logAchivement`}
+                hasAchivement={true}
+            
                 onEdit={(f: CampaignStudentInterface) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={() => console.log("search")}

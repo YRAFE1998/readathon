@@ -37,7 +37,7 @@ const Header = (props: any) => {
 
                             <NavDropdown className={`item ${location.includes("teachers") && 'active'}`} title="Teacher" id="collasible-nav-dropdown-teacher">
                                 <NavDropdown.Item ><NavLink to="/page/teachers" className="item" activeClassName="active" >Teachers</NavLink></NavDropdown.Item>
-                                <NavDropdown.Item ><NavLink to="/page/teachers" className="item" activeClassName="active" >Add Teacher</NavLink></NavDropdown.Item>
+                                <NavDropdown.Item ><NavLink to="/page/teacherDashboard" className="item" activeClassName="active" >Teacher Dashboard</NavLink></NavDropdown.Item>
                             </NavDropdown>
 
                             <NavDropdown className={`item ${location.includes("/page/students") && 'active'}`} title="Student" id="collasible-nav-dropdown-stu">

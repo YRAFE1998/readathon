@@ -28,6 +28,8 @@ const Campiagn = () => {
                 data={campaigns}
                 keyItem="id"
                 hasDashboardView={true}
+                hasManageView={true}
+                mangeLink={`/page/campaign-student`}
                 onEdit={(f: CampaignInterface) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={() => console.log("search")}
