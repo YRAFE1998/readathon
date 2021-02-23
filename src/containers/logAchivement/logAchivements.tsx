@@ -16,8 +16,8 @@ const LogAchivements = () => {
         <div>
             <div className="d-flex justify-content-between">
                 <div>
-                    <PageTitle>Log Achivements</PageTitle>
-                    <SubTitlePage>2,245 Log Achivement</SubTitlePage>
+                    <PageTitle>Students Achievement</PageTitle>
+                    <SubTitlePage>2,245 Student</SubTitlePage>
                 </div>
                 <div>
                     <RedBackgroundButton onClick={() => setOpenModal(true)}>Log New Achivement</RedBackgroundButton>
@@ -34,12 +34,12 @@ const LogAchivements = () => {
 
             ></GenericTable>
             <div >
-                <ModalsHoc open={openModal} title="Add New Student" onShow={(bool: boolean) => setOpenModal(bool)}>
+                <ModalsHoc open={openModal} title="Log Achievement" onShow={(bool: boolean) => setOpenModal(bool)}>
                     <LogAtchivementFormInput submit={() => console.log("add")} importBtn={false}></LogAtchivementFormInput>
                 </ModalsHoc>
             </div>
             <div>
-                <ModalsHoc open={openModalEdit} title="Edit Student" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
+                <ModalsHoc open={openModalEdit} title="Edit Achievement" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
                     <LogAtchivementFormInput submit={() => console.log("edit")} importBtn={false} value={editedForm}></LogAtchivementFormInput>
                 </ModalsHoc>
             </div>

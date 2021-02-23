@@ -18,6 +18,7 @@ export const ModalesStyles = styled.div`
 `;
 
 export const ModalTitle = styled.div`
+position: relative;
 font-family: SourceSansPro;
 font-size: 28px;
 font-weight: bold;
@@ -28,6 +29,14 @@ letter-spacing: normal;
 text-align: center;
 color: #000000;
 padding: 40px 0px;
+i{  
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 15px;
+    color: ${ThemeColor.red};
+    cursor: pointer;
+}
 `
 
 export const ModalFooter = styled.div`

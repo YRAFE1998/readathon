@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Form, FormCheck, Table } from 'react-bootstrap'
+import { Dropdown, Form, FormCheck, Table } from 'react-bootstrap'
 import ModalsHoc from '../../HOCS/modalsHoc'
 import { TeacherForm } from '../../interfaces/teacherForm'
 import { RedBackgroundButton } from '../Lables/redBackgroundButton'
@@ -13,6 +13,8 @@ import { useHistory } from 'react-router-dom'
 const GenericTable = (props: any) => {
     const [page, setPage] = useState(1)
     const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false)
+    const [pageSize, setPageSize] = useState(10)
+    const pageSizes = [10, 50, 100]
     const [selected, setSelected] = useState([])
     const history = useHistory();
     const handleExceptItems = (key: any) => {
@@ -22,7 +24,7 @@ const GenericTable = (props: any) => {
         return string.replace(/([A-Z])/g, ' $1').trim().charAt(0).toUpperCase() + string.replace(/([A-Z])/g, ' $1').trim().slice(1);
     }
     const handelArrayPaginationChunckedLength = () => {
-        return new Array(Math.ceil(props.data.length / 10)).fill(0)
+        return new Array(Math.ceil(props.data.length / pageSize)).fill(0)
     }
     const handleChangePage = (page: number) => {
         setPage(page);
@@ -41,6 +43,18 @@ const GenericTable = (props: any) => {
                         color={!!(page == handelArrayPaginationChunckedLength().length) ? "#999999" : ThemeColor.red} />
                     </span>
                 </button>
+
+
+                <Dropdown>
+                    <Dropdown.Toggle className="btn-prev-next" variant="success" id="dropdown-basic">
+                        {pageSize} pre page </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                        {pageSizes.map((v: number) =>
+                            <Dropdown.Item onClick={() => setPageSize(v)}>{v}</Dropdown.Item>
+                        )}
+                    </Dropdown.Menu>
+                </Dropdown>
             </div>
 
         </PaginationStyles>
@@ -68,9 +82,11 @@ const GenericTable = (props: any) => {
                         <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => props.onSearch(e.target.value)} />
                         <i className="fa fa-search"></i>
                     </div>
-                    <div>
-                        <RedBackgroundButton onClick={() => setOpenDeleteConfirmation(true)}>Delete</RedBackgroundButton>
-                    </div>
+                    {
+                        !props.readOnly && <div>
+                            <RedBackgroundButton onClick={() => setOpenDeleteConfirmation(true)}>Delete</RedBackgroundButton>
+                        </div>
+                    }
                 </div>
                 <Table responsive="md" className="table">
                     <thead>

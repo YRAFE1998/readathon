@@ -13,7 +13,9 @@ const ModalsHoc = (props: any) => {
         <ModalesStyles>
             <Modal show={show} onHide={handleClose}>
                 <div>
-                    <ModalTitle>{props.title}</ModalTitle>
+                    <ModalTitle>{props.title}
+                    <div onClick={handleClose}> <i className="fa fa-times"></i></div>
+                    </ModalTitle>
                 </div>
 
                 <ModalBody>{props.children}</ModalBody>

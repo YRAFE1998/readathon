@@ -134,7 +134,13 @@ export const PaginationStyles = styled.div`
         color: #999999
     }
 }
-
+.btn-success.dropdown-toggle{
+    color: ${ThemeColor.red} !important;
+    outline: none;
+    &:focus{
+        box-shadow: none;
+    }
+}
 }
 
 `
