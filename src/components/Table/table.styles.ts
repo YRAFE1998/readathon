@@ -2,6 +2,9 @@ import styled from "styled-components";
 import { ThemeColor } from "../../utils/colors";
 
 export const TableStyles = styled.div`
+.custom-checkbox{
+    color: ${ThemeColor.red}
+}
 .search-container{
     padding: 15px;  
     border-radius: 4px;
@@ -55,7 +58,7 @@ export const TableStyles = styled.div`
 }
 .pagination{
     margin: 0px 4px;
-    border: 1px solid #ececec;
+    
     padding: 6px 6px 6px 7px;
     border-radius: 4px;  
     background-color: #ffffff;
@@ -66,13 +69,15 @@ export const TableStyles = styled.div`
     line-height: 0.67;
     letter-spacing: normal;
     text-align: center;
-    color: ${ThemeColor.paginationColor};
-
+    color: ${ThemeColor.red};
 }
 .active{
-    background-color: ${ThemeColor.red};
-    color: #fff;
+    border-radius: 4px;
+    border: solid 1px rgba(245, 91, 111, 0.14);
+    background-color: rgba(245, 91, 111, 0.14);
+    color: ${ThemeColor.red}
 }
+
 .m-t-40{
     margin-top: 40px
 }
@@ -99,4 +104,37 @@ export const DeleteModalStyle = styled.div`
     color: ${ThemeColor.red};
     text-align: center
 }
+`
+
+export const PaginationStyles = styled.div`
+.containerPagination{
+    padding: 15px;
+    border-radius: 5px;
+    border: solid 1px ${ThemeColor.borderColor};
+    background-color: #ffffff;
+}
+.btn-prev-next{
+    margin: 0 10px;
+    background: #fff !important;
+    display: flex;
+    border: none;
+    font-family: SourceSansPro;
+    font-size: 13px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.77;
+    letter-spacing: normal;
+    align-items: center;
+    color: ${ThemeColor.red};
+    span{
+        margin: 0 10px;
+    }
+    &:disabled{
+        color: #999999
+    }
+}
+
+}
+
 `

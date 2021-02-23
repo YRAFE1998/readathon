@@ -36,7 +36,7 @@ export const HeaderStyles = styled.div`
 }
 .active{
   color: ${ThemeColor.red} !important;
-  a{
+  .dropdown-toggle{
     color: ${ThemeColor.red} !important;
   }
 }

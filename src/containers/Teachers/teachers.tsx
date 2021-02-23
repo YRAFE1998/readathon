@@ -28,10 +28,12 @@ const Teachers = () => {
 
             <GenericTable
                 data={teachers}
+                keyItem={"id"}
                 onEdit={(f: TeacherForm) => {setOpenModalEdit(true); setEditedForm(f)}}
                 onChangePage={() => console.log("page")}
                 onSearch={() => console.log("search")}
                 onDelete={(v: TeacherForm) => console.log(v)}
+                itemsExceptions={["id"]}
             ></GenericTable>
             <div >
                 <ModalsHoc open={openModal} title="Add New Teacher" onShow={(bool: boolean) => setOpenModal(bool)}>

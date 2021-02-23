@@ -40,13 +40,18 @@ const Header = (props: any) => {
                                 <NavDropdown.Item ><NavLink to="/page/teachers" className="item" activeClassName="active" >Add Teacher</NavLink></NavDropdown.Item>
                             </NavDropdown>
 
-                            <NavDropdown className={`item ${location.includes("students") && 'active'}`} title="Student" id="collasible-nav-dropdown-stu">
+                            <NavDropdown className={`item ${location.includes("/page/students") && 'active'}`} title="Student" id="collasible-nav-dropdown-stu">
                                 <NavDropdown.Item ><NavLink to="/page/students" className="item" activeClassName="active" >Students</NavLink></NavDropdown.Item>
                                 <NavDropdown.Item ><NavLink to="/page/students" className="item" activeClassName="active" >Add Student</NavLink></NavDropdown.Item>
                             </NavDropdown>
 
+                            <NavDropdown className={`item ${location.includes("campaign") && 'active'}`} title="Campaign" id="collasible-nav-dropdown-camp">
+                                <NavDropdown.Item ><NavLink to="/page/campaign" className="item" activeClassName="active" >Campaigns</NavLink></NavDropdown.Item>
+                                <NavDropdown.Item ><NavLink to="/page/campaign-student" className="item" activeClassName="active" >Student Campaigns</NavLink></NavDropdown.Item>
+                            </NavDropdown>
+
                             
-                            <Nav.Link className="item" href="#features">Menu Section 02</Nav.Link>
+                            {/* <Nav.Link className="item" href="#features">Cam</Nav.Link> */}
                         </Nav>
                         <Nav className="right-nav">
                             <Nav.Link href="#deets"> <IconsNotifications></IconsNotifications></Nav.Link>

@@ -28,10 +28,13 @@ const Students = () => {
             </div>
             <GenericTable
                 data={students}
+                keyItem="id"
+                itemsExceptions={["id", "teacherId"]}
                 onEdit={(f: StudentForm) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={() => console.log("search")}
                 onDelete={(v: StudentForm) => console.log(v)}
+                
             ></GenericTable>
 
             <div >

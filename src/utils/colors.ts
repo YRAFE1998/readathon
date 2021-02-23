@@ -11,5 +11,6 @@ export const ThemeColor = {
     grayColor: "#666666",
     colorBadge: "#948f90",
     tableHeadColor: "#f2f2f2",
-    paginationColor: "#b7b5b5"
+    paginationColor: "#b7b5b5",
+    successColor: "#1a9b37"
 }

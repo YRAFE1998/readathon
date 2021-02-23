@@ -19,7 +19,7 @@ const SelectInput = (props: SelectFrom) => {
     const [value, setValue] = useState(props.value || "");
 
     useEffect(() => {
-        const index = props.options?.findIndex((v: any) => v[props?.label || ''] == value)
+        const index = props.options?.findIndex((v: any) => v[props?.label || ''] == value) + 1;
         setValue(index);
       
     }, [props.value])
@@ -31,6 +31,7 @@ const SelectInput = (props: SelectFrom) => {
                     ref={selectedRef}
                     value={value}
                     onChange={(e) => {
+                        setValue(e.target.value)
                         props.onChange(e.target.value);
                     }}
                     style={{ border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "", }}

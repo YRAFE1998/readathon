@@ -10,6 +10,8 @@ import SideMenu from '../../components/SideMenu/sideMenu';
 const Dashboard = React.lazy(() => import('./dashboard/dashboard'));
 const Teachers = React.lazy(() => import('../Teachers/teachers'));
 const Students = React.lazy(() => import('../Students/students'))
+const Campaigns = React.lazy(() => import('../Campiagn/campiagn'));
+const CampiagnStudent = React.lazy(() => import('../CampiagnStudent/campiagnStudent'));
 export const DashboardModule = () => {
 
     return (
@@ -22,6 +24,8 @@ export const DashboardModule = () => {
                             <Route path={"/page/dashboard"} component={Dashboard}></Route>
                             <Route path={"/page/teachers"} component={Teachers}></Route>
                             <Route path={"/page/students"} component={Students}></Route>
+                            <Route path={"/page/campaign"} component={Campaigns}></Route>
+                            <Route path={"/page/campaign-student"} component={CampiagnStudent}></Route>
                         </Switch>
                     </Col>
                 </Row>

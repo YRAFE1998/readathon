@@ -10,7 +10,7 @@ const InputComponent = (props: InputInfterface) => {
     const [value, setvalue] = useState(props.value || "");
     const [seletedCountry, setSelectedCountry] = useState(countries[1]);
     const [passwordType, setPasswordType] = useState("password")
-    const IconInput = props.icon as React.FC;
+    const IconInput = props.icon ? props.icon as React.FC : null;
 
     const renderFile = () => {
         return <>
@@ -25,7 +25,7 @@ const InputComponent = (props: InputInfterface) => {
                         value ?
                         <img className="imageUpload" src={value} alt="img"/> 
                         :<label htmlFor={`${props.state}file`} >
-                        <IconInput />
+                            {IconInput && <IconInput />}
                     </label>
                     }
                     <input
@@ -88,7 +88,7 @@ const InputComponent = (props: InputInfterface) => {
                     placeholder={props.placeholder}
                     className="input" />
                 <span >
-                    <IconInput />
+                    {IconInput && <IconInput />}
                 </span>
             </InputStyleComponent>
             <InputValidationStyle>
@@ -97,7 +97,7 @@ const InputComponent = (props: InputInfterface) => {
         </>
     }
     const renderInput = () => {
-        return (
+        return ( 
             <>
                 <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
                 <InputStyleComponent style={{ border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "" }}>
@@ -108,11 +108,13 @@ const InputComponent = (props: InputInfterface) => {
                             setvalue(e?.target?.value);
                         }}
                         type={props.type == 'password' ? passwordType : props.type}
+                        style={{width: props.type == 'date' ? "100%": ""}}
                         placeholder={props.placeholder}
                         className="input" />
 
                     <span onClick={() => props.type == 'password' && setPasswordType(passwordType == 'password' ? "text" : "password")}>
-                        <IconInput />
+                        
+                        {IconInput && <IconInput />}
                     </span>
                 </InputStyleComponent>
                 <InputValidationStyle>
