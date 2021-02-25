@@ -5,6 +5,10 @@ export const TableStyles = styled.div`
 .custom-checkbox{
     color: ${ThemeColor.red}
 }
+.mr-20{
+    margin: 30px 0px 20px;
+    margin-inline-start: 20px
+}
 .search-container{
     padding: 15px;  
     border-radius: 4px;

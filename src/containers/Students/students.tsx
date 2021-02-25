@@ -9,6 +9,7 @@ import { students } from '../../Mocks/students';
 import { StudentForm } from '../../interfaces/studentForm';
 import ModalsHoc from '../../HOCS/modalsHoc';
 import StudentFormInputs from "../../components/Forms/StudentFormInputs";
+import { teachers } from '../../Mocks/teachers';
 
 const Students = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -34,6 +35,9 @@ const Students = () => {
                 onChangePage={() => console.log("page")}
                 onSearch={() => console.log("search")}
                 onDelete={(v: StudentForm) => console.log(v)}
+                selectFilter={true}
+                selectFilterArray={teachers}
+                selectFilterItemKey={"id"}
                 
             ></GenericTable>
 

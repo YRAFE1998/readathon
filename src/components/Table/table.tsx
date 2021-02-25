@@ -9,8 +9,12 @@ import { ThemeColor } from '../../utils/colors'
 import IconsArrowLeft from '../../assets/icons/Main/icons-arrow-left'
 import IconsArrowRight from '../../assets/icons/Main/icons-arrow-right'
 import { useHistory } from 'react-router-dom'
+import { DeleteIcon } from '../../assets/icons/Main/deleteIcon'
+import SelectFilter from '../Select/selectFilter'
+import { GenericTableInterface } from '../../interfaces/genericTableInterface'
 
-const GenericTable = (props: any) => {
+
+const GenericTable = (props: GenericTableInterface) => {
     const [page, setPage] = useState(1)
     const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false)
     const [pageSize, setPageSize] = useState(10)
@@ -24,7 +28,7 @@ const GenericTable = (props: any) => {
         return string.replace(/([A-Z])/g, ' $1').trim().charAt(0).toUpperCase() + string.replace(/([A-Z])/g, ' $1').trim().slice(1);
     }
     const handelArrayPaginationChunckedLength = () => {
-        return new Array(Math.ceil(props.data.length / pageSize)).fill(0)
+        return new Array(Math.ceil((props?.data?.length || 0) / pageSize)).fill(0)
     }
     const handleChangePage = (page: number) => {
         setPage(page);
@@ -62,11 +66,11 @@ const GenericTable = (props: any) => {
     const renderModal = () => (
         <ModalsHoc title="Delete 4 Items" open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
             <DeleteModalStyle>
-                <p className="delete-content">You're about to delete 4 Items, and you will no <br/> longer access them.</p>
+                <p className="delete-content">You're about to delete 4 Items, and you will no <br /> longer access them.</p>
 
                 <div className="d-flex justify-content-center">
                     <div><RedBackgroundButton className="delete-btn"
-                        onClick={() => { props.onDelete(selected); setOpenDeleteConfirmation(false) }}>Delete</RedBackgroundButton></div>
+                        onClick={() => { props.onDelete && props?.onDelete(selected); setOpenDeleteConfirmation(false) }}>Delete</RedBackgroundButton></div>
                     <div><RedOutlineButton className="delete-btn" onClick={() => setOpenDeleteConfirmation(false)}>Cancel</RedOutlineButton></div>
                 </div>
             </DeleteModalStyle>
@@ -78,21 +82,32 @@ const GenericTable = (props: any) => {
             <TableStyles>
 
                 <div className="search-container-div d-flex justify-content-between align-items-center">
-                    <div className="search-container">
-                        <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => props.onSearch(e.target.value)} />
-                        <i className="fa fa-search"></i>
+                    <div className="d-flex align-items-center">
+                        <div className="search-container">
+                            <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => props.onSearch(e.target.value)} />
+                            <i className="fa fa-search"></i>
+                        </div>
+                        {
+                            props.selectFilter && <div className="mr-20">
+                                <SelectFilter array={props.selectFilterArray}
+                                    keyItem={props.selectFilterItemKey}
+                                    onChange={(v) => console.log(v)}
+                                ></SelectFilter></div>
+                        }
                     </div>
                     {
-                        !props.readOnly && <div>
+                        !props.readOnly && !props.singleDelete && <div>
                             <RedOutlineButton className="delete-btn" onClick={() => setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
                         </div>
                     }
                 </div>
+
+
                 <Table responsive="md" className="table">
                     <thead>
                         <tr className="tr-head">
                             {!props.readOnly && <th>Del</th>}
-                            {Object.entries(props.data[0]).map(([v]) => handleExceptItems(v) && <th>{handelTabelTitle(v)}</th>)}
+                            {Object.entries(props?.data?.[0]).map(([v]) => handleExceptItems(v) && <th>{handelTabelTitle(v)}</th>)}
                             {!!props.hasDashboardView && <th>Dashboard</th>}
                             {!!props.hasManageView && <th>Manage</th>}
                             {!!props.hasAchivement && <th>Log Achievment</th>}
@@ -100,10 +115,10 @@ const GenericTable = (props: any) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.data.map((item: any) => {
+                        {props?.data?.map((item: any) => {
                             return <tr className="tr-body">
                                 {
-                                    !props.readOnly && <td>  <FormCheck
+                                    !props.readOnly && !props.singleDelete && <td>  <FormCheck
                                         color={"red"}
                                         type="checkbox"
                                         id={`default-checkbox`}
@@ -112,7 +127,7 @@ const GenericTable = (props: any) => {
                                             if (e.target.checked) {
                                                 array.push(item);
                                             } else {
-                                                const index = array.findIndex((v: any) => v[props.keyItem] == item[props.keyItem || ""])
+                                                const index = array.findIndex((v: any) => v[props.keyItem || ""] == item[props.keyItem || ""])
                                                 array.splice(index, 1);
                                             }
                                             setSelected(array)
@@ -120,13 +135,17 @@ const GenericTable = (props: any) => {
                                     />
                                     </td>
                                 }
+                                {
+                                    !props.readOnly && props.singleDelete &&
+                                    <td><div onClick={() => setOpenDeleteConfirmation(true)}><DeleteIcon /></div></td>
+                                }
                                 {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
                                     <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>
                                         {JSON.parse(JSON.stringify(val))}</td>)}
                                 {!!props.hasDashboardView && <td style={{ color: ThemeColor.red }}>View</td>}
-                                {!!props.hasManageView && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem]}`)}>Manage</td>}
-                                {!!props.hasAchivement && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem]}`)}>View</td>}
-                                {!props.readOnly && <td className="edit-btn" onClick={() => props.onEdit(item)}>Edit</td>}
+                                {!!props.hasManageView && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
+                                {!!props.hasAchivement && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}`)}>View</td>}
+                                {!props.readOnly && <td className="edit-btn" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
 
                             </tr>
 
