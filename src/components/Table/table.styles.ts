@@ -96,13 +96,27 @@ export const TableStyles = styled.div`
     color: ${ThemeColor.red};
     text-align: center
 }
+.delete-btn{
+    padding: 12px 45px;
+    margin: 0px
+}
 `;
 
 export const DeleteModalStyle = styled.div`
 .delete-content{
-    font-size: 20px;
-    color: ${ThemeColor.red};
-    text-align: center
+    color: ${ThemeColor.grayColor};
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.44;
+    letter-spacing: normal;
+    text-align: center;
+    margin-bottom: 40px
+}
+.delete-btn{
+    padding: 12px 45px;
+    margin-bottom: 35px;
 }
 `
 

@@ -4,10 +4,11 @@ import LogoImage from "../../assets/Images/Main/logo.png";
 import IconsNotifications from '../../assets/icons/header/icons-notification';
 import { IconsUser } from '../../assets/icons/Auth/icons-user';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
 
 const Header = (props: any) => {
     const location = useLocation().pathname;
+    const history = useHistory();
     return (
         <div>
             <HeaderStyles>
@@ -55,8 +56,8 @@ const Header = (props: any) => {
                         </Nav>
                         <Nav className="right-nav">
                             <Nav.Link href="#deets"> <IconsNotifications></IconsNotifications></Nav.Link>
-                            <Nav.Link eventKey={2} href="#memes">
-                            <div className="user-icon-container">
+                            <Nav.Link eventKey={2} >
+                            <div className="user-icon-container" onClick={() => history.push("/page/profile")}>
                         <IconsUser></IconsUser>
                     </div>
 

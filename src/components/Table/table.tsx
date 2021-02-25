@@ -60,14 +60,14 @@ const GenericTable = (props: any) => {
         </PaginationStyles>
     }
     const renderModal = () => (
-        <ModalsHoc title="Delete Alert" open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
+        <ModalsHoc title="Delete 4 Items" open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
             <DeleteModalStyle>
-                <p className="delete-content">Are You Sure You Wont To Delete ?</p>
+                <p className="delete-content">You're about to delete 4 Items, and you will no <br/> longer access them.</p>
 
-                <div className="d-flex justify-content-around">
-                    <div><RedBackgroundButton
-                        onClick={() => { props.onDelete(selected); setOpenDeleteConfirmation(false) }}>Submit</RedBackgroundButton></div>
-                    <div><RedOutlineButton onClick={() => setOpenDeleteConfirmation(false)}>Cancel</RedOutlineButton></div>
+                <div className="d-flex justify-content-center">
+                    <div><RedBackgroundButton className="delete-btn"
+                        onClick={() => { props.onDelete(selected); setOpenDeleteConfirmation(false) }}>Delete</RedBackgroundButton></div>
+                    <div><RedOutlineButton className="delete-btn" onClick={() => setOpenDeleteConfirmation(false)}>Cancel</RedOutlineButton></div>
                 </div>
             </DeleteModalStyle>
         </ModalsHoc>
@@ -84,7 +84,7 @@ const GenericTable = (props: any) => {
                     </div>
                     {
                         !props.readOnly && <div>
-                            <RedBackgroundButton onClick={() => setOpenDeleteConfirmation(true)}>Delete</RedBackgroundButton>
+                            <RedOutlineButton className="delete-btn" onClick={() => setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
                         </div>
                     }
                 </div>
