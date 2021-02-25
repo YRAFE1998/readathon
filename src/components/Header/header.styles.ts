@@ -42,7 +42,6 @@ export const HeaderStyles = styled.div`
 }
 .logoImage{
 
-    transform: rotate(270deg);
     width: 90px;
     height: 72px;
     object-fit: contain

@@ -9,8 +9,7 @@ display: flex;
      padding: 35px
   }
   .logoImage{
-    transform: rotate(270deg);
-     width: 90px;
+=     width: 90px;
      height: 56px;
      object-fit: contain
   }
