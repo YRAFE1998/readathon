@@ -22,7 +22,7 @@ const Profile = () => {
     const [steps, setSteps] = useState(registerSteps);
 
     const inputChange = (state: string, placeholder: string, value: string) => {
-        const errorMessage = registerValidation(state, placeholder, value);
+        const errorMessage = registerValidation(JSON.parse(JSON.stringify(state)), placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
         setForm({ ...form, [state]: value });
@@ -69,11 +69,11 @@ const Profile = () => {
             <form onSubmit={handleSubmit} >
                     <CollapseHoc header={"Account Information"} onClickNextStep={() => handleNextStep(1)} stepConfig={steps[0]}>
                         <div className={"inputSpaces"}>
-                            {renderInputs("text", "username", "Contact Name", "Contact Name", IconEmail, true)}
+                            {renderInputs("text", "name", "Contact Name", "Contact Name", IconEmail, true)}
                         </div>
 
                         <div className={"inputSpaces"}>
-                            {renderInputs("tel", "phoneNumber", "Phone Number", "Phone Number", IconPhone, true)}
+                            {renderInputs("tel", "mobileNumber", "Phone Number", "Phone Number", IconPhone, true)}
                         </div>
 
                     </CollapseHoc>
@@ -93,10 +93,10 @@ const Profile = () => {
                     <CollapseHoc header={"Organization Information"} stepConfig={steps[2]}>
                         
                         <div className={"inputSpaces"}>
-                            {renderInputs("file", "orgLogo", "Organization Logo", "Organization Logo", IconsAttach, false)}
+                            {renderInputs("file", "organizationLogo", "Organization Logo", "Organization Logo", IconsAttach, false)}
                         </div>
                         <div className={"inputSpaces"}>
-                            {renderInputs("text", "orgName", "Organization Name", "Organization Name", IconOrganization, true)}
+                            {renderInputs("text", "organizationName", "Organization Name", "Organization Name", IconOrganization, true)}
                         </div>
 
                         <div className={"inputSpaces"}>

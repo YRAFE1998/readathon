@@ -28,7 +28,6 @@ const CampaignFormInputs = (props: any) => {
 
     }
     const handleSubmit = (e: any) => {
-        debugger;
         const formValid = campaignValiadtionForm(form);
         if (formValid.valid) {
             props.submit(form)

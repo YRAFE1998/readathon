@@ -1,6 +1,6 @@
 import { RegisterForm } from "../interfaces/registerForm";
 export const emailValidation = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-export const registerValidation = (state: string, placeholder: string, value: string) => {
+export const registerValidation = (state: (keyof RegisterForm), placeholder: string, value: string) => {
 
     if (state == 'email') {
         if (!value) {
@@ -11,7 +11,7 @@ export const registerValidation = (state: string, placeholder: string, value: st
         }
     }
 
-    if (state == 'orgName' || state == 'username') {
+    if (state == 'organizationName' || state == 'name') {
         if (!value) {
             return `${placeholder} Required`
         }
@@ -32,7 +32,7 @@ export const registerValidation = (state: string, placeholder: string, value: st
             return `${placeholder} Spaces Not Allowed`
         }
     }
-    if (state == 'phone') {
+    if (state == 'mobileNumber') {
         if (!value) {
             return `${placeholder} Required`
         }
@@ -63,19 +63,19 @@ export const registerValiadtionForm = (value: RegisterForm) => {
     }
 
 
-    if (value.orgName && (value.orgName?.length < 4 || value?.orgName?.length > 80)) {
-        data.orgName = "Organization Name Must Atleast Between 4 Character and 80 Character"
+    if (value.organizationName && (value.organizationName?.length < 4 || value?.organizationName?.length > 80)) {
+        data.organizationName = "Organization Name Must Atleast Between 4 Character and 80 Character"
     }
 
 
-    if (value.username && (value.username?.length < 4 || value?.username?.length > 80)) {
-        data.username = "Contact Name Must Atleast Between 6 Character and 80 Character"
+    if (value.name && (value.name?.length < 4 || value?.name?.length > 80)) {
+        data.name = "Contact Name Must Atleast Between 6 Character and 80 Character"
     }
     if (value.password !== value.confirmPassword) {
         data.confirmPassword = "Password And Confirm Password Not Same"
     }
-    if (!value.phoneNumber) {
-        data.phoneNumber = "Phone Number Required"
+    if (!value.mobileNumber) {
+        data.mobileNumber = "Phone Number Required"
     }
     if (!value.password) {
         data.password = "Password Required"
@@ -83,28 +83,28 @@ export const registerValiadtionForm = (value: RegisterForm) => {
     if (!value.confirmPassword) {
         data.confirmPassword = "Confirm Password Required"
     }
-    if (!value.orgName) {
-        data.orgName = "Organization Name Required"
+    if (!value.organizationName) {
+        data.organizationName = "Organization Name Required"
     }
 
-    if (!value.username) {
-        data.username = "Contact Name Required"
+    if (!value.name) {
+        data.name = "Contact Name Required"
     }
     if (!value.email) {
         data.email = "Email Required"
     }
 
-    const valid = data.email || data.password || data.confirmPassword || data.phoneNumber || data.schoolName || data.username || data.orgName ? false : true;
+    const valid = data.email || data.password || data.confirmPassword || data.mobileNumber || data.schoolName || data.name || data.organizationName ? false : true;
     return { valid: valid, ...data };
 }
 
 export const ValidationSection = (states: RegisterForm, error: RegisterForm, steps: any) => {
     let newStep = steps.slice();
-    if (!states.phoneNumber || !states.username || !error.username || !error.phoneNumber) {
+    if (!states.mobileNumber || !states.name || !error.name || !error.mobileNumber) {
         newStep[0] = { borderLess: false, nextStep: false, complate: false, step: 1, open: steps[0].open };
     }
 
-    if (states.phoneNumber && states.username && !error.username && !error.phoneNumber) {
+    if (states.mobileNumber && states.name && !error.name && !error.mobileNumber) {
         newStep[0] = { borderLess: false, nextStep: true, complate: true, step: 1, open: steps[0].open };
         newStep[1].open = true;
     }
@@ -118,11 +118,11 @@ export const ValidationSection = (states: RegisterForm, error: RegisterForm, ste
         newStep[2].open = true;
     }
 
-    if (!states.orgName || !states.orgLogo || !states.schoolName || !states.schoolLogo || error.schoolName || error.orgLogo || error.orgName || error.schoolLogo) {
+    if (!states.organizationName || !states.organizationLogo || !states.schoolName || !states.schoolLogo || error.schoolName || error.organizationLogo || error.organizationName || error.schoolLogo) {
         newStep[2] = { borderLess: true, nextStep: false, complate: false, step: 3, open: steps[2].open };
     }
 
-    if (states.orgName && states.orgLogo && states.schoolName && states.schoolLogo && !error.schoolName && !error.orgLogo && !error.orgName && !error.schoolLogo) {
+    if (states.organizationName && states.organizationLogo && states.schoolName && states.schoolLogo && !error.schoolName && !error.organizationLogo && !error.organizationName && !error.schoolLogo) {
         newStep[2] = { borderLess: true, nextStep: false, complate: true, step: 3, open: steps[2].open };
     }
     return newStep;

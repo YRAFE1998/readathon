@@ -1,14 +1,13 @@
 import React, {ReactNode} from 'react'
 export interface RegisterForm {
-    username?: string;
-    phoneNumber?: string; 
+    name?: string;
+    mobileNumber?: string; 
     email?: string;
     password?: string;
     confirmPassword?: string;
-    orgLogo?: any;
-    orgName?: string;
+    countryCode?: string;
+    organizationLogo?: any;
+    organizationName?: string;
     schoolName?: string;
     schoolLogo?: any;
-    
-
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Dropdown, Form, FormCheck, Table } from 'react-bootstrap'
 import ModalsHoc from '../../HOCS/modalsHoc'
 import { TeacherForm } from '../../interfaces/teacherForm'
@@ -12,55 +12,75 @@ import { useHistory } from 'react-router-dom'
 import { DeleteIcon } from '../../assets/icons/Main/deleteIcon'
 import SelectFilter from '../Select/selectFilter'
 import { GenericTableInterface } from '../../interfaces/genericTableInterface'
-
+import * as _ from "lodash";
+import { pageNumbers } from '../../utils/pageShowesNumbers'
 
 const GenericTable = (props: GenericTableInterface) => {
     const [page, setPage] = useState(1)
+    const [chunkedData, setChunkedData] = useState<any>();
     const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false)
     const [pageSize, setPageSize] = useState(10)
     const pageSizes = [10, 50, 100]
     const [selected, setSelected] = useState([])
     const history = useHistory();
-    const handleExceptItems = (key: any) => {
-        return !props?.itemsExceptions?.some((v: any) => v == key);
-    }
-    const handelTabelTitle = (string: string) => {
-        return string.replace(/([A-Z])/g, ' $1').trim().charAt(0).toUpperCase() + string.replace(/([A-Z])/g, ' $1').trim().slice(1);
-    }
-    const handelArrayPaginationChunckedLength = () => {
-        return new Array(Math.ceil((props?.data?.length || 0) / pageSize)).fill(0)
-    }
+    useEffect(() => {
+        setChunkedData(_.chunk(props.data, pageSize))
+        window.scrollTo(0, 0)
+    }, [props.data, pageSize])
+
+    useEffect(() => { window.scrollTo(0, 0) }, [page])
+
+    const handleExceptItems = (key: any) => !props?.itemsExceptions?.some((v: any) => v == key);
+
+    const handelTabelTitle = (string: string) =>
+        string.replace(/([A-Z])/g, ' $1').trim().charAt(0).toUpperCase() + string.replace(/([A-Z])/g, ' $1').trim().slice(1);
+
+    const handelArrayPaginationChunckedLength = () =>
+        new Array(Math.ceil((props?.data?.length || 0) / pageSize)).fill(0)
+
     const handleChangePage = (page: number) => {
+        debugger;
         setPage(page);
         props.onChangePage(page);
     }
 
     const renderPagination = () => {
         return <PaginationStyles className="m-t-40 d-flex justify-content-center ">
-            <div className="d-flex justify-content-center containerPagination ">
-                <button className="btn-prev-next" disabled={!!(page == 1)} onClick={() => handleChangePage(page - 1)} > <span><IconsArrowLeft color={!!(page == 1) ? "#999" : ThemeColor.red} /></span> Prev </button>
-                {handelArrayPaginationChunckedLength().map((v: any, i: number) => {
-                    return <div className={`pagination ${i + 1 == page && 'active'}`} onClick={() => handleChangePage(i + 1)}>{i + 1}</div>
+            <div className="d-md-flex justify-content-center containerPagination ">
+                <button className="btn-prev-next" disabled={!!(page == 1)}
+                    onClick={() => handleChangePage(page - 1)} >
+                    <span>
+                        <IconsArrowLeft color={!!(page == 1) ? "#999" : ThemeColor.red} />
+                    </span>
+                    Prev
+                    </button>
+                {pageNumbers(props?.data, page, pageSize).map((v: any, i: number) => {
+                    return <>
+                        {
+                            Number.isInteger(v) ?
+                                <div className={`pagination ${v == page && 'active'}`}
+                                    onClick={() => handleChangePage(v)}>{v}
+                                </div>
+                                :
+                                <div className={`pagination`}>{v}</div>
+                        }
+                    </>
                 })}
-                <button className="btn-prev-next" onClick={() => handleChangePage(page + 1)} disabled={!!(page == handelArrayPaginationChunckedLength().length)}>
+                <button className="btn-prev-next next" onClick={() => handleChangePage(page + 1)} disabled={!!(page == handelArrayPaginationChunckedLength().length)}>
                     Next <span><IconsArrowRight
                         color={!!(page == handelArrayPaginationChunckedLength().length) ? "#999999" : ThemeColor.red} />
                     </span>
                 </button>
-
-
                 <Dropdown>
                     <Dropdown.Toggle className="btn-prev-next" variant="success" id="dropdown-basic">
                         {pageSize} pre page </Dropdown.Toggle>
-
                     <Dropdown.Menu>
                         {pageSizes.map((v: number) =>
-                            <Dropdown.Item onClick={() => setPageSize(v)}>{v}</Dropdown.Item>
+                            <Dropdown.Item onClick={() => { setPageSize(v); setPage(1) }}>{v}</Dropdown.Item>
                         )}
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
-
         </PaginationStyles>
     }
     const renderModal = () => (
@@ -80,9 +100,8 @@ const GenericTable = (props: GenericTableInterface) => {
     return (
         <div>
             <TableStyles>
-
-                <div className="search-container-div d-flex justify-content-between align-items-center">
-                    <div className="d-flex align-items-center">
+                <div className="search-container-div d-md-flex justify-content-between align-items-center">
+                    <div className="d-md-flex align-items-center">
                         <div className="search-container">
                             <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => props.onSearch(e.target.value)} />
                             <i className="fa fa-search"></i>
@@ -102,7 +121,6 @@ const GenericTable = (props: GenericTableInterface) => {
                     }
                 </div>
 
-
                 <Table responsive="md" className="table">
                     <thead>
                         <tr className="tr-head">
@@ -115,7 +133,7 @@ const GenericTable = (props: GenericTableInterface) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props?.data?.map((item: any) => {
+                        {chunkedData?.[page - 1]?.map((item: any) => {
                             return <tr className="tr-body">
                                 {
                                     !props.readOnly && !props.singleDelete && <td>  <FormCheck

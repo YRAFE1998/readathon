@@ -7,7 +7,11 @@ export const TableStyles = styled.div`
 }
 .mr-20{
     margin: 30px 0px 20px;
-    margin-inline-start: 20px
+    margin-inline-start: 20px;
+    @media (max-width: 1000px) {
+        margin-inline-start: 0px
+
+      }
 }
 .search-container{
     padding: 15px;  
@@ -62,7 +66,7 @@ export const TableStyles = styled.div`
 }
 .pagination{
     margin: 0px 4px;
-    
+    cursor: pointer;
     padding: 6px 6px 6px 7px;
     border-radius: 4px;  
     background-color: #ffffff;
@@ -74,6 +78,12 @@ export const TableStyles = styled.div`
     letter-spacing: normal;
     text-align: center;
     color: ${ThemeColor.red};
+    @media (max-width: 1000px) {
+        margin: auto;
+        margin-bottom: 0px;
+        width: 26px;
+
+      }
 }
 .active{
     border-radius: 4px;
@@ -102,7 +112,11 @@ export const TableStyles = styled.div`
 }
 .delete-btn{
     padding: 12px 45px;
-    margin: 0px
+    margin: 0px;
+    @media (max-width: 1000px) {
+        margin-bottom: 30px;
+
+      }
 }
 `;
 
@@ -121,6 +135,7 @@ export const DeleteModalStyle = styled.div`
 .delete-btn{
     padding: 12px 45px;
     margin-bottom: 35px;
+    
 }
 `
 
@@ -131,7 +146,13 @@ export const PaginationStyles = styled.div`
     border: solid 1px ${ThemeColor.borderColor};
     background-color: #ffffff;
 }
+
 .btn-prev-next{
+    @media (max-width: 1000px) {
+        margin: auto;
+        margin-bottom: 20px;
+
+      }
     margin: 0 10px;
     background: #fff !important;
     display: flex;
@@ -151,6 +172,11 @@ export const PaginationStyles = styled.div`
     &:disabled{
         color: #999999
     }
+}
+.next{
+    @media (max-width: 1000px) {
+        margin-top: 20px;
+      }
 }
 .btn-success.dropdown-toggle{
     color: ${ThemeColor.red} !important;

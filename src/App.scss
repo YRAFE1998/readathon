@@ -107,7 +107,9 @@ i{
   margin: 50px 0px;
 }
 
-
+button{
+  cursor: pointer;
+}
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
