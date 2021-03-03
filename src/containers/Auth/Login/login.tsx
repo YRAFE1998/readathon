@@ -39,7 +39,7 @@ export const Login = () => {
             setError({ ...error, ...formValid })
         } else {
             login(form).then((res) => {
-
+                history.push("/page/dashboard")
             })
         }
     }

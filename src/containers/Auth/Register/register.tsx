@@ -27,7 +27,7 @@ export const Register = () => {
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
         setForm({ ...form, [state]: value });
-        setSteps(ValidationSection({...form, [state]: value}, { ...error, [state]: errorMessage }, steps))
+        setSteps(ValidationSection({ ...form, [state]: value }, { ...error, [state]: errorMessage }, steps))
     }
 
 
@@ -49,9 +49,9 @@ export const Register = () => {
         const formValid = registerValiadtionForm(form);
         if (formValid.valid) {
             register(form).then(() => {
-                //    history.push("/auth/login")
+                history.push("/auth/login")
             }).catch((err) => {
-               
+
             })
         } else {
             setError({ ...error, ...formValid })
@@ -98,7 +98,7 @@ export const Register = () => {
                     </CollapseHoc>
 
                     <CollapseHoc header={"Organization Information"} stepConfig={steps[2]}>
-                        
+
                         <div className={"inputSpaces"}>
                             {renderInputs("file", "organizationLogo", "Organization Logo", "Organization Logo", IconsAttach, false)}
                         </div>
@@ -114,7 +114,7 @@ export const Register = () => {
                             {renderInputs("text", "schoolName", "School Name", "School Name", IconsBus, false)}
                         </div>
 
-                        </CollapseHoc>
+                    </CollapseHoc>
 
                     <div className={"btnSpaces"}>
                         <RedButton type="submit">Register</RedButton>

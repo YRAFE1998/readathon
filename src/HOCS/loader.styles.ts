@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ThemeColor } from "../utils/colors";
 export const LoaderStyles = styled.div`
-position: absolute;
+position: fixed;
 width: 100%;
 text-align: center;
 display: flex;
