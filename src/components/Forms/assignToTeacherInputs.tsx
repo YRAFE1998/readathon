@@ -37,7 +37,7 @@ const AssignToTeacherInputs = (props: any) => {
 
             <div className="d-flex justify-content-center mtb-50">
                 <RedBackgroundButton style={{padding: "15px 40px"}} onClick={() => {
-                    selectedValue && props.onSubmit(selectedValue)
+                     props.onSubmit(selectedValue)
                 }}>Save</RedBackgroundButton>
                 <RedOutlineButton style={{padding: "15px 40px"}}
                 onClick={() => props.onCancel(false)}

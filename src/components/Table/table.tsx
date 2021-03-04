@@ -170,7 +170,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 }
                                 {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
                                     <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>
-                                        {JSON.parse(JSON.stringify(val))}</td>)}
+                                        {JSON.parse(JSON.stringify(val)) || "___"}</td>)}
                                 {!!props.hasDashboardView && <td style={{ color: ThemeColor.red }}>View</td>}
                                 {!!props.hasManageView && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
                                 {!!props.hasAchivement && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}`)}>View</td>}

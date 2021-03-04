@@ -33,7 +33,7 @@ const Students = () => {
     }, [orignalStudents])
     const getStudets = () => {
         getAllStudents().then((Res) => {
-            const data = Res?.data?.data?.map((v: any) => ({ ...v, firstName: v.fname, lastName: v.lname, teacher: v.teacher.fname }));
+            const data = Res?.data?.data?.map((v: any) => ({ ...v, firstName: v.fname, lastName: v.lname, teacher: v.teacher?.fname || "" }));
             setStudents(data);
             setOrignalStudents(data);
             setOrignalStudentsSearchAndSelect(data);
@@ -56,7 +56,7 @@ const Students = () => {
     const onSelectSearchFilter = (value: any) => {
         if (value && value.length) {
             const arrayOfIds = value.slice().map((v: any) => v.Id);
-            setOrignalStudents(orignalStudents.slice().filter((v: any) => arrayOfIds.includes(v.teacher_id)));
+            setOrignalStudents(orignalStudentsSearchAndSelect.slice().filter((v: any) => arrayOfIds.includes(v.teacher_id)));
         } else {
             setOrignalStudents(orignalStudentsSearchAndSelect);
         }
@@ -77,7 +77,7 @@ const Students = () => {
     const assignToTeacher = (t: any) => {
         const data = {
             students: selected.map((v: any) => v.Id),
-            teacher_id: t
+            teacher_id: t || ""
         }
         assignStudentsToTeacher(data).then((res) => getStudets()).finally(() => setOpenAssignModal(false))
         
