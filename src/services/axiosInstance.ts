@@ -6,8 +6,8 @@ import { showLoaderReq } from "../HOCS/loader";
 
 
 export var axiosInstance = axios.create({
-    // baseURL: 'http://40.74.38.157:8080',
-    baseURL: 'http://localhost:8080',
+    baseURL: 'http://40.74.38.157:8080',
+    // baseURL: 'http://localhost:8080',
     headers:{'x-access-token' : JSON.parse(localStorage.getItem("user") || '{}')?.accessToken || ""}
     // headers: { 'Content-Type': 'application/json' }
 });

@@ -14,7 +14,7 @@ const ProtectedRoute = (props: any) => {
             }
         }
         if (!retrievedUser?.isAuth) {
-          if (location.pathname.includes("page")) {
+          if (location.pathname.includes("page") || location.pathname == '/') {
               history.push("/auth");
           }
         }
