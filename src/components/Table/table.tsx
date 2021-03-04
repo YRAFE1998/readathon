@@ -42,6 +42,16 @@ const GenericTable = (props: GenericTableInterface) => {
         setPage(page);
         props.onChangePage(page);
     }
+    const handleSort = (direction: string, value: any) => {
+        let newData : any = [];
+        if (direction == "asc") {
+            newData = props.data?.sort((v: any, i: any) => v[value] > i[value] ? 1 : -1);
+        } else {
+            newData = props.data?.sort((v: any, i: any) => v[value] < i[value] ? 1 : -1);
+        }
+        setPage(1);
+        setChunkedData(_.chunk(props.data, pageSize))
+    }
 
     const renderPagination = () => {
         return <PaginationStyles className="m-t-40 d-flex justify-content-center ">
@@ -102,7 +112,7 @@ const GenericTable = (props: GenericTableInterface) => {
                 <div className="search-container-div d-md-flex justify-content-between align-items-center">
                     <div className="d-md-flex align-items-center">
                         <div className="search-container">
-                            <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => {props.onSearch(e.target.value); setPage(1)}} />
+                            <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => { props.onSearch(e.target.value); setPage(1) }} />
                             <i className="fa fa-search"></i>
                         </div>
                         {
@@ -117,26 +127,38 @@ const GenericTable = (props: GenericTableInterface) => {
                                 ></SelectFilter></div>
                         }
                     </div>
-                   <div className="d-md-flex">
-                   
-                     {
-                        !props.readOnly && props.multipleAssign && <div>
-                            <RedBackgroundButton className="delete-btn" onClick={() => selected.length && props.onAssign && props.onAssign(selected)}>Assign</RedBackgroundButton>
-                        </div>
-                    }
-                    {
-                        !props.readOnly && !props.singleDelete && <div>
-                            <RedOutlineButton className="delete-btn" onClick={() => selected.length && setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
-                        </div>
-                    }
-                   </div>
+                    <div className="d-md-flex">
+
+                        {
+                            !props.readOnly && props.multipleAssign && <div>
+                                <RedBackgroundButton className="delete-btn" onClick={() => selected.length && props.onAssign && props.onAssign(selected)}>Assign</RedBackgroundButton>
+                            </div>
+                        }
+                        {
+                            !props.readOnly && !props.singleDelete && <div>
+                                <RedOutlineButton className="delete-btn" onClick={() => selected.length && setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
+                            </div>
+                        }
+                    </div>
                 </div>
 
                 <Table responsive="md" className="table">
                     <thead>
                         <tr className="tr-head">
                             {!props.readOnly && <th>Del</th>}
-                            {!!props?.data?.length && Object.entries(props?.data?.[0]).map(([v]) => handleExceptItems(v) && <th>{handelTabelTitle(v)}</th>)}
+                            {!!props?.data?.length && Object.entries(props?.data?.[0]).map(([v]) => handleExceptItems(v) &&
+                                <th>
+                                    <div className="d-flex justify-content-between align-items-center">
+                                        {handelTabelTitle(v)}
+                                        <div >
+                                            <i className="fa fa-sort-up sortIcon d-block" onClick={() => handleSort("asc", v)}></i>
+                                            <i className="fa fa-sort-down sortIcon d-block" onClick={() => handleSort("desc", v)}></i>
+
+                                        </div>
+
+                                    </div>
+
+                                </th>)}
                             {!!props.hasDashboardView && <th>Dashboard</th>}
                             {!!props.hasManageView && <th>Manage</th>}
                             {!!props.hasAchivement && <th>Log Achievment</th>}
@@ -166,7 +188,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 }
                                 {
                                     !props.readOnly && props.singleDelete &&
-                                    <td><div onClick={() =>  setOpenDeleteConfirmation(true)}><DeleteIcon /></div></td>
+                                    <td><div onClick={() => setOpenDeleteConfirmation(true)}><DeleteIcon /></div></td>
                                 }
                                 {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
                                     <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>

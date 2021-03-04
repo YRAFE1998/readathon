@@ -2,6 +2,13 @@ import styled from "styled-components";
 import { ThemeColor } from "../../utils/colors";
 
 export const TableStyles = styled.div`
+.fa-arrow-down{
+    fontSize: 10px;
+}
+.fa-arrow-up{
+    fontSize: 10px;
+
+}
 .custom-checkbox{
     color: ${ThemeColor.red}
 }
@@ -105,6 +112,7 @@ export const TableStyles = styled.div`
     letter-spacing: normal;
     color: ${ThemeColor.red} !important;
 }
+
 .delete-content{
     font-size: 20px;
     color: ${ThemeColor.red};
