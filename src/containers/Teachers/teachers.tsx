@@ -62,7 +62,7 @@ const Teachers = () => {
                 onChangePage={() => console.log("page")}
                 onSearch={(v: string) => onSearchValue(v)}
                 onDelete={(v: TeacherForm) => console.log(v)}
-                itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "updatedAt", "status"]}
+                itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "updatedAt", "status", "students"]}
                 singleDelete={true}
             ></GenericTable>
             <div >

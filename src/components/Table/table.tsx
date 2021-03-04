@@ -45,12 +45,12 @@ const GenericTable = (props: GenericTableInterface) => {
     const handleSort = (direction: string, value: any) => {
         let newData : any = [];
         if (direction == "asc") {
-            newData = props.data?.sort((v: any, i: any) => v[value] > i[value] ? 1 : -1);
+            newData = props?.data?.sort((a,b) => (a[value].toUpperCase() > b[value].toUpperCase()) ? 1 : ((b[value].toUpperCase() > a[value].toUpperCase()) ? -1 : 0))
         } else {
-            newData = props.data?.sort((v: any, i: any) => v[value] < i[value] ? 1 : -1);
+            newData = props?.data?.sort((a,b) => (a[value].toUpperCase() < b[value].toUpperCase()) ? 1 : ((b[value].toUpperCase() < a[value].toUpperCase()) ? -1 : 0))
         }
         setPage(1);
-        setChunkedData(_.chunk(props.data, pageSize))
+        setChunkedData(_.chunk(newData, pageSize))
     }
 
     const renderPagination = () => {
