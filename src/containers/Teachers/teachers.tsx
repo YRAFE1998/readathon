@@ -1,26 +1,53 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PageTitle } from "../../components/Lables//pageTitle";
 import { SubTitlePage } from "../../components/Lables/subTitlePage";
 import { RedOutlineButton } from "../../components/Lables/red-outlline-button";
 import { RedBackgroundButton } from '../../components/Lables/redBackgroundButton';
 import GenericTable from '../../components/Table/table';
-import { teachers } from '../../Mocks/teachers';
 import ModalsHoc from '../../HOCS/modalsHoc';
 import TeacherFormInput from '../../components/Forms/TeacherForm';
 import { TeacherForm } from '../../interfaces/teacherForm';
 import SelectTeacher from '../../components/Forms/selectTeacherInput';
+import { addTeacher, getAllTeachers, updateTeacher } from '../../services/teacher.service';
 
 const Teachers = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
     const [editedForm, setEditedForm] = useState({})
     const [openModalSelectTeacher, setOpenModalSelectTeacher] = useState(false);
+    const [teachers, setTeachers] = useState<any>([]);
+    const [orignalTeachers, setOrignalTeachers] = useState<any>([]);
+    useEffect(() => {
+        getTeachers();
+    }, [])
+    const getTeachers = () => {
+        getAllTeachers().then((Res) => {
+            const data = Res?.data?.data?.map((v: any) => ({ ...v, firstName: v.fname, lastName: v.lname }));
+            setTeachers(data);
+            setOrignalTeachers(data);
+        });
+    }
+    const onSearchValue = (value: string) => {
+        if (value) {
+            const val = value.toUpperCase()
+            setTeachers(orignalTeachers.slice().filter((v: any) => v?.fname?.toUpperCase().includes(val) || v?.email?.toUpperCase().includes(val) || v?.lname?.toUpperCase().includes(val)));
+        } else {
+            setTeachers(orignalTeachers)
+        }
+    }
+    const submitForm = (form: any, from: string) => {
+        if (from == 'add') {
+            addTeacher(form).then((Res) => getTeachers()).finally(() => setOpenModal(false))
+        } else {
+            updateTeacher(form).then((Res) => getTeachers()).finally(() => setOpenModalEdit(false))
+        }
+    }
     return (
         <div>
             <div className="d-flex justify-content-between">
                 <div>
                     <PageTitle>Teachers</PageTitle>
-                    <SubTitlePage>2,245 Teacher</SubTitlePage>
+                    <SubTitlePage>{teachers.length} Teacher</SubTitlePage>
                 </div>
                 <div>
                     <RedOutlineButton> Import Teachers</RedOutlineButton>
@@ -31,26 +58,26 @@ const Teachers = () => {
             <GenericTable
                 data={teachers}
                 keyItem={"id"}
-                onEdit={(f: TeacherForm) => {setOpenModalEdit(true); setEditedForm(f)}}
+                onEdit={(f: TeacherForm) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
-                onSearch={() => console.log("search")}
+                onSearch={(v: string) => onSearchValue(v)}
                 onDelete={(v: TeacherForm) => console.log(v)}
-                itemsExceptions={["id"]}
+                itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "updatedAt", "status"]}
                 singleDelete={true}
             ></GenericTable>
             <div >
                 <ModalsHoc open={openModal} title="Add New Teacher" onShow={(bool: boolean) => setOpenModal(bool)}>
-                    <TeacherFormInput submit={() => console.log("add")} importBtn={true}></TeacherFormInput>
+                    <TeacherFormInput submit={(f: any) => submitForm(f, "add")} importBtn={true}></TeacherFormInput>
                 </ModalsHoc>
             </div>
             <div>
-                <ModalsHoc open={openModalEdit} title="Edit Teacher"  onShow={(bool: boolean) => setOpenModalEdit(bool)}>
-                    <TeacherFormInput submit={() => console.log("edit")} importBtn={false} value={editedForm}></TeacherFormInput>
+                <ModalsHoc open={openModalEdit} title="Edit Teacher" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
+                    <TeacherFormInput submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></TeacherFormInput>
                 </ModalsHoc>
             </div>
             <div>
-                <ModalsHoc open={openModalSelectTeacher} title="Delete Warning !"  onShow={(bool: boolean) => setOpenModalSelectTeacher(bool)}>
-                    <SelectTeacher onCancel={() => setOpenModalSelectTeacher(false)} onSubmit={() => console.log("c")}/>
+                <ModalsHoc open={openModalSelectTeacher} title="Delete Warning !" onShow={(bool: boolean) => setOpenModalSelectTeacher(bool)}>
+                    <SelectTeacher onCancel={() => setOpenModalSelectTeacher(false)} onSubmit={() => console.log("c")} />
                 </ModalsHoc>
             </div>
         </div>

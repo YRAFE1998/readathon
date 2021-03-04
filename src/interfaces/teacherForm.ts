@@ -1,6 +1,7 @@
 export interface TeacherForm{
-    firstName?: string;
-    lastName?: string;
+    fname?: string;
+    lname?: string;
     email?: string;
-    password?: string;
+    Id?: any;
+    status?: string | "Active";
 }

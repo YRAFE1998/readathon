@@ -39,7 +39,6 @@ const GenericTable = (props: GenericTableInterface) => {
         new Array(Math.ceil((props?.data?.length || 0) / pageSize)).fill(0)
 
     const handleChangePage = (page: number) => {
-        debugger;
         setPage(page);
         props.onChangePage(page);
     }
@@ -84,9 +83,9 @@ const GenericTable = (props: GenericTableInterface) => {
         </PaginationStyles>
     }
     const renderModal = () => (
-        <ModalsHoc title="Delete 4 Items" open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
+        <ModalsHoc title={`Delete ${selected.length || 1} Items`} open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
             <DeleteModalStyle>
-                <p className="delete-content">You're about to delete 4 Items, and you will no <br /> longer access them.</p>
+                <p className="delete-content">You're about to delete {selected.length || 1} Items, and you will no <br /> longer access them.</p>
 
                 <div className="d-flex justify-content-center">
                     <div><RedBackgroundButton className="delete-btn"
@@ -103,20 +102,24 @@ const GenericTable = (props: GenericTableInterface) => {
                 <div className="search-container-div d-md-flex justify-content-between align-items-center">
                     <div className="d-md-flex align-items-center">
                         <div className="search-container">
-                            <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => props.onSearch(e.target.value)} />
+                            <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => {props.onSearch(e.target.value); setPage(1)}} />
                             <i className="fa fa-search"></i>
                         </div>
                         {
                             props.selectFilter && <div className="mr-20">
                                 <SelectFilter array={props.selectFilterArray}
                                     keyItem={props.selectFilterItemKey}
-                                    onChange={(v) => console.log(v)}
+                                    onChange={(v: any) => {
+                                        props.onSelectFilter && props.onSelectFilter(v);
+                                        setPage(1);
+                                    }}
+                                    ItemValue={props.selectFilterItemValue}
                                 ></SelectFilter></div>
                         }
                     </div>
                     {
                         !props.readOnly && !props.singleDelete && <div>
-                            <RedOutlineButton className="delete-btn" onClick={() => setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
+                            <RedOutlineButton className="delete-btn" onClick={() => selected.length && setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
                         </div>
                     }
                 </div>
@@ -125,7 +128,7 @@ const GenericTable = (props: GenericTableInterface) => {
                     <thead>
                         <tr className="tr-head">
                             {!props.readOnly && <th>Del</th>}
-                            {Object.entries(props?.data?.[0]).map(([v]) => handleExceptItems(v) && <th>{handelTabelTitle(v)}</th>)}
+                            {!!props?.data?.length && Object.entries(props?.data?.[0]).map(([v]) => handleExceptItems(v) && <th>{handelTabelTitle(v)}</th>)}
                             {!!props.hasDashboardView && <th>Dashboard</th>}
                             {!!props.hasManageView && <th>Manage</th>}
                             {!!props.hasAchivement && <th>Log Achievment</th>}
@@ -155,7 +158,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 }
                                 {
                                     !props.readOnly && props.singleDelete &&
-                                    <td><div onClick={() => setOpenDeleteConfirmation(true)}><DeleteIcon /></div></td>
+                                    <td><div onClick={() =>  setOpenDeleteConfirmation(true)}><DeleteIcon /></div></td>
                                 }
                                 {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
                                     <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>

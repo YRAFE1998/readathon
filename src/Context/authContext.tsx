@@ -4,16 +4,19 @@ import React, { Context, ContextType, createContext, useContext, useEffect, useS
 
 export interface UserInterface {
     isAuth?: boolean;
-    id?: any;
-    username?: string;
-    email?: string;
-    phoneNumber?: string;
-    orgName?: string;
-    orgLogo?: string;
-    schoolName?: string;
-    schoolLogo?: string;
-    roles?: any;
-    accessToken?: string;
+    id?: number,
+    name?: string,
+    email?: string,
+    phoneNumber?: string,
+    countryCode?: string,
+    mobileNumber?: string,
+    organizationName?: string,
+    organizationLogo?: string,
+    schoolName?: string,
+    schoolLogo?: string,
+    roles?: string,
+    accessToken?: string,
+    content?: string,
 }
 export interface AuthInterface {
     user?: UserInterface;
@@ -21,22 +24,26 @@ export interface AuthInterface {
 }
 
 
-export const UserContext = React.createContext<AuthInterface |{}>({})
+export const UserContext = React.createContext<AuthInterface | {}>({})
 
 const AuthContextProvider: any = (props: any) => {
     const [user, setUser] = useState<UserInterface>({});
-    
-    
+
+
     useEffect(() => {
-        setUser({...user, isAuth: true})
+        var retrievedUser = JSON.parse(localStorage.getItem('user') || '{}');
+        if (retrievedUser?.isAuth) {
+            saveUser(retrievedUser)
+        }
     }, [])
     const saveUser = (params: UserInterface) => {
-        setUser(params)
+        setUser({...params, isAuth: true})
+        localStorage.setItem('user', JSON.stringify({...params, isAuth: true}));
     }
     return (
         <>
-        
-        <UserContext.Provider value={{user, saveUser}} >
+
+            <UserContext.Provider value={{ user, saveUser }} >
                 {props.children}
             </UserContext.Provider>
         </>

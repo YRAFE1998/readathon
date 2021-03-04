@@ -8,7 +8,6 @@ import { ModalFooter, ImportStyle } from "../../HOCS/modalsHocs.styles";
 import { RedBackgroundButton } from '../Lables/redBackgroundButton'
 import { RedOutlineButton } from '../Lables/red-outlline-button'
 import SelectInput from '../Select/select'
-import { teachers } from '../../Mocks/teachers'
 
 const StudentFormInputs = (props: any) => {
     const [form, setForm] = useState<StudentForm>(props.value || {})
@@ -29,7 +28,6 @@ const StudentFormInputs = (props: any) => {
 
     }
     const handleSubmit = (e: any) => {
-        debugger;
         const formValid = studentsValiadtionForm(form);
         if (formValid.valid) {
             props.submit(form)
@@ -56,9 +54,9 @@ const StudentFormInputs = (props: any) => {
             error={error[state]}
             placeholder={placeholder}
             required={required}
-            label={"id"}
-            options={teachers}
-            dispalyName={"firstName"}
+            label={"Id"}
+            options={props.teachers}
+            dispalyName={"fname"}
             onChange={(v) => inputChange(state, placeholder, v)}
         />
     }
@@ -66,16 +64,16 @@ const StudentFormInputs = (props: any) => {
     return (
         <div style={{ padding: "0px 40px" }}>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }} >
-                {renderInputs("text", "firstName", "First Name", "First Name", IconsUser, true)}
+                {renderInputs("text", "fname", "First Name", "First Name", IconsUser, true)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderInputs("text", "lastName", "Last Name", "Last Name", IconsUser, true)}
+                {renderInputs("text", "lname", "Last Name", "Last Name", IconsUser, true)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
                 {renderInputs("text", "email", "Email", "Email", IconEmail, true)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderSelect("teacherId", "Select Teacher", "Teacher", true, "firstName")}
+                {renderSelect("teacher_id", "Select Teacher", "Teacher", true, "fname")}
             </div>
 
             <ModalFooter>

@@ -27,7 +27,6 @@ const TeacherInputForm = (props: any) => {
 
     }
     const handleSubmit = (e: any) => {
-        debugger;
         const formValid = teacherValiadtionForm(form);
         if (formValid.valid) {
             props.submit(form)
@@ -51,10 +50,10 @@ const TeacherInputForm = (props: any) => {
     return (
         <div style={{ padding: "0px 40px" }}>
             <div className={"inputSpaces"} style={{marginBottom: "20px"}} >
-                {renderInputs("text", "firstName", "First Name", "First Name", IconsUser, true)}
+                {renderInputs("text", "fname", "First Name", "First Name", IconsUser, true)}
             </div>
             <div className={"inputSpaces"} style={{marginBottom: "20px"}}>
-                {renderInputs("text", "lastName", "Last Name", "Last Name", IconsUser, true)}
+                {renderInputs("text", "lname", "Last Name", "Last Name", IconsUser, true)}
             </div>
             <div className={"inputSpaces"} style={{marginBottom: "20px"}}>
                 {renderInputs("text", "email", "Email", "Email", IconEmail, true)}

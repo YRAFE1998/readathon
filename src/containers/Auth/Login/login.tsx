@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AuthHeader } from '../../../components/Auth/Header/authHeader'
 import { RedButton } from '../../../components/Buttons/redButton';
 import InputComponent from "../../../components/Input/input";
@@ -9,9 +9,11 @@ import { LoginForm } from "../../../interfaces/loginForm";
 import { loginValiadtionForm, loginValidation } from '../../../validations/loginFormValidation';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../../services/auth.service';
+import { UserContext } from '../../../Context/authContext';
 export const Login = () => {
     const [form, setForm] = useState<LoginForm>({})
     const [error, setError] = useState<LoginForm>({})
+    const {saveUser} = useContext<any>(UserContext)
     const history = useHistory();
     const inputChange = (state: string, placeholder: string, value: string) => {
         const errorMessage = loginValidation(state, placeholder, value);
@@ -40,6 +42,7 @@ export const Login = () => {
         } else {
             login(form).then((res) => {
                 history.push("/page/dashboard")
+                saveUser(res.data)
             })
         }
     }

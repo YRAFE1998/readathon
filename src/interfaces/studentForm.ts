@@ -1,7 +1,8 @@
 export interface StudentForm{
-    firstName?: string;
-    lastName?: string;
+    fname?: string;
+    lname?: string;
     email?: string;
-    password?: string;
-    teacherId?: string;
+    Id?: any;
+    status?: string | 'Active';
+    teacher_id?: string;
 }

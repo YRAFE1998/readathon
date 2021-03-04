@@ -16,4 +16,6 @@ export interface GenericTableInterface{
     onEdit?: (params?: any) => void;
     mangeLink?: string;
     achivementLink?: string;
+    selectFilterItemValue?: string;
+    onSelectFilter?: (params: any) => void;
 }

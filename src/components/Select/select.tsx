@@ -19,8 +19,8 @@ const SelectInput = (props: SelectFrom) => {
     const [value, setValue] = useState(props.value || "");
 
     useEffect(() => {
-        const index = props.options?.findIndex((v: any) => v[props?.label || ''] == value) + 1;
-        setValue(index);
+        const index = props.options?.findIndex((v: any) => v[props?.label || ''] == value);
+        setValue(props.options[index]?.[props?.label || ""]);
       
     }, [props.value])
     return (
