@@ -37,8 +37,8 @@ const AuthContextProvider: any = (props: any) => {
         }
     }, [])
     const saveUser = (params: UserInterface) => {
-        setUser({...params, isAuth: true})
         localStorage.setItem('user', JSON.stringify({...params, isAuth: true}));
+        setUser({...params, isAuth: true})
     }
     return (
         <>

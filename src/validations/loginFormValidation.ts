@@ -28,11 +28,12 @@ export const loginValidation = (state: string, placeholder: string, value: strin
 
 export const loginValiadtionForm = (value: LoginForm) => {
     const data = {} as LoginForm
-    if (!value.email) {
-        data.email = "Email Required"
-    }
+   
     if (!emailValidation.test(String(value.email).toLowerCase())) {
         data.email = "Email Not Valid"
+    }
+    if (!value.email) {
+        data.email = "Email Required"
     }
     if (value.password && /\s/g.test(value.password)) {
         data.email = "Password Spaces Not Allowed"

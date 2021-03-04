@@ -14,6 +14,7 @@ export var axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((req: AxiosRequestConfig) => {
     showLoaderReq(true)
+    req.headers = {...req.headers, 'x-access-token' : JSON.parse(localStorage.getItem("user") || '{}')?.accessToken || ""}
     return req;
 })
 
