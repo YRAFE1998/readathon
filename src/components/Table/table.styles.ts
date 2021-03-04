@@ -113,6 +113,7 @@ export const TableStyles = styled.div`
 .delete-btn{
     padding: 12px 45px;
     margin: 0px;
+    margin-inline-start: 30px;
     @media (max-width: 1000px) {
         margin-bottom: 30px;
 

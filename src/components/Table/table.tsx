@@ -117,11 +117,19 @@ const GenericTable = (props: GenericTableInterface) => {
                                 ></SelectFilter></div>
                         }
                     </div>
+                   <div className="d-md-flex">
+                   
+                     {
+                        !props.readOnly && props.multipleAssign && <div>
+                            <RedBackgroundButton className="delete-btn" onClick={() => selected.length && props.onAssign && props.onAssign(selected)}>Assign</RedBackgroundButton>
+                        </div>
+                    }
                     {
                         !props.readOnly && !props.singleDelete && <div>
                             <RedOutlineButton className="delete-btn" onClick={() => selected.length && setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
                         </div>
                     }
+                   </div>
                 </div>
 
                 <Table responsive="md" className="table">

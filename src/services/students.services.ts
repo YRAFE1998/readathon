@@ -18,5 +18,5 @@ export const deleteStudent = (data: any) => {
 return axiosInstance.put(`/api/delete/student`, data)
 }
 export const assignStudentsToTeacher = (data: any) => {
-    return axiosInstance.put(`/api/update/student`, data)
+    return axiosInstance.put(`/api/assign/student`, data)
 }

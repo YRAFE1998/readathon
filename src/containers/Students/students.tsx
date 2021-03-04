@@ -9,8 +9,9 @@ import { students } from '../../Mocks/students';
 import { StudentForm } from '../../interfaces/studentForm';
 import ModalsHoc from '../../HOCS/modalsHoc';
 import StudentFormInputs from "../../components/Forms/StudentFormInputs";
-import { addStudent, deleteStudent, getAllStudents, updateStudent } from '../../services/students.services';
+import { addStudent, deleteStudent, getAllStudents, updateStudent, assignStudentsToTeacher } from '../../services/students.services';
 import { getAllTeachers } from '../../services/teacher.service';
+import AssignToTeacherInputs from '../../components/Forms/assignToTeacherInputs';
 
 const Students = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -19,10 +20,10 @@ const Students = () => {
     const [students, setStudents] = useState<any>([]);
     const [orignalStudents, setOrignalStudents] = useState<any>([]);
     const [orignalStudentsSearchAndSelect, setOrignalStudentsSearchAndSelect] = useState<any>([]);
-
+    const [openAssignModal, setOpenAssignModal] = useState(false);
     const [teachers, setTeachers] = useState<any>([]);
     const [searchValue, setSearchValue] = useState<any>("");
-
+    const [selected, setSelected] = useState([])
     useEffect(() => {
         getTeachers();
         getStudets();
@@ -73,6 +74,14 @@ const Students = () => {
             getStudets();
         })
     }
+    const assignToTeacher = (t: any) => {
+        const data = {
+            students: selected.map((v: any) => v.Id),
+            teacher_id: t
+        }
+        assignStudentsToTeacher(data).then((res) => getStudets()).finally(() => setOpenAssignModal(false))
+        
+    }
     return (
         <div>
             <div className="d-flex justify-content-between">
@@ -89,7 +98,6 @@ const Students = () => {
                 data={students}
                 keyItem="id"
                 itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id"]}
-
                 onEdit={(f: StudentForm) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={(e) => onSearchValue(e)}
@@ -99,7 +107,8 @@ const Students = () => {
                 selectFilterItemKey={"Id"}
                 selectFilterItemValue={"fname"}
                 onSelectFilter={(v) => onSelectSearchFilter(v)}
-
+                multipleAssign={true}
+                onAssign={(s) => {setSelected(s); setOpenAssignModal(true)}}
             ></GenericTable>
 
             <div >
@@ -110,6 +119,11 @@ const Students = () => {
             <div>
                 <ModalsHoc open={openModalEdit} title="Edit Student" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
                     <StudentFormInputs teachers={teachers} submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></StudentFormInputs>
+                </ModalsHoc>
+            </div>
+            <div>
+                <ModalsHoc open={openAssignModal} title="Assign To Teacher" onShow={(bool: boolean) => setOpenAssignModal(bool)}>
+                    <AssignToTeacherInputs teachers={teachers} onSubmit={(t: any) => assignToTeacher(t)} onCancel={() => (bool: boolean) => setOpenAssignModal(bool)} ></AssignToTeacherInputs>
                 </ModalsHoc>
             </div>
         </div>

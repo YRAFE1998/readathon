@@ -18,4 +18,6 @@ export interface GenericTableInterface{
     achivementLink?: string;
     selectFilterItemValue?: string;
     onSelectFilter?: (params: any) => void;
+    multipleAssign?: boolean;
+    onAssign?: (params: any) => void;
 }
