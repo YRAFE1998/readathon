@@ -9,12 +9,7 @@ export const studentsValidation = (state: string, placeholder: string, value: st
         }
        
     }
-    if (state == 'teacher_id') {
-        if (!value) {
-            return "Teacher Required"
-        }
-       
-    }
+   
     if (state == 'lname') {
         if (!value) {
             return "Last Name Required"
@@ -37,9 +32,7 @@ export const studentsValiadtionForm = (value: StudentForm) => {
     if (!value.email) {
         data.email = "Email Required"
     }
-    if (!value.teacher_id) {
-        data.teacher_id = "Teacher Required"
-    }
+   
     if (!value.fname) {
         data.fname = "First Name Required"
     }

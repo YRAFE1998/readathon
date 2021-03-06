@@ -7,7 +7,8 @@ const AlertComponent = (props: Alert) => {
     const [show, setShow] = useState<Alert>({});
     showToast = (alert: Alert) => setShow(alert);
     useEffect(() => {
-        let timer1 = setTimeout(() => setShow({ ...show, open: false }), 2000)
+        const timer = show.color == "#f55b6f" ? 10000 : 3000;
+        let timer1 = setTimeout(() => setShow({ ...show, open: false }), timer)
         return () => {
             clearTimeout(timer1)
         }

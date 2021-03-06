@@ -83,7 +83,7 @@ const GenericTable = (props: GenericTableInterface) => {
                 </button>
                 <Dropdown>
                     <Dropdown.Toggle className="btn-prev-next" variant="success" id="dropdown-basic">
-                        {pageSize} pre page </Dropdown.Toggle>
+                        {pageSize} per page </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {pageSizes.map((v: number) =>
                             <Dropdown.Item onClick={() => { setPageSize(v); setPage(1) }}>{v}</Dropdown.Item>
@@ -129,6 +129,7 @@ const GenericTable = (props: GenericTableInterface) => {
                             props.selectFilter && <div className="mr-20">
                                 <SelectFilter array={props.selectFilterArray}
                                     keyItem={props.selectFilterItemKey}
+                                    unAssign={true}
                                     onChange={(v: any) => {
                                         props.onSelectFilter && props.onSelectFilter(v);
                                         setPage(1);

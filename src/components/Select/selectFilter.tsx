@@ -11,6 +11,7 @@ export interface SelectFilterInterface {
     intialSelect?: any[];
     keyItem?: string;
     ItemValue?: string;
+    unAssign?: boolean;
 }
 const SelectFilter = (props: SelectFilterInterface) => {
     const [selected, setSelected] = useState([])
@@ -19,8 +20,15 @@ const SelectFilter = (props: SelectFilterInterface) => {
 
     useEffect(() => {
         if (props.array?.length) {
-            setDefualtArray(props.array || []);
-            setOrignalDefualtArray(props.array || [])
+            if (props.unAssign) {
+                const data = JSON.parse(JSON.stringify(props.array));
+                data.unshift({[props.keyItem || ""]: "0", [props.ItemValue || ""]: "Un-Assign"});
+                setDefualtArray(data || []);
+                setOrignalDefualtArray(data || []) 
+            } else {
+                setDefualtArray(props.array || []);
+                setOrignalDefualtArray(props.array || [])
+            }
         }
     }, [props.array])
     const onSearch = (value: string) => {

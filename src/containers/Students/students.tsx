@@ -56,7 +56,12 @@ const Students = () => {
     const onSelectSearchFilter = (value: any) => {
         if (value && value.length) {
             const arrayOfIds = value.slice().map((v: any) => v.Id);
-            setOrignalStudents(orignalStudentsSearchAndSelect.slice().filter((v: any) => arrayOfIds.includes(v.teacher_id)));
+            if (value.some((v: any) => !v.teacher_id)) {
+                setOrignalStudents(orignalStudentsSearchAndSelect.slice().filter((v: any) => arrayOfIds.includes(v.teacher_id) || !v.teacher_id));
+
+            } else {
+                setOrignalStudents(orignalStudentsSearchAndSelect.slice().filter((v: any) => arrayOfIds.includes(v.teacher_id)));
+            }
         } else {
             setOrignalStudents(orignalStudentsSearchAndSelect);
         }

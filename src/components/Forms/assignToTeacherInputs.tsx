@@ -12,11 +12,12 @@ const AssignToTeacherInputs = (props: any) => {
             setSelectedValueError("")
         } else {
             setSelectedValue(value);
-            setSelectedValueError("Teacher Required")
         }
     }
 
     const renderSelect = (state: (keyof any), placeholder: string, name: string, required: boolean, label: string) => {
+        const data = JSON.parse(JSON.stringify(props.teachers));
+        data.unshift({Id: "", fname: "Un-Assign"})
         return <SelectInput
         value={selectedValue}
         state={selectedValue}
@@ -24,7 +25,7 @@ const AssignToTeacherInputs = (props: any) => {
         placeholder={placeholder}
         required={required}
         label={"Id"}
-        options={props.teachers}
+        options={data}
         dispalyName={"fname"}
         onChange={(v) => inputChange(v)}
     />
