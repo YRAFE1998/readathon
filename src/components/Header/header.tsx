@@ -66,6 +66,7 @@ const Header = (props: any) => {
                     </Navbar.Collapse>
                 </Navbar>
             </HeaderStyles>
+            {props.children}
         </div>
     )
 }

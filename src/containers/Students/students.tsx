@@ -56,7 +56,8 @@ const Students = () => {
     const onSelectSearchFilter = (value: any) => {
         if (value && value.length) {
             const arrayOfIds = value.slice().map((v: any) => v.Id);
-            if (value.some((v: any) => !v.teacher_id)) {
+            debugger;
+            if (arrayOfIds.some((v: any) => v == 0)) {
                 setOrignalStudents(orignalStudentsSearchAndSelect.slice().filter((v: any) => arrayOfIds.includes(v.teacher_id) || !v.teacher_id));
 
             } else {

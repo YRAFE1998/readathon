@@ -66,7 +66,7 @@ const SelectFilter = (props: SelectFilterInterface) => {
                                                     if (e.target.checked) {
                                                         customArray.push(v);
                                                     } else {
-                                                        const index = customArray.findIndex((v: any) => v[props.keyItem || ""] == v[props.keyItem || ""])
+                                                        const index = customArray.findIndex((val: any) => val[props.keyItem || ""] == v[props.keyItem || ""])
                                                         customArray.splice(index, 1);
                                                     }
                                                     setSelected(customArray)
