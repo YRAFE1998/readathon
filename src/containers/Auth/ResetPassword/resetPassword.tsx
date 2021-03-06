@@ -6,11 +6,12 @@ import { RedButton } from '../../../components/Buttons/redButton';
 import InputComponent from "../../../components/Input/input";
 import { ResetPasswordForm } from '../../../interfaces/resetPasswordForm';
 import { resetPasswordValidation, resePasswordValiadtionForm } from '../../../validations/resetPasswordFormValidation';
-import { useHistory } from 'react-router-dom';
-
+import { useHistory, useParams } from 'react-router-dom';
+import { resetPasswordApi } from "../../../services/auth.service";
 export const ResetPassword = () => {
     const [form, setForm] = useState<ResetPasswordForm>({})
     const [error, setError] = useState<ResetPasswordForm>({})
+    const token = useParams<any>().id;
     const history = useHistory();
     const inputChange = (state: string, placeholder: string, value: string) => {
         const errorMessage = resetPasswordValidation(state, placeholder, value);
@@ -25,8 +26,7 @@ export const ResetPassword = () => {
         if (formValid.password || formValid.confirmPassword) {
             setError({...error, ...formValid})
         } else {
-            
-            history.push("/auth/login");
+            resetPasswordApi(form, token).then(() => history.push("/auth/login"));
             
         }
     }

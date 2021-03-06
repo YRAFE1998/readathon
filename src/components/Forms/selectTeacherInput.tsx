@@ -26,9 +26,9 @@ const SelectTeacher = (props: any) => {
         error={selectedValueError}
         placeholder={placeholder}
         required={required}
-        label={"id"}
-        options={teachers}
-        dispalyName={"firstName"}
+        label={"Id"}
+        options={props.teachers}
+        dispalyName={"fname"}
         onChange={(v) => inputChange(v)}
     />
     }
@@ -45,7 +45,7 @@ const SelectTeacher = (props: any) => {
 
             {
                 assignTeacher && <div className={"inputSpaces"} style={{ margin: "20px 40px" }}>
-                {renderSelect("teacherId", "Select Teacher", "Teacher", true, "firstName")}
+                {renderSelect("teacher_id", "Select Teacher", "Teacher", true, "firstName")}
             </div>
             }
 

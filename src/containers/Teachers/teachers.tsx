@@ -8,7 +8,7 @@ import ModalsHoc from '../../HOCS/modalsHoc';
 import TeacherFormInput from '../../components/Forms/TeacherForm';
 import { TeacherForm } from '../../interfaces/teacherForm';
 import SelectTeacher from '../../components/Forms/selectTeacherInput';
-import { addTeacher, getAllTeachers, updateTeacher } from '../../services/teacher.service';
+import { addTeacher, deleteTeacher, deleteTeacherWithAssign, getAllTeachers, updateTeacher } from '../../services/teacher.service';
 
 const Teachers = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -17,6 +17,8 @@ const Teachers = () => {
     const [openModalSelectTeacher, setOpenModalSelectTeacher] = useState(false);
     const [teachers, setTeachers] = useState<any>([]);
     const [orignalTeachers, setOrignalTeachers] = useState<any>([]);
+    const [deletedTeacher, setDeletedTeacher] = useState("");
+    const [assignTeacher, setAssignTeacher] = useState("");
     useEffect(() => {
         getTeachers();
     }, [])
@@ -42,6 +44,16 @@ const Teachers = () => {
             updateTeacher(form).then((Res) => getTeachers()).finally(() => setOpenModalEdit(false))
         }
     }
+    const handleDeleteTeacher = (id: string) => {
+        setDeletedTeacher(id);
+        deleteTeacher(id).then((Res) => getTeachers())
+        .catch((err) => setOpenModalSelectTeacher(true))
+    }
+    const handleDeleteTeacherWithAssign = (id: string) => {
+        const data = {teacher_id: id || ""};
+        deleteTeacherWithAssign(deletedTeacher, data).then((res) => getTeachers())
+        .finally(() => setOpenModalSelectTeacher(false))
+    }
     return (
         <div>
             <div className="d-flex justify-content-between">
@@ -57,11 +69,11 @@ const Teachers = () => {
 
             <GenericTable
                 data={teachers}
-                keyItem={"id"}
+                keyItem={"Id"}
                 onEdit={(f: TeacherForm) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={(v: string) => onSearchValue(v)}
-                onDelete={(v: TeacherForm) => console.log(v)}
+                onDelete={(v: any) => handleDeleteTeacher(v)}
                 itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "updatedAt", "status", "students"]}
                 singleDelete={true}
             ></GenericTable>
@@ -77,7 +89,7 @@ const Teachers = () => {
             </div>
             <div>
                 <ModalsHoc open={openModalSelectTeacher} title="Delete Warning !" onShow={(bool: boolean) => setOpenModalSelectTeacher(bool)}>
-                    <SelectTeacher onCancel={() => setOpenModalSelectTeacher(false)} onSubmit={() => console.log("c")} />
+                    <SelectTeacher teachers={teachers.filter((v: any) => v.Id !== deletedTeacher)} onCancel={() => setOpenModalSelectTeacher(false)} onSubmit={(v: any) => handleDeleteTeacherWithAssign(v)} />
                 </ModalsHoc>
             </div>
         </div>

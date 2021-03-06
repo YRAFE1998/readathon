@@ -15,6 +15,7 @@ export var axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((req: AxiosRequestConfig) => {
     showLoaderReq(true)
     req.headers = {...req.headers, 'x-access-token' : JSON.parse(localStorage.getItem("user") || '{}')?.accessToken || ""}
+    
     return req;
 })
 
@@ -29,6 +30,11 @@ axiosInstance.interceptors.response.use((resp: AxiosResponse) => {
 }, (error: AxiosError) => {
     if (error.response?.config.method !== 'get') {
         showToast({ color: "#f55b6f", header: "Error", message: error.response?.data.data || error.response?.data.message, open: true })
+    }
+    if (error.response?.status == 401) {
+        showToast({ color: "#f55b6f", header: "Error", message: error.response?.data.data || error.response?.data.message, open: true })
+        localStorage.removeItem("user");
+        window.location.href = "http://localhost:3000/#/auth/login"
     }
     showLoaderReq(false)
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { InputStyleComponent, InputValidationStyle, InputPalceholderStyle, MaxSizeStyle } from "./input.styles";
 import Icon from "../../assets/icons/Auth/icons-eye.svg";
 import { Typeahead } from "react-bootstrap-typeahead";
@@ -11,7 +11,9 @@ const InputComponent = (props: InputInfterface) => {
     const [seletedCountry, setSelectedCountry] = useState(countries[1]);
     const [passwordType, setPasswordType] = useState("password")
     const IconInput = props.icon ? props.icon as React.FC : null;
-
+    useEffect(() => {
+        setvalue(props.value)
+    }, [props.value])
     const renderFile = () => {
         return <>
             <InputStyleComponent style={{ border: "none" }}>

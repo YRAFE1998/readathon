@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { RegisterForm } from '../../interfaces/registerForm'
 import { LoginStyles } from '../Auth/Login/login.styles'
@@ -13,20 +13,34 @@ import { IconOrganization } from '../../assets/icons/Auth/icons-organization';
 import { IconPhone } from '../../assets/icons/Auth/icons-phone';
 import { registerValiadtionForm, registerValidation, ValidationSection } from '../../validations/registerFormValidation';
 import { CollapseHoc } from '../../HOCS/collapseHoc';
-import { registerSteps } from '../../utils/registerSteps';
+import { profileOrginazationSteps } from '../../utils/registerSteps';
 import { Container } from 'react-bootstrap';
+import { UserContext } from '../../Context/authContext';
+import { updateProfileOrganization } from '../../services/profile.service';
+import { baseURL } from '../../utils/baseUrl';
 
 const Profile = () => {
     const [form, setForm] = useState<RegisterForm>({})
     const [error, setError] = useState<RegisterForm>({})
-    const [steps, setSteps] = useState(registerSteps);
+    const [steps, setSteps] = useState(profileOrginazationSteps);
+    const { user, saveUser } = useContext<any>(UserContext);
+    useEffect(() => {
+        const userData = JSON.parse(JSON.stringify(user));
+        userData.countryCode = "+1";
+        userData.confirmPassword = "Asd123@@"
+        userData.password = "Asd123@@";
+        userData.organizationLogo = `${baseURL}/${user.organizationLogo}`
+        userData.schoolLogo = `${baseURL}/${user.schoolLogo}`
+
+        setForm({ ...form, ...userData })
+    }, [])
 
     const inputChange = (state: string, placeholder: string, value: string) => {
         const errorMessage = registerValidation(JSON.parse(JSON.stringify(state)), placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
         setForm({ ...form, [state]: value });
-        setSteps(ValidationSection({...form, [state]: value}, { ...error, [state]: errorMessage }, steps))
+        setSteps(ValidationSection({ ...form, [state]: value }, { ...error, [state]: errorMessage }, steps))
     }
 
 
@@ -47,7 +61,12 @@ const Profile = () => {
         e.preventDefault();
         const formValid = registerValiadtionForm(form);
         if (formValid.valid) {
-            
+            updateProfileOrganization(form).then((Res) => {
+                const userData = JSON.parse(JSON.stringify(form));
+                userData.confirmPassword = user.confirmPassword;
+                userData.password = user.password;
+                saveUser(userData);
+            })
         } else {
             setError({ ...error, ...formValid })
 
@@ -66,7 +85,7 @@ const Profile = () => {
     return (
         <Container>
             <LoginStyles>
-            <form onSubmit={handleSubmit} >
+                <form onSubmit={handleSubmit} >
                     <CollapseHoc header={"Account Information"} onClickNextStep={() => handleNextStep(1)} stepConfig={steps[0]}>
                         <div className={"inputSpaces"}>
                             {renderInputs("text", "name", "Contact Name", "Contact Name", IconEmail, true)}
@@ -81,17 +100,11 @@ const Profile = () => {
                         <div className={"inputSpaces"} >
                             {renderInputs("text", "email", "Enter Your Email", "Email", IconEmail, true)}
                         </div>
-                        <div className={"inputSpaces"}>
-                            {renderInputs("password", "password", "Password", "Password", IconsEye, true)}
-                        </div>
 
-                        <div className={"inputSpaces"}>
-                            {renderInputs("password", "confirmPassword", "Confirm Password", "Confirm Password", IconsEye, true)}
-                        </div>
                     </CollapseHoc>
 
                     <CollapseHoc header={"Organization Information"} stepConfig={steps[2]}>
-                        
+
                         <div className={"inputSpaces"}>
                             {renderInputs("file", "organizationLogo", "Organization Logo", "Organization Logo", IconsAttach, false)}
                         </div>
@@ -107,13 +120,13 @@ const Profile = () => {
                             {renderInputs("text", "schoolName", "School Name", "School Name", IconsBus, false)}
                         </div>
 
-                        </CollapseHoc>
+                    </CollapseHoc>
 
                     <div className={"btnSpaces"}>
-                        <RedButton type="submit">Save</RedButton>
+                        <RedButton type="submit">Save </RedButton>
                     </div>
                 </form>
-        </LoginStyles>
+            </LoginStyles>
         </Container>
     )
 }

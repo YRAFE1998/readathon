@@ -23,6 +23,7 @@ const GenericTable = (props: GenericTableInterface) => {
     const pageSizes = [10, 50, 100]
     const [selected, setSelected] = useState([])
     const history = useHistory();
+    const [selectedSingleDelete, setSelectedSingleDelete] = useState("");
     useEffect(() => {
         setChunkedData(_.chunk(props.data, pageSize))
         window.scrollTo(0, 0)
@@ -43,11 +44,11 @@ const GenericTable = (props: GenericTableInterface) => {
         props.onChangePage(page);
     }
     const handleSort = (direction: string, value: any) => {
-        let newData : any = [];
+        let newData: any = [];
         if (direction == "asc") {
-            newData = props?.data?.sort((a,b) => (a[value].toUpperCase() > b[value].toUpperCase()) ? 1 : ((b[value].toUpperCase() > a[value].toUpperCase()) ? -1 : 0))
+            newData = props?.data?.sort((a, b) => (a[value].toUpperCase() > b[value].toUpperCase()) ? 1 : ((b[value].toUpperCase() > a[value].toUpperCase()) ? -1 : 0))
         } else {
-            newData = props?.data?.sort((a,b) => (a[value].toUpperCase() < b[value].toUpperCase()) ? 1 : ((b[value].toUpperCase() < a[value].toUpperCase()) ? -1 : 0))
+            newData = props?.data?.sort((a, b) => (a[value].toUpperCase() < b[value].toUpperCase()) ? 1 : ((b[value].toUpperCase() < a[value].toUpperCase()) ? -1 : 0))
         }
         setPage(1);
         setChunkedData(_.chunk(newData, pageSize))
@@ -99,7 +100,16 @@ const GenericTable = (props: GenericTableInterface) => {
 
                 <div className="d-flex justify-content-center">
                     <div><RedBackgroundButton className="delete-btn"
-                        onClick={() => { props.onDelete && props?.onDelete(selected); setOpenDeleteConfirmation(false) }}>Delete</RedBackgroundButton></div>
+                        onClick={() => {
+                            if (props.onDelete) {
+                               if (props.singleDelete) {
+                                props?.onDelete(selectedSingleDelete);
+                               } else {
+                                props?.onDelete(selected);
+                            }
+                            setOpenDeleteConfirmation(false)
+                            }
+                        }}>Delete</RedBackgroundButton></div>
                     <div><RedOutlineButton className="delete-btn" onClick={() => setOpenDeleteConfirmation(false)}>Cancel</RedOutlineButton></div>
                 </div>
             </DeleteModalStyle>
@@ -188,7 +198,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 }
                                 {
                                     !props.readOnly && props.singleDelete &&
-                                    <td><div onClick={() => setOpenDeleteConfirmation(true)}><DeleteIcon /></div></td>
+                                    <td><div onClick={() => {setOpenDeleteConfirmation(true); setSelectedSingleDelete(item[props.keyItem || ""]) }}><DeleteIcon /></div></td>
                                 }
                                 {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
                                     <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>

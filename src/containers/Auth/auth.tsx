@@ -34,7 +34,7 @@ export const Auth = () => {
                             <Route path={"/auth/register"} component={Register}></Route>
                             <Route path={"/auth/login"} component={Login}></Route>
                             <Route path={"/auth/forget"} component={ForgetPassword}></Route>
-                            <Route path={"/auth/reset"} component={ResetPassword}></Route>
+                            <Route path={"/auth/reset/:id+"} component={ResetPassword}></Route>
                             <Redirect from="/" to="/auth/login" />
                         </Switch>
                         

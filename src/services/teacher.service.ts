@@ -13,7 +13,11 @@ export const updateTeacher = (data: TeacherForm) => {
 export const updateTeacherPassword = (data: any) => {
     return axiosInstance.put(`/api/update/teacherPassword/${data.id}`, data)
 }
-export const deleteTeacher = (id: number) => {
+export const deleteTeacher = (id: string) => {
 
-return axiosInstance.delete(`/api/delete/teacher/${id}`)
+    return axiosInstance.delete(`/api/delete/teacher/${id}`)
+}
+export const deleteTeacherWithAssign = (deletedTeacher: string, assignTeacher : any) => {
+    return axiosInstance.post(`/api/assignAndDelete/teacher/${deletedTeacher}`, assignTeacher)
+
 }
