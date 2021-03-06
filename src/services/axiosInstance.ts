@@ -2,6 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { AxiosResponse } from "axios";
 import { showToast } from "../HOCS/alert";
 import { showLoaderReq } from "../HOCS/loader";
+import { baseURL } from "../utils/baseUrl";
 
 
 
@@ -34,7 +35,7 @@ axiosInstance.interceptors.response.use((resp: AxiosResponse) => {
     if (error.response?.status == 401) {
         showToast({ color: "#f55b6f", header: "Error", message: error.response?.data.data || error.response?.data.message, open: true })
         localStorage.removeItem("user");
-        window.location.href = "http://localhost:3000/#/auth/login"
+        window.location.href = `${baseURL}/#/auth/login`
     }
     showLoaderReq(false)
 

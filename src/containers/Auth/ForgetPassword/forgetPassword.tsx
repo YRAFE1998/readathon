@@ -6,6 +6,7 @@ import { RedButton } from '../../../components/Buttons/redButton';
 import InputComponent from "../../../components/Input/input";
 import { ForgetPasswordForm } from '../../../interfaces/forgetPasswrod';
 import { forgetPasswordValiadtionForm, forgetPasswordValidation } from '../../../validations/forgetPasswordFormValidation';
+import { forgetPasswordApi } from '../../../services/auth.service';
 
 export const ForgetPassword = () => {
     const [form, setForm] = useState({email: ""})
@@ -38,8 +39,7 @@ export const ForgetPassword = () => {
         if (formValid.email) {
             setError({...error, ...formValid})
         } else {
-            console.log(form);
-            
+            forgetPasswordApi(form);
         }
     }
 

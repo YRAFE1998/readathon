@@ -17,3 +17,6 @@ export const resetPasswordApi = (data: ResetPasswordForm, token: string) => {
     return axiosInstance.post(`resetpassword/${token}`, data)
 
 }
+export const forgetPasswordApi = (data: any) => {
+    return axiosInstance.post("/api/forgetpassword/organization", data);
+}
