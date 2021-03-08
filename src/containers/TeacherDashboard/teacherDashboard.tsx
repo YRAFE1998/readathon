@@ -32,14 +32,14 @@ const TeacherDashboard = () => {
             </div>
             <div>
                 <div className="row">
-                    <div className="col-lg-3 col-md-12">
+                    <div className="col-lg-3 col-md-12 ">
                         <CampaginDashboard
                             header={"Campaign 01"}
                             startDate={" 1/1/2020"}
                             endDate={"31/1/2020"} />
                     </div>
 
-                    <div className="col-lg-3 col-md-12">
+                    <div className="col-lg-3 col-md-12" >
                         <CircleDashboardCard
                             header={"Money Raised"}
                             form={"2,000"}
@@ -48,9 +48,9 @@ const TeacherDashboard = () => {
                     </div>
 
 
-                    <div className="col-lg-3 col-md-12">
+                    <div className="col-lg-3 col-md-12" >
                         <CircleDashboardCard
-                            header={"Money Raised"}
+                            header={"Achievement"}
                             form={"2,000"}
                             to={"5,000"}
                             progress={50}
@@ -60,11 +60,11 @@ const TeacherDashboard = () => {
 
                     <div className="col-lg-3 col-md-12">
                         <div style={{marginTop: "45px"}}>
-                        <CustomsTopLabel header={"Top Funds"} data={topFund} />
+                        <CustomsTopLabel header={"Top Supporters"} data={topFund} />
 
                         </div>
                         <div>
-                        <CustomsTopLabel header={"Top Funds"} data={topAchievement} />
+                        <CustomsTopLabel header={"Top Students"} data={topAchievement} />
 
                         </div>
 

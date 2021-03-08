@@ -1,5 +1,6 @@
 
 import React, { Context, ContextType, createContext, useContext, useEffect, useState } from 'react';
+import Header from '../components/Header/header';
 
 
 export interface UserInterface {
@@ -20,7 +21,7 @@ export interface UserInterface {
 }
 export interface AuthInterface {
     user?: UserInterface;
-    saveUser: (params: UserInterface) => void;
+    saveUser?: (params: UserInterface) => void;
 }
 
 
@@ -37,13 +38,15 @@ const AuthContextProvider: any = (props: any) => {
         }
     }, [])
     const saveUser = (params: UserInterface) => {
-        localStorage.setItem('user', JSON.stringify({...params, isAuth: true}));
-        setUser({...user, ...params, isAuth: true})
+        localStorage.setItem('user', JSON.stringify({ ...params, isAuth: true }));
+        setUser({ ...user, ...params, isAuth: true })
     }
     return (
         <>
 
+            {user?.isAuth && <Header />}
             <UserContext.Provider value={{ user, saveUser }} >
+
                 {props.children}
             </UserContext.Provider>
         </>

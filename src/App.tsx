@@ -15,28 +15,30 @@ const Auth = React.lazy(() => import('./containers/Auth/auth'));
 function App() {
   return (
 
-    <HashRouter>
-        <Suspense fallback={<>Loading ....</>}>
-        <Loader>
-          <AlertComponent></AlertComponent>
-          <AuthContext>
-            
-            <Switch>
-            <ProtectedRoute>
-            <Route path={"/page"} component={Dashboard} />
-            <Route path={"/auth"} component={Auth}></Route>
+      <HashRouter>
+            <AuthContext>
 
-            </ProtectedRoute>
+        <Suspense fallback={<>Loading ....</>}>
+          <Loader>
+            <AlertComponent></AlertComponent>
+
+            <Switch>
+              <ProtectedRoute>
+                <Route path={"/page"} component={Dashboard} />
+                <Route path={"/auth"} component={Auth}></Route>
+
+              </ProtectedRoute>
 
               <Redirect from="/" to="/auth" />
               <Route component={NotFound} />
             </Switch>
-          </AuthContext>
           </Loader>
 
         </Suspense>
 
+    </AuthContext>
       </HashRouter>
+
   );
 }
 

@@ -23,7 +23,6 @@ export const DashboardModule = () => {
 
     return (
         <>
-            <Header></Header>
             <div style={{ background: "#F8F9FC", minHeight: "95vh" }}>
                 <Row>
                     

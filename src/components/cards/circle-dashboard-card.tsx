@@ -22,8 +22,8 @@ const CircleDashboardCard = (props: CircleDashboardCardInterface) => {
                     <CircularProgressbar value={10} text={`${10}%`}
                         styles={{
                             root: {
-                                width: "140px",
-                                height: "140px",
+                                width: "127px",
+                                height: "127px",
                             },
                             path: {
                                 stroke: `rgba(241, 150, 58)`,
