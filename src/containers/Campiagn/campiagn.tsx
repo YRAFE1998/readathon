@@ -29,6 +29,7 @@ const Campiagn = () => {
                 keyItem="id"
                 hasDashboardView={true}
                 hasManageView={true}
+                itemsExceptions={["id"]}
                 mangeLink={`/page/campaign-student`}
                 onEdit={(f: CampaignInterface) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}

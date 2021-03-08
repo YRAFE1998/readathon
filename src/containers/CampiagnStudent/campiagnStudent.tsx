@@ -7,6 +7,7 @@ import GenericTable from '../../components/Table/table'
 import ModalsHoc from '../../HOCS/modalsHoc'
 import { CampaignStudentInterface } from '../../interfaces/campaignStudentInterface'
 import { campaignsStudents } from '../../Mocks/campiagnStudents'
+import { teachers } from '../../Mocks/teachers'
 
 const CampiagnStudent = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -19,23 +20,25 @@ const CampiagnStudent = () => {
                     <PageTitle>Campaign Students</PageTitle>
                     <SubTitlePage>2,245 Campaign</SubTitlePage>
                 </div>
-                <div>
-                    <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Campaign Student</RedBackgroundButton>
-                </div>
+              
             </div>
             <GenericTable
                 data={campaignsStudents}
                 keyItem="id"
                 itemsExceptions={["id", "teacherId", "studentId"]}
                 
-                achivementLink={`/page/logAchivement`}
+                achivementLink={`/page/studentProgress`}
                 hasAchivement={true}
-            
+                selectFilter={true}
+                selectFilterArray={teachers}
+                selectFilterItemKey={"Id"}
+                selectFilterItemValue={"firstName"}
+                onSelectFilter={(v) => console.log(v)}
                 onEdit={(f: CampaignStudentInterface) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={() => console.log("search")}
                 onDelete={(v: CampaignStudentInterface) => console.log(v)}
-
+                removeEditButton={true}
             ></GenericTable>
 
             <div >

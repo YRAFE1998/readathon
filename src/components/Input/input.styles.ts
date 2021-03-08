@@ -27,6 +27,7 @@ align-items: center;
 
     
  }
+
  .input-file{
     width: 100px;
     height: 100px;
@@ -115,3 +116,27 @@ letter-spacing: normal;
 color: #666666;
 margin-bottom: 10px;
 `;
+
+export const TextAreaStyle = styled.textarea`
+height: 140px;
+
+margin: 10px 0 0;
+
+padding: 20px 3px 60px 20px;
+
+border-radius: 7px;
+
+border: solid 1px #e5e3e9;
+
+background-color: #ffffff;
+&::-webkit-scrollbar-track {
+    padding: 2px 0;
+  }
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #d8d8d8;
+  }
+`

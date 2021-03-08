@@ -20,4 +20,7 @@ export interface GenericTableInterface{
     onSelectFilter?: (params: any) => void;
     multipleAssign?: boolean;
     onAssign?: (params: any) => void;
+    removeEditButton? : boolean;
+    removeUnAssignSelectFiler?: boolean;
+    removeSearch?: boolean;
 }

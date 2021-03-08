@@ -87,9 +87,9 @@ const CampaignFormInputs = (props: any) => {
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
                 {renderSelect("campaignType", "Select Campaign Type", "Type", true, "name", [])}
             </div>
-            <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
+            {/* <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
                 {renderSelect("campaignUnit", "Select Campaign Unit", "Unit", true, "name", [])}
-            </div>
+            </div> */}
 
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }} >
                 {renderInputs("textarea", "moneyRaisedReson", "Why are you raising money?", "Why are you raising money?", null, true)}

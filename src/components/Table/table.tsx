@@ -14,6 +14,7 @@ import SelectFilter from '../Select/selectFilter'
 import { GenericTableInterface } from '../../interfaces/genericTableInterface'
 import * as _ from "lodash";
 import { pageNumbers } from '../../utils/pageShowesNumbers'
+import DeleteModalContent from '../Forms/deleteModalContent'
 
 const GenericTable = (props: GenericTableInterface) => {
     const [page, setPage] = useState(1)
@@ -95,24 +96,19 @@ const GenericTable = (props: GenericTableInterface) => {
     }
     const renderModal = () => (
         <ModalsHoc title={`Delete ${selected.length || 1} Items`} open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
-            <DeleteModalStyle>
-                <p className="delete-content">You're about to delete {selected.length || 1} Items, and you will no <br /> longer access them.</p>
-
-                <div className="d-flex justify-content-center">
-                    <div><RedBackgroundButton className="delete-btn"
-                        onClick={() => {
-                            if (props.onDelete) {
-                               if (props.singleDelete) {
-                                props?.onDelete(selectedSingleDelete);
-                               } else {
-                                props?.onDelete(selected);
-                            }
-                            setOpenDeleteConfirmation(false)
-                            }
-                        }}>Delete</RedBackgroundButton></div>
-                    <div><RedOutlineButton className="delete-btn" onClick={() => setOpenDeleteConfirmation(false)}>Cancel</RedOutlineButton></div>
-                </div>
-            </DeleteModalStyle>
+            <DeleteModalContent
+            number={selected.length}
+                onClose={() => setOpenDeleteConfirmation(false)}
+                onClick={() => {
+                    if (props.onDelete) {
+                        if (props.singleDelete) {
+                            props?.onDelete(selectedSingleDelete);
+                        } else {
+                            props?.onDelete(selected);
+                        }
+                        setOpenDeleteConfirmation(false)
+                    }
+                }}></DeleteModalContent>
         </ModalsHoc>
     )
 
@@ -121,15 +117,18 @@ const GenericTable = (props: GenericTableInterface) => {
             <TableStyles>
                 <div className="search-container-div d-md-flex justify-content-between align-items-center">
                     <div className="d-md-flex align-items-center">
+                        {
+                            !props.removeSearch && 
                         <div className="search-container">
                             <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => { props.onSearch(e.target.value); setPage(1) }} />
                             <i className="fa fa-search"></i>
                         </div>
+                        }
                         {
-                            props.selectFilter && <div className="mr-20">
+                            props.selectFilter && <div className="mr-20" style={{marginInlineStart: props.removeSearch ?  "0px": ""}}>
                                 <SelectFilter array={props.selectFilterArray}
                                     keyItem={props.selectFilterItemKey}
-                                    unAssign={true}
+                                    unAssign={!!!props.removeUnAssignSelectFiler}
                                     onChange={(v: any) => {
                                         props.onSelectFilter && props.onSelectFilter(v);
                                         setPage(1);
@@ -142,18 +141,19 @@ const GenericTable = (props: GenericTableInterface) => {
 
                         {
                             !props.readOnly && props.multipleAssign && <div>
-                                <RedBackgroundButton className="delete-btn" onClick={() => selected.length && props.onAssign && props.onAssign(selected)}>Assign</RedBackgroundButton>
+                                <RedBackgroundButton style={{ opacity: !selected.length ? "0.7" : "1" }} className="delete-btn" onClick={() => selected.length && props.onAssign && props.onAssign(selected)}>Assign</RedBackgroundButton>
                             </div>
                         }
                         {
                             !props.readOnly && !props.singleDelete && <div>
-                                <RedOutlineButton className="delete-btn" onClick={() => selected.length && setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
+                                <RedOutlineButton style={{ opacity: !selected.length ? "0.7" : "1" }}
+                                    className="delete-btn" onClick={() => selected.length && setOpenDeleteConfirmation(true)}>Delete</RedOutlineButton>
                             </div>
                         }
                     </div>
                 </div>
 
-                <Table responsive="md" className="table">
+                <Table responsive="lg" className="table">
                     <thead>
                         <tr className="tr-head">
                             {!props.readOnly && <th>Del</th>}
@@ -173,7 +173,7 @@ const GenericTable = (props: GenericTableInterface) => {
                             {!!props.hasDashboardView && <th>Dashboard</th>}
                             {!!props.hasManageView && <th>Manage</th>}
                             {!!props.hasAchivement && <th>Log Achievment</th>}
-                            {!props.readOnly && <th>Edit</th>}
+                            {!props.readOnly && !props.removeEditButton && <th>Edit</th>}
                         </tr>
                     </thead>
                     <tbody>
@@ -199,7 +199,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 }
                                 {
                                     !props.readOnly && props.singleDelete &&
-                                    <td><div onClick={() => {setOpenDeleteConfirmation(true); setSelectedSingleDelete(item[props.keyItem || ""]) }}><DeleteIcon /></div></td>
+                                    <td><div onClick={() => { setOpenDeleteConfirmation(true); setSelectedSingleDelete(item[props.keyItem || ""]) }}><DeleteIcon /></div></td>
                                 }
                                 {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
                                     <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>
@@ -207,7 +207,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 {!!props.hasDashboardView && <td style={{ color: ThemeColor.red }}>View</td>}
                                 {!!props.hasManageView && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
                                 {!!props.hasAchivement && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}`)}>View</td>}
-                                {!props.readOnly && <td className="edit-btn" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
+                                {!props.readOnly && !props.removeEditButton && <td className="edit-btn" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
 
                             </tr>
 

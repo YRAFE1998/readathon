@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { InputStyleComponent, InputValidationStyle, InputPalceholderStyle, MaxSizeStyle } from "./input.styles";
+import { InputStyleComponent, TextAreaStyle, InputValidationStyle, InputPalceholderStyle, MaxSizeStyle } from "./input.styles";
 import Icon from "../../assets/icons/Auth/icons-eye.svg";
 import { Typeahead } from "react-bootstrap-typeahead";
 import { InputInfterface } from '../../interfaces/input';
@@ -55,6 +55,28 @@ const InputComponent = (props: InputInfterface) => {
     const getFilteredCountry = () => {
         const index = countries.findIndex((v) => v?.name == seletedCountry?.name);
         return countries.slice((index > 0 ? index : 0), (index > 0 ? index : 0) + 1)
+    }
+    const renderTextArea = () => {
+        return <>
+                    <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
+
+                    <TextAreaStyle 
+                      value={value}
+                      onChange={(e) => {
+                          props?.onChange(e?.target?.value || "");
+                          setvalue(e?.target?.value);
+                      }}
+                      style={{width: "100%", border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : ""}}
+                      placeholder={props.placeholder}
+                    >
+                   
+
+                   
+                </TextAreaStyle>
+                <InputValidationStyle>
+                    {props.error}</InputValidationStyle>
+
+        </>
     }
     const renderMobile = () => {
         return <>
@@ -131,6 +153,9 @@ const InputComponent = (props: InputInfterface) => {
 
         } else if (props.type == 'tel') {
             return renderMobile()
+
+        } else if (props.type == "textarea") {
+            return renderTextArea()
 
         } else {
             return renderInput()

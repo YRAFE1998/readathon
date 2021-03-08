@@ -54,7 +54,7 @@ const LogAtchivementFormInput = (props: any) => {
                 {renderInputs("number", "achivement", "Achivement", "Achivement", null, true)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderInputs("text", "desc", "Desriptions", "Desriptions", null, true)}
+                {renderInputs("textarea", "desc", "Desriptions", "Desriptions", null, true)}
             </div>
 
             
