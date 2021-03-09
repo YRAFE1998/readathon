@@ -64,8 +64,8 @@ const CampiagnStudent = () => {
         }
     }
 
-    const handleDelete = (array: any[]) => {
-        deleteCampaingStudentsApi(campaignId, {studentId: array[0].Id}).then((Res) => getStudentCampaings());
+    const handleDelete = (id: any) => {
+        deleteCampaingStudentsApi(campaignId, {studentId: id}).then((Res) => getStudentCampaings());
 
     }
 
@@ -82,7 +82,7 @@ const CampiagnStudent = () => {
                 data={campaignsStudents}
                 keyItem="Id"
                 itemsExceptions={["Id", "students", "campaignId", "compaignStudentId", "teacher_id"]}
-
+                singleDelete={true}
                 achivementLink={`/page/studentProgress`}
                 hasAchivement={true}
                 selectFilter={true}

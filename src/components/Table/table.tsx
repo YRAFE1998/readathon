@@ -93,7 +93,7 @@ const GenericTable = (props: GenericTableInterface) => {
     const renderModal = () => (
         <ModalsHoc title={`Delete ${selected.length || 1} Items`} open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
             <DeleteModalContent
-                number={selected.length}
+                number={selected.length || (selectedSingleDelete? 1: 0)}
                 onClose={() => setOpenDeleteConfirmation(false)}
                 onClick={() => {
                     if (props.onDelete) {

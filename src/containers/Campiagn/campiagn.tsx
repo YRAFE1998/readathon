@@ -42,7 +42,8 @@ const Campiagn = () => {
         }
     }
     const handleDelete = (v: any) => {
-        deleteCampaingApi(v[0].Id).then((Res) => getAllCampaings());
+        debugger;
+        deleteCampaingApi(v).then((Res) => getAllCampaings());
     }
     return (
         <div>
@@ -59,6 +60,7 @@ const Campiagn = () => {
             <GenericTable
                 data={campaigns}
                 keyItem="Id"
+                singleDelete={true}
                 hasDashboardView={true}
                 hasManageView={true}
                 itemsExceptions={["Id", "theType", "organization_id", "question", "title", "actualDonation", "targetAchievement", "actualAchievement", "createdAt", "updatedAt"]}
