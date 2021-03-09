@@ -15,6 +15,7 @@ import { GenericTableInterface } from '../../interfaces/genericTableInterface'
 import * as _ from "lodash";
 import { pageNumbers } from '../../utils/pageShowesNumbers'
 import DeleteModalContent from '../Forms/deleteModalContent'
+import { handleSortGenirec } from '../../utils/sort'
 
 const GenericTable = (props: GenericTableInterface) => {
     const [page, setPage] = useState(1)
@@ -45,12 +46,7 @@ const GenericTable = (props: GenericTableInterface) => {
         props.onChangePage(page);
     }
     const handleSort = (direction: string, value: any) => {
-        let newData: any = [];
-        if (direction == "asc") {
-            newData = props?.data?.sort((a, b) => (a[value].toUpperCase() > b[value].toUpperCase()) ? 1 : ((b[value].toUpperCase() > a[value].toUpperCase()) ? -1 : 0))
-        } else {
-            newData = props?.data?.sort((a, b) => (a[value].toUpperCase() < b[value].toUpperCase()) ? 1 : ((b[value].toUpperCase() < a[value].toUpperCase()) ? -1 : 0))
-        }
+        let newData = handleSortGenirec(direction, value, JSON.parse(JSON.stringify(props?.data))) || []
         setPage(1);
         setChunkedData(_.chunk(newData, pageSize))
     }
@@ -97,7 +93,7 @@ const GenericTable = (props: GenericTableInterface) => {
     const renderModal = () => (
         <ModalsHoc title={`Delete ${selected.length || 1} Items`} open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
             <DeleteModalContent
-            number={selected.length}
+                number={selected.length}
                 onClose={() => setOpenDeleteConfirmation(false)}
                 onClick={() => {
                     if (props.onDelete) {
@@ -108,9 +104,14 @@ const GenericTable = (props: GenericTableInterface) => {
                         }
                         setOpenDeleteConfirmation(false)
                     }
+
                 }}></DeleteModalContent>
         </ModalsHoc>
     )
+
+    const defualtChecked = (item: any) => {
+       return !!selected.filter((v) => v[props.keyItem || ""] === item[props.keyItem || ""]).length
+    }
 
     return (
         <div>
@@ -118,14 +119,14 @@ const GenericTable = (props: GenericTableInterface) => {
                 <div className="search-container-div d-md-flex justify-content-between align-items-center">
                     <div className="d-md-flex align-items-center">
                         {
-                            !props.removeSearch && 
-                        <div className="search-container">
-                            <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => { props.onSearch(e.target.value); setPage(1) }} />
-                            <i className="fa fa-search"></i>
-                        </div>
+                            !props.removeSearch &&
+                            <div className="search-container">
+                                <input className="" type="search" name="search" id="search" placeholder="search " onChange={(e) => { props.onSearch(e.target.value); setPage(1) }} />
+                                <i className="fa fa-search"></i>
+                            </div>
                         }
                         {
-                            props.selectFilter && <div className="mr-20" style={{marginInlineStart: props.removeSearch ?  "0px": ""}}>
+                            props.selectFilter && <div className="mr-20" style={{ marginInlineStart: props.removeSearch ? "0px" : "" }}>
                                 <SelectFilter array={props.selectFilterArray}
                                     keyItem={props.selectFilterItemKey}
                                     unAssign={!!!props.removeUnAssignSelectFiler}
@@ -153,7 +154,7 @@ const GenericTable = (props: GenericTableInterface) => {
                     </div>
                 </div>
 
-                <Table responsive="lg" className="table">
+                <Table responsive className="table">
                     <thead>
                         <tr className="tr-head">
                             {!props.readOnly && <th>Del</th>}
@@ -182,6 +183,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 {
                                     !props.readOnly && !props.singleDelete && <td>  <FormCheck
                                         color={"red"}
+                                        checked={defualtChecked(item)}
                                         type="checkbox"
                                         id={`default-checkbox`}
                                         onChange={(e) => {

@@ -102,7 +102,7 @@ const Students = () => {
             </div>
             <GenericTable
                 data={students}
-                keyItem="id"
+                keyItem="Id"
                 itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id"]}
                 onEdit={(f: StudentForm) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}

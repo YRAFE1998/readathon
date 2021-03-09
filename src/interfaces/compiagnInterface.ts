@@ -1,11 +1,10 @@
 export interface CampaignInterface{
-    campaignType?: any;
-    campaignUnit?: any;
-    campaignTitle?: string;
+    Id?: string,
+    theType?: string;
+    title?: string;
     startDate?: string;
     endDate?: string;
-    targetUnit?:  string;
-    moneyRaised?: string;
-    donationTarget?: string;
-    moneyRaisedReson?: string;
+    targetDonation?: any;
+    targetAchievement?: any;
+    question?: string;
 }

@@ -121,3 +121,14 @@ export const campaigns = [
         
     }
 ]
+
+export const campaignTypes = [
+    {
+        Id: "1",
+        name: "Reading"
+    },
+    {
+        Id: "2",
+        name: "Donation"
+    }
+]

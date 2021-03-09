@@ -1,18 +1,13 @@
 import { CampaignInterface } from "../interfaces/compiagnInterface";
 export const campaignValidation = (state: (keyof CampaignInterface) , placeholder: string, value: string) => {
 
-    if (state == 'campaignTitle' && !value) {
+    if (state == 'title' && !value) {
         return "Campaign Title Required"
     }
-
-    if (state == 'campaignUnit' && !value) {
-        return "Campaign Unit Required"
-    }
-    
-    if (state == 'campaignType' && !value) {
+    if (state == 'theType' && !value) {
         return "Campaign Type Required"
     }
-    
+
     if (state == 'startDate' && !value) {
         return "Start Date Required"
     }
@@ -21,16 +16,16 @@ export const campaignValidation = (state: (keyof CampaignInterface) , placeholde
         return "End Date Required"
     }
     
-    if (state == 'moneyRaised' && !value) {
-        return "Money Raised Required"
+    if (state == 'question' && !value) {
+        return "Question Required"
     }
     
-    if (state == 'donationTarget' && !value) {
+    if (state == 'targetDonation' && !value) {
         return "Donation Target Required"
     }
     
-    if (state == 'targetUnit' && !value) {
-        return "Target Unit Required"
+    if (state == 'targetAchievement' && !value) {
+        return "Target Achievement Required"
     }
     
     return ""
@@ -38,14 +33,12 @@ export const campaignValidation = (state: (keyof CampaignInterface) , placeholde
 
 export const campaignValiadtionForm = (value: CampaignInterface) => {
     const data = {} as CampaignInterface
-    if (!value.campaignTitle) {
-        data.campaignTitle = "Campaign Title Required"
+    if (!value.title) {
+        data.title = "Campaign Title Required"
     }
-    if (!value.campaignUnit) {
-        data.campaignUnit = "Campaign Unite Required"
-    }
-    if (!value.campaignType) {
-        data.campaignType = "Campaign Type Required"
+    
+    if (!value.theType) {
+        data.theType = "Campaign Type Required"
     }
     if (!value.startDate) {
         data.startDate = "Start Date Required"
@@ -53,16 +46,16 @@ export const campaignValiadtionForm = (value: CampaignInterface) => {
     if (!value.endDate) {
         data.endDate = "End Date Required"
     }
-    if (!value.moneyRaised) {
-        data.moneyRaised = "Money Raised Required"
+    if (!value.question) {
+        data.question = "Question Required"
     }
-    if (!value.donationTarget) {
-        data.donationTarget = "Donation Target Required"
+    if (!value.targetDonation) {
+        data.targetDonation = "Donation Target Required"
     }
-    if (!value.targetUnit) {
-        data.targetUnit = "Target Unit Required"
+    if (!value.targetAchievement) {
+        data.targetAchievement = "Target Achievement Required"
     }
-    const valid = data.campaignTitle || data.campaignType || data.campaignUnit || data.donationTarget || data.endDate || data.moneyRaised || data.startDate || data.targetUnit ? false : true;
+    const valid = data.title || data.theType || data.question || data.targetDonation || data.endDate || data.targetAchievement || data.startDate ? false : true;
     
     return { valid: valid, ...data };
 }

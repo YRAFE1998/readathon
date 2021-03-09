@@ -48,6 +48,7 @@ export const TableStyles = styled.div`
         color: #948f90;
         border: 1px solid ${ThemeColor.borderColor};
         padding: 20px;
+        white-space: nowrap;
     }
     .tr-head{
         background: ${ThemeColor.tableHeadColor}
