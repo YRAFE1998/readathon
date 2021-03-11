@@ -10,7 +10,7 @@ const ProtectedRoute = (props: any) => {
         var retrievedUser = JSON.parse(localStorage.getItem('user') || '{}');
         if (retrievedUser?.isAuth) {
             if (location.pathname.includes("auth") || location.pathname == '/') {
-                history.push("/page/dashboard");
+                history.push("/page/home");
             }
         }
         if (!retrievedUser?.isAuth) {

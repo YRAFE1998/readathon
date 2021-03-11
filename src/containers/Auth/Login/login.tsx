@@ -46,7 +46,7 @@ export const Login = () => {
         } else {
             login(form).then((res) => {
                 saveUser(res.data)
-                history.push("/page/dashboard")
+                history.push("/page/home")
             })
         }
     }

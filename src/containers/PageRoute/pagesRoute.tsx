@@ -1,12 +1,7 @@
 import React, { Suspense } from 'react'
 
-import { BrowserRouter, Switch, Route, Redirect, useLocation, useHistory, } from "react-router-dom";
-
-import Image from "../../assets/Images/Auth/child.png";
-import LogoImage from "../../assets/Images/Main/logo.png";
+import { Switch, Route, Redirect, useLocation, useHistory, } from "react-router-dom";
 import { Row, Col, Button } from 'react-bootstrap';
-import Header from '../../components/Header/header';
-import SideMenu from '../../components/SideMenu/sideMenu';
 const Home = React.lazy(() => import('../Home/home'));
 const Teachers = React.lazy(() => import('../Teachers/teachers'));
 const Students = React.lazy(() => import('../Students/students'))
@@ -25,10 +20,10 @@ export const DashboardModule = () => {
         <>
             <div style={{ background: "#F8F9FC", minHeight: "95vh" }}>
                 <Row>
-                    
+
                     <Col md={12} className="containerPages">
                         <Switch>
-                            <Route path={"/page/dashboard"} component={Home}></Route>
+                            <Route path={"/page/home"} component={Home}></Route>
                             <Route path={"/page/teachers"} component={Teachers}></Route>
                             <Route path={"/page/teacherDashboard"} component={TeacherDashboard}></Route>
                             <Route path={"/page/students"} component={Students}></Route>

@@ -21,12 +21,13 @@ const Header = (props: any) => {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link > <NavLink to="/page/dashboard" className="item" activeClassName="active" >Home</NavLink> </Nav.Link>
+                            <Nav.Link > <NavLink to="/page/home" className="item" activeClassName="active" >Home</NavLink> </Nav.Link>
+                            <Nav.Link > <NavLink to="/page/teachers" className="item" activeClassName="active" >Teachers</NavLink> </Nav.Link>
 
-                            <NavDropdown className={`item ${location.includes("teachers") && 'active'}`} title="Teacher" id="collasible-nav-dropdown-teacher">
+                            {/* <NavDropdown className={`item ${location.includes("teachers") && 'active'}`} title="Teacher" id="collasible-nav-dropdown-teacher">
                                 <NavDropdown.Item ><NavLink to="/page/teachers" className="item" activeClassName="active" >Teachers</NavLink></NavDropdown.Item>
                                 <NavDropdown.Item ><NavLink to="/page/teacherDashboard" className="item" activeClassName="active" >Teacher Dashboard</NavLink></NavDropdown.Item>
-                            </NavDropdown>
+                            </NavDropdown> */}
 
                             <Nav.Link > <NavLink to="/page/students" className="item" activeClassName="active" >Students</NavLink> </Nav.Link>
 
