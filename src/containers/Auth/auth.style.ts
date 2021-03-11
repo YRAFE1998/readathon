@@ -28,7 +28,11 @@ display: flex;
         flex-direction: column;
         justify-content: center;
         min-height: 100vh;
-        padding: 0px 15%
+        padding: 0px 15%;
+        @media (max-width: 1000px) {
+          padding: 0px 25px;
+
+        }
 
   }
   .btn-route{

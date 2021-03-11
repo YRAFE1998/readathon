@@ -34,7 +34,7 @@ const InputComponent = (props: InputInfterface) => {
                         value ?
                             <img className="imageUpload" src={value} alt="img" />
                             : <label htmlFor={`${props.state}file`} >
-                                {IconInput && <IconInput />}
+                                { <span className="iconRender"> {IconInput && <IconInput />}</span> }
                             </label>
                     }
                     <input
@@ -59,10 +59,7 @@ const InputComponent = (props: InputInfterface) => {
         </>
 
     }
-    const getFilteredCountry = () => {
-        const index = countries.findIndex((v) => v?.name == seletedCountry?.name);
-        return countries.slice((index > 0 ? index : 0), (index > 0 ? index : 0) + 1)
-    }
+ 
     const renderTextArea = () => {
         return <>
             <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
@@ -96,7 +93,6 @@ const InputComponent = (props: InputInfterface) => {
                     <div className="typeHead">  + 1</div>
                 </div>
                 <input
-                    style={{ width: "60%" }}
                     value={value}
                     onChange={(e) => {
                         props?.onChange(`${e?.target?.value.toString()}` || "");
@@ -107,7 +103,7 @@ const InputComponent = (props: InputInfterface) => {
                     type={"number"}
                     placeholder={props.placeholder}
                     className="input" />
-                <span >
+                <span className="iconRender" >
                     {IconInput && <IconInput />}
                 </span>
             </InputStyleComponent>
@@ -141,7 +137,7 @@ const InputComponent = (props: InputInfterface) => {
                         placeholder={props.placeholder}
                         className="input" />
 
-                    <span onClick={() => props.type == 'password' && setPasswordType(passwordType == 'password' ? "text" : "password")}>
+                    <span className="iconRender" onClick={() => props.type == 'password' && setPasswordType(passwordType == 'password' ? "text" : "password")}>
 
                         {IconInput && <IconInput />}
                     </span>
@@ -179,7 +175,7 @@ const InputComponent = (props: InputInfterface) => {
                     />
                     <span className="dateIcon" onClick={() => setOpenDate(!openDate)}> <IconsCalendar /></span>
 
-                    <span >
+                    <span className="iconRender" >
 
                         {IconInput && <IconInput />}
                     </span>

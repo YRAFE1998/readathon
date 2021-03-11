@@ -37,8 +37,13 @@ align-items: center;
     }
   }
 }
+.iconRender{
+  position: absolute;
+  right: 25px;
+  z-index: 0;
+}
  .input{
-     width: 94%;
+     width: 100%;
      border: none;
      font-family: SourceSansPro;
      font-size: 20px;

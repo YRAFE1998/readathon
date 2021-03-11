@@ -22,6 +22,12 @@ padding-top: 35px;
 }
 .stepContainer{
     margin-inline-end:  20px;
+    @media (max-width: 1000px) {
+        margin-inline-end:  10px;
+
+
+      }
+    
 }
 .stepCounter{
     font-family: SourceSansPro;
