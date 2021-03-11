@@ -67,6 +67,7 @@ export const TableStyles = styled.div`
         letter-spacing: normal;
         color: ${ThemeColor.grayColor};
         padding: 20px;
+        white-space: nowrap;
     }
 }
 .fa-trash-alt{
