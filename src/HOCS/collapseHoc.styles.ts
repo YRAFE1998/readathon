@@ -24,8 +24,6 @@ padding-top: 35px;
     margin-inline-end:  20px;
     @media (max-width: 1000px) {
         margin-inline-end:  10px;
-
-
       }
     
 }

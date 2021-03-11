@@ -7,7 +7,7 @@ import LogoImage from "../../assets/Images/Main/logo.png";
 import { Row, Col, Button } from 'react-bootstrap';
 import Header from '../../components/Header/header';
 import SideMenu from '../../components/SideMenu/sideMenu';
-const Dashboard = React.lazy(() => import('./dashboard/dashboard'));
+const Home = React.lazy(() => import('../Home/home'));
 const Teachers = React.lazy(() => import('../Teachers/teachers'));
 const Students = React.lazy(() => import('../Students/students'))
 const Campaigns = React.lazy(() => import('../Campiagn/campiagn'));
@@ -28,7 +28,7 @@ export const DashboardModule = () => {
                     
                     <Col md={12} className="containerPages">
                         <Switch>
-                            <Route path={"/page/dashboard"} component={Dashboard}></Route>
+                            <Route path={"/page/dashboard"} component={Home}></Route>
                             <Route path={"/page/teachers"} component={Teachers}></Route>
                             <Route path={"/page/teacherDashboard"} component={TeacherDashboard}></Route>
                             <Route path={"/page/students"} component={Students}></Route>

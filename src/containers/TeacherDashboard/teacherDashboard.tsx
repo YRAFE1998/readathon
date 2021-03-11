@@ -81,6 +81,8 @@ const TeacherDashboard = () => {
                 hasDashboardView={true}
                 hasManageView={true}
                 mangeLink={`/page/campaign-student`}
+                dashboardLink={`/page/campiagnDashboard`}
+
                 onChangePage={() => console.log("page")}
                 onSearch={() => console.log("search")}
 

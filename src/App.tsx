@@ -7,7 +7,9 @@ import AlertComponent from "./HOCS/alert";
 import AuthContext from "./Context/authContext";
 import Loader from "./HOCS/loader";
 import ProtectedRoute from "./HOCS/ProtectedRoute";
-const Dashboard = React.lazy(() => import('./containers/dashboard/dashboard'));
+import { LoaderStyles } from "./HOCS/loader.styles";
+import ScrollToTop from "./HOCS/scrollTop";
+const Dashboard = React.lazy(() => import('./containers/PageRoute/pagesRoute'));
 const NotFound = React.lazy(() => import('./containers/Not-Found/not-found'));
 const Auth = React.lazy(() => import('./containers/Auth/auth'));
 
@@ -15,12 +17,17 @@ const Auth = React.lazy(() => import('./containers/Auth/auth'));
 function App() {
   return (
 
-      <HashRouter>
-            <AuthContext>
+    <HashRouter>
+      <AuthContext>
 
-        <Suspense fallback={<>Loading ....</>}>
+        <Suspense fallback={<>
+          <LoaderStyles style={{ background: "#00000033" }}>
+            <div className="loader"></div>
+          </LoaderStyles>
+        </>}>
           <Loader>
             <AlertComponent></AlertComponent>
+            <ScrollToTop />
 
             <Switch>
               <ProtectedRoute>
@@ -36,8 +43,8 @@ function App() {
 
         </Suspense>
 
-    </AuthContext>
-      </HashRouter>
+      </AuthContext>
+    </HashRouter>
 
   );
 }
