@@ -18,14 +18,18 @@ const CampaignStudentFormInput = (props: any) => {
     }, [props.value])
 
     const inputChange = (state: any, placeholder: string, value: string) => {
-        const errorMessage = campaignValidation(state, placeholder, value);
-        if (errorMessage) setError({ ...error, [state]: errorMessage })
-        else setError({ ...error, [state]: "" });
+      
         setForm({ ...form, [state]: value });
 
     }
+
+    const inputValidation = (state: any, placeholder: string, value: string) => {
+        const errorMessage = campaignValidation(state, placeholder, value);
+        if (errorMessage) setError({ ...error, [state]: errorMessage })
+        else setError({ ...error, [state]: "" });
+    }
+    
     const handleSubmit = (e: any) => {
-        debugger;
         const formValid = campaignValiadtionForm(JSON.parse(JSON.stringify(form)));
         if (formValid.valid) {
             props.submit(form)
@@ -44,6 +48,8 @@ const CampaignStudentFormInput = (props: any) => {
             options={students}
             dispalyName={"firstName"}
             onChange={(v) => inputChange(state, placeholder, v)}
+            onBlur={(v) => inputValidation(state, name, v)}
+
         />
     }
     

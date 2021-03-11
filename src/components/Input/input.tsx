@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { InputStyleComponent, TextAreaStyle, InputValidationStyle, InputPalceholderStyle, MaxSizeStyle } from "./input.styles";
 import Icon from "../../assets/icons/Auth/icons-eye.svg";
 import { Typeahead } from "react-bootstrap-typeahead";
@@ -6,10 +6,17 @@ import { InputInfterface } from '../../interfaces/input';
 import { ThemeColor } from '../../utils/colors';
 import { countries } from '../../utils/coutries';
 import { DeleteIcon } from '../../assets/icons/Main/deleteIcon';
+import moment from 'moment';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
+import IconsCalendar from '../../assets/icons/Main/icons-calendar';
+import numeral from 'numeral';
 const InputComponent = (props: InputInfterface) => {
     const [value, setvalue] = useState(props.value || "");
     const [seletedCountry, setSelectedCountry] = useState(countries[1]);
     const [passwordType, setPasswordType] = useState("password")
+    const [openDate, setOpenDate] = useState(false);
     const IconInput = props.icon ? props.icon as React.FC : null;
     useEffect(() => {
         setvalue(props.value)
@@ -17,18 +24,18 @@ const InputComponent = (props: InputInfterface) => {
     const renderFile = () => {
         return <>
             <InputStyleComponent style={{ border: "none" }}>
-                <label className="input-file" style={{padding: value && "18px", width: value && "110px", height: value && "110px"}} >
+                <label className="input-file" style={{ padding: value && "18px", width: value && "110px", height: value && "110px" }} >
                     {!!value && <div className="delteIcon" onClick={(e) => {
                         e.preventDefault();
                         setvalue(null);
                         props.onChange(null);
-                    }}><DeleteIcon/></div>}
+                    }}><DeleteIcon /></div>}
                     {
                         value ?
-                        <img className="imageUpload" src={value} alt="img"/> 
-                        :<label htmlFor={`${props.state}file`} >
-                            {IconInput && <IconInput />}
-                    </label>
+                            <img className="imageUpload" src={value} alt="img" />
+                            : <label htmlFor={`${props.state}file`} >
+                                {IconInput && <IconInput />}
+                            </label>
                     }
                     <input
                         id={`${props.state}file`}
@@ -58,23 +65,25 @@ const InputComponent = (props: InputInfterface) => {
     }
     const renderTextArea = () => {
         return <>
-                    <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
+            <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
 
-                    <TextAreaStyle 
-                      value={value}
-                      onChange={(e) => {
-                          props?.onChange(e?.target?.value || "");
-                          setvalue(e?.target?.value);
-                      }}
-                      style={{width: "100%", border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : ""}}
-                      placeholder={props.placeholder}
-                    >
-                   
+            <TextAreaStyle
+                value={value}
+                onChange={(e) => {
+                    props?.onChange(e?.target?.value || "");
+                    setvalue(e?.target?.value);
+                }}
+                style={{ width: "100%", border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "" }}
+                placeholder={props.placeholder}
+                onBlur={(e) => props.onBlur && props.onBlur(e?.target?.value)}
 
-                   
-                </TextAreaStyle>
-                <InputValidationStyle>
-                    {props.error}</InputValidationStyle>
+            >
+
+
+
+            </TextAreaStyle>
+            <InputValidationStyle>
+                {props.error}</InputValidationStyle>
 
         </>
     }
@@ -85,21 +94,6 @@ const InputComponent = (props: InputInfterface) => {
             <InputStyleComponent style={{ padding: "0px", border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "", }}>
                 <div className={"typeHeadContainer"} >
                     <div className="typeHead">  + 1</div>
-                    {/* <Typeahead
-                        inputProps={{ className: "typeHead" }}
-                        onChange={(selected) => {
-                            setSelectedCountry(selected[0]);
-                            props?.onChange(`${ selected[0]}${' '}${value}` || "");
-                            
-                        }}
-                        placeholder={"+ 1"}
-                        options={countries}
-                        filterBy={["dial_code", "name"]}
-                        defaultSelected={getFilteredCountry()}
-                        labelKey={option => `${option.dial_code}`}
-                        id={"phone"}
-                    /> */}
-
                 </div>
                 <input
                     style={{ width: "60%" }}
@@ -108,6 +102,8 @@ const InputComponent = (props: InputInfterface) => {
                         props?.onChange(`${e?.target?.value.toString()}` || "");
                         setvalue(`${e?.target?.value.toString()}` || "");
                     }}
+                    onBlur={(e) => props.onBlur && props.onBlur(`${e?.target?.value.toString()}` || "")}
+
                     type={"number"}
                     placeholder={props.placeholder}
                     className="input" />
@@ -121,23 +117,32 @@ const InputComponent = (props: InputInfterface) => {
         </>
     }
     const renderInput = () => {
-        return ( 
+        return (
             <>
                 <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
                 <InputStyleComponent style={{ border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "" }}>
                     <input
-                        value={value}
+                        value={props.type == "number" && value ? numeral(value).format("0,0") : value}
                         onChange={(e) => {
-                            props?.onChange(e?.target?.value || "");
-                            setvalue(e?.target?.value);
+                            if (props.type == "number") {
+                                const val = e?.target?.value;
+                                props?.onChange(numeral(val).value() || "");
+                                setvalue(numeral(val).value());
+                            } else {
+                                
+                                props?.onChange(e?.target?.value || "");
+                                setvalue(e?.target?.value);
+                            }
                         }}
-                        type={props.type == 'password' ? passwordType : props.type}
-                        style={{width: props.type == 'date' ? "100%": ""}}
+                        onBlur={(e) => props.onBlur && props.onBlur(e?.target?.value)}
+                        required={props.required}
+                        type={props.type == 'password' ? passwordType : "text"}
+                        style={{ width: props.type == 'date' ? "100%" : "" }}
                         placeholder={props.placeholder}
                         className="input" />
 
                     <span onClick={() => props.type == 'password' && setPasswordType(passwordType == 'password' ? "text" : "password")}>
-                        
+
                         {IconInput && <IconInput />}
                     </span>
                 </InputStyleComponent>
@@ -145,6 +150,46 @@ const InputComponent = (props: InputInfterface) => {
                     {props.error}</InputValidationStyle>
             </>
         )
+    }
+
+    const renderDate = () => {
+
+        return (
+            <>
+                <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
+                <InputStyleComponent style={{ border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "" }}>
+                    <DatePicker
+                        open={openDate}
+                        onCalendarClose={() => setOpenDate(!openDate)}
+                        onClickOutside={() => setOpenDate(!openDate)}                        
+                        onCalendarOpen={() => setOpenDate(true)}
+                        minDate={new Date(moment().add(1,"day").format("yyyy-MM-DD"))}
+                        placeholderText={moment().format("yyyy-MM-DD")}
+                        dateFormat={"dd MMMM yyyy"}
+                        selected={value && new Date(value)}
+                        onChange={(date: any) => {
+                            const newDate = moment(date).format("yyyy-MM-DD")
+                            props?.onChange(newDate);
+                            setvalue(newDate);
+                            props.onBlur && props?.onBlur(newDate)
+                            setOpenDate(false)
+                        }}
+                        onBlur={(e) => props.onBlur && props.onBlur(value)}
+
+                    />
+                    <span className="dateIcon" onClick={() => setOpenDate(!openDate)}> <IconsCalendar /></span>
+
+                    <span >
+
+                        {IconInput && <IconInput />}
+                    </span>
+
+                </InputStyleComponent>
+                <InputValidationStyle>
+                    {props.error}</InputValidationStyle>
+            </>
+        )
+
     }
 
     const renderComponent = () => {
@@ -156,6 +201,9 @@ const InputComponent = (props: InputInfterface) => {
 
         } else if (props.type == "textarea") {
             return renderTextArea()
+
+        } else if (props.type == "date") {
+            return renderDate()
 
         } else {
             return renderInput()

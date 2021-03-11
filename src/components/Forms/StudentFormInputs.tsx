@@ -21,11 +21,14 @@ const StudentFormInputs = (props: any) => {
     }, [props.value])
 
     const inputChange = (state: string, placeholder: string, value: string) => {
+       
+        setForm({ ...form, [state]: value });
+
+    }
+    const inputValidation = (state: any, placeholder: string, value: string) => {
         const errorMessage = studentsValidation(state, placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
-        setForm({ ...form, [state]: value });
-
     }
     const handleSubmit = (e: any) => {
         const formValid = studentsValiadtionForm(form);
@@ -45,6 +48,8 @@ const StudentFormInputs = (props: any) => {
             icon={Icon}
             onChange={(v) => inputChange(state, name, v)}
             required={required}
+            onBlur={(v) => inputValidation(state, name, v)}
+
         />
     }
     const renderSelect = (state: (keyof StudentForm), placeholder: string, name: string, required: boolean, label: string) => {
@@ -58,6 +63,8 @@ const StudentFormInputs = (props: any) => {
             options={props.teachers}
             dispalyName={"fname"}
             onChange={(v) => inputChange(state, placeholder, v)}
+            onBlur={(v) => inputValidation(state, name, v)}
+
         />
     }
 

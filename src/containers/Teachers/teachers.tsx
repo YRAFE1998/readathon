@@ -9,6 +9,7 @@ import TeacherFormInput from '../../components/Forms/TeacherForm';
 import { TeacherForm } from '../../interfaces/teacherForm';
 import SelectTeacher from '../../components/Forms/selectTeacherInput';
 import { addTeacher, deleteTeacher, deleteTeacherWithAssign, getAllTeachers, updateTeacher } from '../../services/teacher.service';
+import numeral from 'numeral';
 
 const Teachers = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -58,8 +59,9 @@ const Teachers = () => {
         <div>
             <div className="d-flex justify-content-between">
                 <div>
+                
                     <PageTitle>Teachers</PageTitle>
-                    <SubTitlePage>{teachers.length} Teacher</SubTitlePage>
+                    <SubTitlePage>{numeral(teachers.length).format("0,0")} Teacher</SubTitlePage>
                 </div>
                 <div>
                     <RedOutlineButton> Import Teachers</RedOutlineButton>

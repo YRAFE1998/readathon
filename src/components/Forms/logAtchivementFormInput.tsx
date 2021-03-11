@@ -23,6 +23,12 @@ const LogAtchivementFormInput = (props: any) => {
         setForm({ ...form, [state]: value });
 
     }
+
+    const inputValidation = (state: any, placeholder: string, value: string) => {
+        const errorMessage = logAchivementValidation(state, placeholder, value);
+        if (errorMessage) setError({ ...error, [state]: errorMessage })
+        else setError({ ...error, [state]: "" });
+    }
     const handleSubmit = (e: any) => {
         debugger;
         const formValid = logAchivementValiadtionForm(form);
@@ -42,6 +48,8 @@ const LogAtchivementFormInput = (props: any) => {
             icon={Icon}
             onChange={(v) => inputChange(state, name, v)}
             required={required}
+            onBlur={(v) => inputValidation(state, name, v)}
+
         />
     }
 

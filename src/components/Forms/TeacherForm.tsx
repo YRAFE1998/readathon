@@ -20,11 +20,14 @@ const TeacherInputForm = (props: any) => {
     }, [props.value])
 
     const inputChange = (state: string, placeholder: string, value: string) => {
+       
+        setForm({ ...form, [state]: value });
+
+    }
+    const inputValidation = (state: any, placeholder: string, value: string) => {
         const errorMessage = teacherValidation(state, placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
-        setForm({ ...form, [state]: value });
-
     }
     const handleSubmit = (e: any) => {
         const formValid = teacherValiadtionForm(form);
@@ -44,6 +47,7 @@ const TeacherInputForm = (props: any) => {
             icon={Icon}
             onChange={(v) => inputChange(state, name, v)}
             required={required}
+            onBlur={(v) => inputValidation(state, name, v)}
         />
     }
 

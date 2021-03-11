@@ -1,3 +1,4 @@
+import numeral from 'numeral'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CampaignStudentFormInput from '../../components/Forms/campaignStudentFormInput'
@@ -74,7 +75,7 @@ const CampiagnStudent = () => {
             <div className="d-flex justify-content-between">
                 <div>
                     <PageTitle>Campaign Students</PageTitle>
-                    <SubTitlePage>{campaignsStudents.length} Campaign</SubTitlePage>
+                    <SubTitlePage>{numeral(campaignsStudents.length).format("0,0")} Campaign</SubTitlePage>
                 </div>
 
             </div>

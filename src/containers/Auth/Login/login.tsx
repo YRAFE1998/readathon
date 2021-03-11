@@ -13,13 +13,16 @@ import { UserContext } from '../../../Context/authContext';
 export const Login = () => {
     const [form, setForm] = useState<LoginForm>({})
     const [error, setError] = useState<LoginForm>({})
-    const {saveUser} = useContext<any>(UserContext)
+    const { saveUser } = useContext<any>(UserContext)
     const history = useHistory();
     const inputChange = (state: string, placeholder: string, value: string) => {
+
+        setForm({ ...form, [state]: value });
+    }
+    const inputValidation = (state: string, placeholder: string, value: string) => {
         const errorMessage = loginValidation(state, placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
-        setForm({ ...form, [state]: value });
     }
 
     const renderInputs = (type: string, state: (keyof LoginForm), placeholder: string, name: string, Icon: React.FC, required: boolean) => {
@@ -31,6 +34,7 @@ export const Login = () => {
             value={form[state]}
             icon={Icon}
             required={required}
+            onBlur={(v) => inputValidation(state, name, v)}
             onChange={(v) => inputChange(state, name, v)}
         />
     }

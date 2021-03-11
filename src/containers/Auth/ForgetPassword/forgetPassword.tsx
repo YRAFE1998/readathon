@@ -23,16 +23,20 @@ export const ForgetPassword = () => {
             icon={Icon}
             required={required}
             onChange={(v) => inputChange(state, name, v)}
+            onBlur={(v) => inputValidation(state, name, v)}
+
         />
     }
 
     const inputChange = (state: string, placeholder: string, value: string) => {
+        
+        setForm({ ...form, [state]: value });
+    }
+    const inputValidation = (state: any, placeholder: string, value: string) => {
         const errorMessage = forgetPasswordValidation(state, placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
-        setForm({ ...form, [state]: value });
     }
-
     const handleSubmit = (e: any) => {
         e.preventDefault();
         const formValid = forgetPasswordValiadtionForm(form);

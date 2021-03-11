@@ -1,3 +1,4 @@
+import numeral from 'numeral'
 import React, { useEffect, useState } from 'react'
 import CampaignFormInputs from '../../components/Forms/campaignFormInputs'
 import { PageTitle } from '../../components/Lables/pageTitle'
@@ -50,7 +51,7 @@ const Campiagn = () => {
             <div className="d-flex justify-content-between">
                 <div>
                     <PageTitle>Campaigns</PageTitle>
-                    <SubTitlePage>{campaigns.length} Campaign</SubTitlePage>
+                    <SubTitlePage>{numeral(campaigns.length).format("0,0")} Campaign</SubTitlePage>
                 </div>
                 <div>
                     <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Campaign</RedBackgroundButton>

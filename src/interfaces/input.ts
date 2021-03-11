@@ -9,4 +9,5 @@ export interface InputInfterface {
     value?: any;
     required?: boolean;
     selectedCountry?: any;
+    onBlur?: (v: any) => void;
 }

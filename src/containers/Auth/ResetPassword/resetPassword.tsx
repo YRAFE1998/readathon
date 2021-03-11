@@ -14,10 +14,14 @@ export const ResetPassword = () => {
     const token = useParams<any>().id;
     const history = useHistory();
     const inputChange = (state: string, placeholder: string, value: string) => {
+       
+        setForm({ ...form, [state]: value });
+    }
+    const inputValidation = (state: string, placeholder: string, value: string) => {
         const errorMessage = resetPasswordValidation(state, placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
-        setForm({ ...form, [state]: value });
+
     }
 
     const handleSubmit = (e: any) => {
@@ -41,6 +45,8 @@ export const ResetPassword = () => {
             value={form[state]}
             icon={Icon}
             required={required}
+            onBlur={(v) => inputValidation(state, name, v)}
+
             onChange={(v) => inputChange(state, name, v)}
         />
     }

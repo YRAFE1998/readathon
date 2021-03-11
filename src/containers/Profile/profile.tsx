@@ -36,11 +36,16 @@ const Profile = () => {
     }, [])
 
     const inputChange = (state: string, placeholder: string, value: string) => {
+       
+        setForm({ ...form, [state]: value });
+    }
+
+    const inputValidation = (state: string, placeholder: string, value: string) => {
         const errorMessage = registerValidation(JSON.parse(JSON.stringify(state)), placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
-        setForm({ ...form, [state]: value });
         setSteps(ValidationSection({ ...form, [state]: value }, { ...error, [state]: errorMessage }, steps))
+
     }
 
     const fileView = (state: (keyof RegisterForm)) => {
@@ -62,6 +67,7 @@ const Profile = () => {
             value={type == "file" ?  fileView(state) :form[state]}
             icon={Icon}
             onChange={(v) => inputChange(state, name, v)}
+            onBlur={(v) => inputValidation(state, name, v)}
             required={required}
         />
     }

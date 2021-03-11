@@ -10,11 +10,13 @@ const SelectTeacher = (props: any) => {
     const [selectedValueError, setSelectedValueError] = useState("");
     const [assignTeacher, setAssignTeacher] = useState(false);
     const  inputChange = (value: any ) => {
+        setSelectedValue(value);
+    }
+
+    const inputValidation = (value: any) => {
         if (value) {
-            setSelectedValue(value);
             setSelectedValueError("")
         } else {
-            setSelectedValue(value);
             setSelectedValueError("Teacher Required")
         }
     }
@@ -30,6 +32,8 @@ const SelectTeacher = (props: any) => {
         options={props.teachers}
         dispalyName={"fname"}
         onChange={(v) => inputChange(v)}
+        onBlur={(v) => inputValidation(v)}
+
     />
     }
     return (

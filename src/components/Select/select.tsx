@@ -4,7 +4,7 @@ import { InputPalceholderStyle, InputValidationStyle } from "../Input/input.styl
 import { ThemeColor } from '../../utils/colors';
 interface SelectFrom {
     placeholder?: string;
-
+    onBlur?: (v: any) => void;
     onChange: (v: any) => void;
     error?: string;
     state?: string;
@@ -30,6 +30,7 @@ const SelectInput = (props: SelectFrom) => {
                 <select
                     ref={selectedRef}
                     value={value}
+                    onBlur={(e) => props?.onBlur && props.onBlur(e.target.value)}
                     onChange={(e) => {
                         setValue(e.target.value)
                         props.onChange(e.target.value);

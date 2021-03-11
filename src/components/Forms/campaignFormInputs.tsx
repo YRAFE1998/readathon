@@ -22,12 +22,18 @@ const CampaignFormInputs = (props: any) => {
     }, [props.value])
 
     const inputChange = (state: any, placeholder: string, value: string) => {
-        const errorMessage = campaignValidation(state, placeholder, value);
-        if (errorMessage) setError({ ...error, [state]: errorMessage })
-        else setError({ ...error, [state]: "" });
         setForm({ ...form, [state]: value });
 
     }
+    useEffect(() => {console.log(form);
+    }, [form])
+    const inputValidation = (state: (keyof CampaignInterface), placeholder: string, value: string) => {
+        
+        const errorMessage = campaignValidation(state, placeholder, value);
+        if (errorMessage) setError({ ...error, [state]: errorMessage })
+        else setError({ ...error, [state]: "" });
+    }
+
     const handleSubmit = (e: any) => {
         const formValid = campaignValiadtionForm(form);
         if (formValid.valid) {
@@ -47,6 +53,7 @@ const CampaignFormInputs = (props: any) => {
             icon={Icon}
             onChange={(v) => inputChange(state, name, v)}
             required={required}
+            onBlur={(v) => inputValidation(state, name, v)}
         />
     }
 
@@ -61,6 +68,8 @@ const CampaignFormInputs = (props: any) => {
             options={array}
             dispalyName={"name"}
             onChange={(v) => inputChange(state, placeholder, v)}
+            onBlur={(v) => inputValidation(state, name, v)}
+
         />
     }
 

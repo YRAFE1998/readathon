@@ -23,11 +23,16 @@ export const Register = () => {
     const history = useHistory();
 
     const inputChange = (state: string, placeholder: string, value: string) => {
+        
+        setForm({ ...form, [state]: value });
+    }
+
+    const inputValidation = (state: string, placeholder: string, value: string) => {
         const errorMessage = registerValidation(JSON.parse(JSON.stringify(state)), placeholder, value);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
-        setForm({ ...form, [state]: value });
         setSteps(ValidationSection({ ...form, [state]: value }, { ...error, [state]: errorMessage }, steps))
+
     }
 
 
@@ -40,6 +45,8 @@ export const Register = () => {
             value={form[state]}
             icon={Icon}
             onChange={(v) => inputChange(state, name, v)}
+            onBlur={(v) => inputValidation(state, name, v)}
+
             required={required}
         />
     }

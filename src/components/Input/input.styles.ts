@@ -6,7 +6,37 @@ border-radius: 7px;
 border: solid 1px #e5e3e9;
 background-color: #ffffff;
 display: flex;
+position: relative;
 align-items: center;
+.dateIcon{
+  position: absolute;
+  right: 25px;
+  z-index: 0;
+}
+.react-datepicker-wrapper{
+  width: 100%;
+
+}
+.react-datepicker-wrapper{
+  input{
+    width: 100%;
+    border: none;
+    font-family: SourceSansPro;
+    font-size: 20px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 0.75;
+    letter-spacing: normal;
+    color: ${ThemeColor.black};
+    outline: none !important;
+ 
+    &::placeholder{
+        color: ${ThemeColor.grayPlaceHolder} !important;
+        font-weight: normal !important; 
+    }
+  }
+}
  .input{
      width: 94%;
      border: none;
@@ -19,15 +49,18 @@ align-items: center;
      letter-spacing: normal;
      color: ${ThemeColor.black};
      outline: none !important;
-
+  
      &::placeholder{
          color: ${ThemeColor.grayPlaceHolder} !important;
          font-weight: normal !important; 
      }
-
+     &:invalid::-webkit-datetime-edit {
+      color: ${ThemeColor.grayPlaceHolder} !important;
+      font-weight: normal !important; 
+    } 
     
  }
-
+ 
  .input-file{
     width: 100px;
     height: 100px;

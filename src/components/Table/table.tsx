@@ -16,7 +16,7 @@ import * as _ from "lodash";
 import { pageNumbers } from '../../utils/pageShowesNumbers'
 import DeleteModalContent from '../Forms/deleteModalContent'
 import { handleSortGenirec } from '../../utils/sort'
-
+import numeral from "numeral";
 const GenericTable = (props: GenericTableInterface) => {
     const [page, setPage] = useState(1)
     const [chunkedData, setChunkedData] = useState<any>();
@@ -205,7 +205,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 }
                                 {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
                                     <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>
-                                        {val ? JSON.parse(JSON.stringify(val)) : "___"}</td>)}
+                                        {val ? JSON.parse(JSON.stringify( typeof val == "number" ? numeral(val).format("0,0") : val)) : "___"}</td>)}
                                 {!!props.hasDashboardView && <td style={{ color: ThemeColor.red }}>View</td>}
                                 {!!props.hasManageView && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
                                 {!!props.hasAchivement && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}`)}>View</td>}
