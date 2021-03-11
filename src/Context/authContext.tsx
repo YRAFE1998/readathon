@@ -23,6 +23,7 @@ export interface UserInterface {
 export interface AuthInterface {
     user?: UserInterface;
     saveUser?: (params: UserInterface) => void;
+    logoutUser?: (params: UserInterface) => void;
 }
 
 
@@ -46,6 +47,10 @@ const AuthContextProvider: any = (props: any) => {
         localStorage.setItem('user', JSON.stringify({ ...params, isAuth: true }));
         setUser({ ...user, ...params, isAuth: true })
     }
+    const logoutUser = () => {
+        localStorage.removeItem("user")
+        setUser({isAuth: false })
+    }
     const handleShowHeader = () => {
         var retrievedUser = JSON.parse(localStorage.getItem('user') || '{}');
         if (retrievedUser?.isAuth) {
@@ -58,8 +63,8 @@ const AuthContextProvider: any = (props: any) => {
     return (
         <>
 
+            <UserContext.Provider value={{ user, saveUser, logoutUser }} >
             {handleShowHeader() && <Header />}
-            <UserContext.Provider value={{ user, saveUser }} >
 
                 {props.children}
             </UserContext.Provider>

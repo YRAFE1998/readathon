@@ -33,7 +33,6 @@ export const DashboardModule = () => {
                             <Route path={"/page/teacherDashboard"} component={TeacherDashboard}></Route>
                             <Route path={"/page/students"} component={Students}></Route>
                             <Route path={"/page/campaign"} component={Campaigns}></Route>
-                            {/* <Route path={"/page/campaign-student"} component={CampiagnStudent}></Route> */}
                             <Route path={"/page/campaign-student/:id"} component={CampiagnStudent}></Route>
                             <Route path={"/page/logAchivement/:id"} component={LogAchivements}></Route>
                             <Route path={"/page/studentProgress/:id"} component={StudentProgress}></Route>

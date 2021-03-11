@@ -83,22 +83,47 @@ margin-inline-end: 40px;
     margin-inline-end: 10px;
   }
 }
-.user-icon-container{
-    margin: 0 0 0 35px;
-    padding: 22px 23px 22px 24px;
-    border: solid 1px #e5e3e9;
-    background-color: #f1f3f5;
-    border-radius: 50%;
-    height: 70px;
-    width: 70px;
-    @media (max-width: 1000px) {
-        margin: 0px 10px;
-      }
-    
-}
+
 .logoSearch{
     @media (max-width: 1000px) {
         width: 66%;
       }
 }
+`;
+
+export const PorfileDropDownStyles = styled.div`
+margin: 0 0 0 35px;
+padding: 13px;
+border: solid 1px #e5e3e9;
+background-color: #f1f3f5;
+border-radius: 50%;
+height: 70px;
+width: 70px;
+@media (max-width: 1000px) {
+    margin: 0px 10px;
+  }
+  .dropdown{
+    width: 100%;
+  }
+  .dropdown-menu{
+    right: 0px !important;
+    left: auto !important;
+  }
+  .dropdown-toggle{
+    width: 100%;
+    background: transparent;
+    outline: none;
+    border: none;
+    &:focus{
+      box-shadow: none !important;
+      background: transparent;
+    }
+    &:active{
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+    &::after{
+      display: none;
+    }
+  }
 `;

@@ -66,6 +66,7 @@ const Campiagn = () => {
                 hasManageView={true}
                 itemsExceptions={["Id", "theType", "organization_id", "question", "title", "actualDonation", "targetAchievement", "actualAchievement", "createdAt", "updatedAt"]}
                 mangeLink={`/page/campaign-student`}
+                dashboardLink={`/page/campiagnDashboard`}
                 onEdit={(f: CampaignInterface) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={(v: string) => searchHandler(v)}

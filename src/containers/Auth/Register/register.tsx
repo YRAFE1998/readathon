@@ -23,7 +23,7 @@ export const Register = () => {
     const history = useHistory();
 
     const inputChange = (state: string, placeholder: string, value: string) => {
-        
+        debugger;
         setForm({ ...form, [state]: value });
     }
 
@@ -34,7 +34,16 @@ export const Register = () => {
         setSteps(ValidationSection({ ...form, [state]: value }, { ...error, [state]: errorMessage }, steps))
 
     }
-
+    const fileView = (state: (keyof RegisterForm)) => {
+        if (form[state]) {
+         if (typeof form[state] === 'string') {
+             return form[state]
+         } else {
+             URL.createObjectURL(form[state])
+         }
+        }
+         
+    }
 
     const renderInputs = (type: string, state: (keyof RegisterForm), placeholder: string, name: string, Icon: React.FC, required: boolean) => {
         return <InputComponent
@@ -42,7 +51,7 @@ export const Register = () => {
             state={form[state]}
             type={type}
             placeholder={placeholder}
-            value={form[state]}
+            value={type == "file" ?  fileView(state) :form[state]}
             icon={Icon}
             onChange={(v) => inputChange(state, name, v)}
             onBlur={(v) => inputValidation(state, name, v)}

@@ -73,6 +73,13 @@ export const TableStyles = styled.div`
 .fa-trash-alt{
     color: ${ThemeColor.red}
 }
+.td-link{
+    cursor: pointer;
+    &:hover{
+        text-decoration: underline;
+
+    }
+}
 .pagination{
     margin: 0px 4px;
     cursor: pointer;

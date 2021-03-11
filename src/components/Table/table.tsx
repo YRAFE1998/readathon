@@ -93,7 +93,7 @@ const GenericTable = (props: GenericTableInterface) => {
     const renderModal = () => (
         <ModalsHoc title={`Delete ${selected.length || 1} Items`} open={openDeleteConfirmation} onShow={() => setOpenDeleteConfirmation(false)}>
             <DeleteModalContent
-                number={selected.length || (selectedSingleDelete? 1: 0)}
+                number={selected.length || (selectedSingleDelete ? 1 : 0)}
                 singleDelete={!!props.singleDelete}
                 onClose={() => setOpenDeleteConfirmation(false)}
                 onClick={() => {
@@ -111,7 +111,7 @@ const GenericTable = (props: GenericTableInterface) => {
     )
 
     const defualtChecked = (item: any) => {
-       return !!selected.filter((v) => v[props.keyItem || ""] === item[props.keyItem || ""]).length
+        return !!selected.filter((v) => v[props.keyItem || ""] === item[props.keyItem || ""]).length
     }
 
     return (
@@ -206,11 +206,11 @@ const GenericTable = (props: GenericTableInterface) => {
                                 }
                                 {Object.entries(item).map(([key, val]) => handleExceptItems(key) &&
                                     <td style={{ color: key == 'status' ? ThemeColor.successColor : "" }}>
-                                        {val ? JSON.parse(JSON.stringify( typeof val == "number" ? numeral(val).format("0,0") : val)) : "___"}</td>)}
-                                {!!props.hasDashboardView && <td style={{ color: ThemeColor.red }}>View</td>}
-                                {!!props.hasManageView && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
-                                {!!props.hasAchivement && <td style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}`)}>View</td>}
-                                {!props.readOnly && !props.removeEditButton && <td className="edit-btn" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
+                                        {val ? JSON.parse(JSON.stringify(typeof val == "number" ? numeral(val).format("0,0") : val)) : "___"}</td>)}
+                                {!!props.hasDashboardView && <td className="td-link" style={{ color: ThemeColor.red }} onClick={() => history.push(`${props.dashboardLink}/${item[props.keyItem || ""]}`)}>View</td>}
+                                {!!props.hasManageView && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
+                                {!!props.hasAchivement && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}`)}>View</td>}
+                                {!props.readOnly && !props.removeEditButton && <td className="edit-btn td-link" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
 
                             </tr>
 
