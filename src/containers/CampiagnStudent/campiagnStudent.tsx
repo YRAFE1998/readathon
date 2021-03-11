@@ -23,7 +23,7 @@ const CampiagnStudent = () => {
 
     const campaignId = useParams<any>()?.id;
     useEffect(() => { getTeachers(); }, []);
-    useEffect(() => { (teachers.length) && getStudentCampaings(); }, [teachers])
+    useEffect(() => { (teachers.length) && getStudentCampaings(); }, [teachers.length])
     useEffect(() => { onSearchValue(searchValue); }, [originalCampaignsStudents])
 
     const getStudentCampaings = () => {
@@ -66,7 +66,7 @@ const CampiagnStudent = () => {
     }
 
     const handleDelete = (id: any) => {
-        deleteCampaingStudentsApi(campaignId, {studentId: id}).then((Res) => getStudentCampaings());
+        deleteCampaingStudentsApi(campaignId, { studentId: id }).then((Res) => getStudentCampaings());
 
     }
 
