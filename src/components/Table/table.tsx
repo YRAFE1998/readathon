@@ -163,7 +163,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                 <th>
                                     <div className="d-flex justify-content-between align-items-center">
                                         {handelTabelTitle(v)}
-                                        <div >
+                                        <div className="m-i-s-20">
                                             <i className="fa fa-sort-up sortIcon d-block" onClick={() => handleSort("asc", v)}></i>
                                             <i className="fa fa-sort-down sortIcon d-block" onClick={() => handleSort("desc", v)}></i>
 
