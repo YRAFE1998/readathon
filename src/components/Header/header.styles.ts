@@ -77,6 +77,11 @@ export const HeaderStyles = styled.div`
         }
     }
 }
+.right-nav{
+  @media (max-width: 1000px) {
+    // display: none;
+  }
+}
 .notfication-container{
 margin-inline-end: 40px;
 @media (max-width: 1000px) {
@@ -108,6 +113,8 @@ width: 70px;
   .dropdown-menu{
     right: 0px !important;
     left: auto !important;
+    z-index: 10;
+    position: absolute;
   }
   .dropdown-toggle{
     width: 100%;
