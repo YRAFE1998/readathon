@@ -1,5 +1,6 @@
+import moment from "moment";
 import { CampaignInterface } from "../interfaces/compiagnInterface";
-export const campaignValidation = (state: (keyof CampaignInterface) , placeholder: string, value: string) => {
+export const campaignValidation = (state: (keyof CampaignInterface) , placeholder: string, value: string, status: string) => {
 
     if (state == 'title' && !value) {
         return "Campaign Title Required"
@@ -14,9 +15,15 @@ export const campaignValidation = (state: (keyof CampaignInterface) , placeholde
     if (state == 'startDate' && !value) {
         return "Start Date Required"
     }
+    if (state == 'startDate' && status == "add"  && moment(value).isBefore(moment())) {
+        return "Start Date Must Be Greater Than Today"
+    }
       
     if (state == 'endDate' && !value) {
         return "End Date Required"
+    }
+    if (state == 'endDate' && status == "add"  && moment(value).isBefore(moment())) {
+        return "End Date Must Be Greater Than Today"
     }
     
     if (state == 'question' && !value) {
@@ -37,7 +44,7 @@ export const campaignValidation = (state: (keyof CampaignInterface) , placeholde
     return ""
 }
 
-export const campaignValiadtionForm = (value: CampaignInterface) => {
+export const campaignValiadtionForm = (value: CampaignInterface, status: string) => {
     const data = {} as CampaignInterface
     if (!value.title) {
         data.title = "Campaign Title Required"
@@ -52,9 +59,25 @@ export const campaignValiadtionForm = (value: CampaignInterface) => {
     if (!value.startDate) {
         data.startDate = "Start Date Required"
     }
+    if (value.startDate && status == "add"  && moment(value.startDate).isBefore(moment())) {
+        data.startDate = "Start Date Must Be Greater Than Today";
+
+    }
+    
     if (!value.endDate) {
         data.endDate = "End Date Required"
     }
+    if (value.endDate && status == "add"  && moment(value.endDate).isBefore(moment())) {
+        data.endDate = "End Date Must Be Greater Than Today"
+    }
+
+    if (value.endDate && moment(value.endDate).isBefore(moment(value.startDate))) {
+        data.startDate = "Start Date Must Be Less Than End Date";
+        data.endDate = "Start Date Must Be Less Than End Date"
+
+    }
+
+    
     if (!value.question) {
         data.question = "Question Required"
     }

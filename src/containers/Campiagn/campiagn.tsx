@@ -75,12 +75,12 @@ const Campiagn = () => {
 
             <div >
                 <ModalsHoc open={openModal} title="Add New Campiagn" onShow={(bool: boolean) => setOpenModal(bool)}>
-                    <CampaignFormInputs submit={(v: any) => handleSubmit("add", v)} importBtn={true}></CampaignFormInputs>
+                    <CampaignFormInputs submit={(v: any) => handleSubmit("add", v)} status={"add"} importBtn={true}></CampaignFormInputs>
                 </ModalsHoc>
             </div>
             <div>
                 <ModalsHoc open={openModalEdit} title="Edit Campiagn" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
-                    <CampaignFormInputs submit={(v: any) => handleSubmit("edit", v)}  importBtn={false} value={editedForm}></CampaignFormInputs>
+                    <CampaignFormInputs submit={(v: any) => handleSubmit("edit", v)} status={"edit"} importBtn={false} value={editedForm}></CampaignFormInputs>
                 </ModalsHoc>
             </div>
 

@@ -58,7 +58,7 @@ export const ForgetPassword = () => {
                    </div>
                    
                    <div className={"btnSpaces"}>
-                       <RedButton type="submit">Change</RedButton>
+                       <RedButton type="submit">Reset Your Password</RedButton>
                    </div>
                </form>
             </LoginStyles>

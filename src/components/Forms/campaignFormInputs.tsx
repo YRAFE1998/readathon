@@ -29,13 +29,13 @@ const CampaignFormInputs = (props: any) => {
     }, [form])
     const inputValidation = (state: (keyof CampaignInterface), placeholder: string, value: string) => {
         
-        const errorMessage = campaignValidation(state, placeholder, value);
+        const errorMessage = campaignValidation(state, placeholder, value, props.status);
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
     }
 
     const handleSubmit = (e: any) => {
-        const formValid = campaignValiadtionForm(form);
+        const formValid = campaignValiadtionForm(form, props.status);
         if (formValid.valid) {
             props.submit(form)
         } else {
@@ -82,7 +82,7 @@ const CampaignFormInputs = (props: any) => {
                 {renderInputs("number", "targetDonation", "Donation Target", "Donation Target", null, true)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }} >
-                {renderInputs("number", "targetAchievement", "Donation Achievement", "Donation Target", null, true)}
+                {renderInputs("number", "targetAchievement", "Target Units", "Donation Target", null, true)}
             </div>
             
            

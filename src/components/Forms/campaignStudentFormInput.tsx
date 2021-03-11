@@ -24,13 +24,13 @@ const CampaignStudentFormInput = (props: any) => {
     }
 
     const inputValidation = (state: any, placeholder: string, value: string) => {
-        const errorMessage = campaignValidation(state, placeholder, value);
+        const errorMessage = campaignValidation(state, placeholder, value , "add");
         if (errorMessage) setError({ ...error, [state]: errorMessage })
         else setError({ ...error, [state]: "" });
     }
     
     const handleSubmit = (e: any) => {
-        const formValid = campaignValiadtionForm(JSON.parse(JSON.stringify(form)));
+        const formValid = campaignValiadtionForm(JSON.parse(JSON.stringify(form)), "add");
         if (formValid.valid) {
             props.submit(form)
         } else {
