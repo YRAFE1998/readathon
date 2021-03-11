@@ -1,5 +1,6 @@
 
 import React, { Context, ContextType, createContext, useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 import Header from '../components/Header/header';
 
 
@@ -29,7 +30,10 @@ export const UserContext = React.createContext<AuthInterface | {}>({})
 
 const AuthContextProvider: any = (props: any) => {
     const [user, setUser] = useState<UserInterface>({});
-
+    const location = useLocation();
+    useEffect(() => {
+        handleShowHeader();
+    }, [location])
 
     useEffect(() => {
         var retrievedUser = JSON.parse(localStorage.getItem('user') || '{}');
@@ -37,14 +41,24 @@ const AuthContextProvider: any = (props: any) => {
             saveUser(retrievedUser)
         }
     }, [])
+    
     const saveUser = (params: UserInterface) => {
         localStorage.setItem('user', JSON.stringify({ ...params, isAuth: true }));
         setUser({ ...user, ...params, isAuth: true })
     }
+    const handleShowHeader = () => {
+        var retrievedUser = JSON.parse(localStorage.getItem('user') || '{}');
+        if (retrievedUser?.isAuth) {
+            return true;
+        } else {
+            return false;
+
+        }
+    }
     return (
         <>
 
-            {user?.isAuth && <Header />}
+            {handleShowHeader() && <Header />}
             <UserContext.Provider value={{ user, saveUser }} >
 
                 {props.children}
