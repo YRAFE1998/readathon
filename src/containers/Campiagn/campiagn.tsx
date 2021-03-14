@@ -1,10 +1,11 @@
 import numeral from 'numeral'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CampaignFormInputs from '../../components/Forms/campaignFormInputs'
 import { PageTitle } from '../../components/Lables/pageTitle'
 import { RedBackgroundButton } from '../../components/Lables/redBackgroundButton'
 import { SubTitlePage } from '../../components/Lables/subTitlePage'
 import GenericTable from '../../components/Table/table'
+import { UserContext } from '../../Context/authContext'
 import ModalsHoc from '../../HOCS/modalsHoc'
 import { CampaignInterface } from '../../interfaces/compiagnInterface'
 import { addCampaignApi, allCampaignApi, deleteCampaingApi, updateCampaignApi } from '../../services/campiagn.service'
@@ -16,17 +17,19 @@ const Campiagn = () => {
     const [editedForm, setEditedForm] = useState({});
     const [campaigns, setCampaigns] = useState([]);
     const [orignalCampaigns, setOriginalCampaigns] = useState([]);
+    const {user} = useContext<any>(UserContext);
     useEffect(() => {
         getAllCampaings();
     }, [])
     const getAllCampaings = () =>
-        allCampaignApi().then((Res) => {
+        allCampaignApi(user.content).then((Res) => {
             setCampaigns(arrangeCampaginFeilds(Res.data.data));
             setOriginalCampaigns(arrangeCampaginFeilds(Res.data.data))
         })
 
   
     const handleSubmit = (action: string, form: any) => {
+        debugger;
         if (action == "add") {
             addCampaignApi(form).then((Res) => getAllCampaings()).finally(() => setOpenModal(false));
         } else {
@@ -43,7 +46,6 @@ const Campiagn = () => {
         }
     }
     const handleDelete = (v: any) => {
-        debugger;
         deleteCampaingApi(v).then((Res) => getAllCampaings());
     }
     return (
@@ -53,9 +55,13 @@ const Campiagn = () => {
                     <PageTitle>Campaigns</PageTitle>
                     <SubTitlePage>{numeral(campaigns.length).format("0,0")} Campaign</SubTitlePage>
                 </div>
-                <div>
+                {
+                    !!(user.content == "organizationContent.") &&
+                    <div>
                     <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Campaign</RedBackgroundButton>
                 </div>
+                }
+                
             </div>
 
             <GenericTable
@@ -67,6 +73,7 @@ const Campiagn = () => {
                 itemsExceptions={["Id", "theType", "organization_id", "question", "title", "actualDonation", "targetAchievement", "actualAchievement", "createdAt", "updatedAt"]}
                 mangeLink={`/page/campaign-student`}
                 dashboardLink={`/page/campiagnDashboard`}
+                removeEditButton={!!!(user.content == "organizationContent.")}
                 onEdit={(f: CampaignInterface) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={(v: string) => searchHandler(v)}

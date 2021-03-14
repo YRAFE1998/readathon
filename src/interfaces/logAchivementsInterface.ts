@@ -1,5 +1,6 @@
 export interface LogAchivementInterface{
     date?: string;
-    achivement?: any;
-    desc?: string;
+    achievement?: any;
+    type?: string;
+    description?: string;
 }

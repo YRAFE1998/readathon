@@ -1,13 +1,13 @@
 import { LogAchivementInterface } from "../interfaces/logAchivementsInterface";
 export const logAchivementValidation = (state: (keyof LogAchivementInterface) , placeholder: string, value: string) => {
 
-    if (state == 'achivement' && !value) {
+    if (state == 'achievement' && !value) {
         return "Achivement Required"
     }
     if (state == 'date' && !value) {
         return "Date Required"
     }
-    if (state == 'desc' && !value) {
+    if (state == 'description' && !value) {
         return "Description Required"
     }
 
@@ -16,18 +16,18 @@ export const logAchivementValidation = (state: (keyof LogAchivementInterface) , 
 
 export const logAchivementValiadtionForm = (value: LogAchivementInterface) => {
     const data = {} as LogAchivementInterface
-    if (!value.achivement) {
-        data.achivement = "Achivement Required"
+    if (!value.achievement) {
+        data.achievement = "Achivement Required"
     }
     if (!value.date) {
         data.date = "Date Required"
     }
-    if (!value.desc) {
-        data.desc = "Description Required"
+    if (!value.type) {
+        data.type = "Description Required"
 
     }
      
-    const valid = data.achivement || data.date || data.desc ? false : true;
+    const valid = data.achievement || data.date || data.description ? false : true;
     
     return { valid: valid, ...data };
 }

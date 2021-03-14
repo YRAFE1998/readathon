@@ -10,6 +10,7 @@ import { loginValiadtionForm, loginValidation } from '../../../validations/login
 import { useHistory } from 'react-router-dom';
 import { login } from '../../../services/auth.service';
 import { UserContext } from '../../../Context/authContext';
+import { handleFirstPageAfterLogin } from '../../PageRoute/handlePagesView';
 export const Login = () => {
     const [form, setForm] = useState<LoginForm>({})
     const [error, setError] = useState<LoginForm>({})
@@ -46,7 +47,8 @@ export const Login = () => {
         } else {
             login(form).then((res) => {
                 saveUser(res.data)
-                history.push("/page/home")
+                const route = handleFirstPageAfterLogin(res?.data?.content)
+                history.push(route || "/page/home")
             })
         }
     }

@@ -209,7 +209,7 @@ const GenericTable = (props: GenericTableInterface) => {
                                         {val ? JSON.parse(JSON.stringify(typeof val == "number" ? numeral(val).format("0,0") : val)) : "___"}</td>)}
                                 {!!props.hasDashboardView && <td className="td-link" style={{ color: ThemeColor.red }} onClick={() => history.push(`${props.dashboardLink}/${item[props.keyItem || ""]}`)}>View</td>}
                                 {!!props.hasManageView && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
-                                {!!props.hasAchivement && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}`)}>View</td>}
+                                {!!props.hasAchivement && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}?name=${item.firstName}&email=${item.email}`)}>View</td>}
                                 {!props.readOnly && !props.removeEditButton && <td className="edit-btn td-link" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
 
                             </tr>

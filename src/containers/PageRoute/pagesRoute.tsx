@@ -30,7 +30,7 @@ export const DashboardModule = () => {
                             <Route path={"/page/campaign"} component={Campaigns}></Route>
                             <Route path={"/page/campaign-student/:id"} component={CampiagnStudent}></Route>
                             <Route path={"/page/logAchivement/:id"} component={LogAchivements}></Route>
-                            <Route path={"/page/studentProgress/:id"} component={StudentProgress}></Route>
+                            <Route path={"/page/studentProgress/:id/:studentId"} component={StudentProgress}></Route>
                             <Route path={"/page/campiagnDashboard/:id"} component={CampiagnDashboard}></Route>
 
                             <Route path={"/page/profile"} component={Profile}></Route>

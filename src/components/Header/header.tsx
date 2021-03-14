@@ -6,11 +6,12 @@ import { IconsUser } from '../../assets/icons/Auth/icons-user';
 import { Navbar, Nav, NavDropdown, DropdownButton, Dropdown } from 'react-bootstrap';
 import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../../Context/authContext';
+import { handlePagesView } from '../../containers/PageRoute/handlePagesView';
 
 const Header = (props: any) => {
     const location = useLocation().pathname;
     const history = useHistory();
-    const { logoutUser } = useContext<any>(UserContext)
+    const { user, logoutUser } = useContext<any>(UserContext)
 
     return (
         <div>
@@ -21,29 +22,36 @@ const Header = (props: any) => {
                     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="mr-auto">
-                            <Nav.Link > <NavLink to="/page/home" className="item" activeClassName="active" >Home</NavLink> </Nav.Link>
-                            <Nav.Link > <NavLink to="/page/teachers" className="item" activeClassName="active" >Teachers</NavLink> </Nav.Link>
+                            {
+                                handlePagesView(user.content)?.map((v: any) => {
+                                    if (v.status == "dropDown" && !!v?.pages) {
+                                        return <NavDropdown className={`item ${location.includes(v.page) && 'active'}`} title={v.name} id="collasible-nav-dropdown-teacher">
+                                            {
+                                                v?.pages.map((sub: any) => {
+                                                    return <NavDropdown.Item >
+                                                        <NavLink to={sub.page}
+                                                            className="item"
+                                                            activeClassName="active" >
+                                                            {sub.name}</NavLink>
+                                                    </NavDropdown.Item>
+                                                })
+                                            }
+                                        </NavDropdown>
+                                    } else {
+                                        return <Nav.Link > <NavLink to={v.page} className="item" activeClassName="active" >{v.name}</NavLink> </Nav.Link>
 
-                            {/* <NavDropdown className={`item ${location.includes("teachers") && 'active'}`} title="Teacher" id="collasible-nav-dropdown-teacher">
-                                <NavDropdown.Item ><NavLink to="/page/teachers" className="item" activeClassName="active" >Teachers</NavLink></NavDropdown.Item>
-                                <NavDropdown.Item ><NavLink to="/page/teacherDashboard" className="item" activeClassName="active" >Teacher Dashboard</NavLink></NavDropdown.Item>
-                            </NavDropdown> */}
-
-                            <Nav.Link > <NavLink to="/page/students" className="item" activeClassName="active" >Students</NavLink> </Nav.Link>
-
-                            <Nav.Link > <NavLink to="/page/campaign" className="item" activeClassName="active" >Campaigns</NavLink> </Nav.Link>
+                                    }
+                                })
+                            }
 
 
-
-
-                            {/* <Nav.Link className="item" href="#features">Cam</Nav.Link> */}
                         </Nav>
                         <Nav className="right-nav">
                             <Nav.Link > <IconsNotifications></IconsNotifications></Nav.Link>
                             <Nav.Link  >
                                 <div className="user-icon-container" >
                                     <PorfileDropDownStyles>
-                                        
+
                                         <Dropdown drop="down" >
                                             <Dropdown.Toggle variant="success" id="dropdown-basic"  >
                                                 <div id="dropdown-basic-button"><IconsUser ></IconsUser></div>

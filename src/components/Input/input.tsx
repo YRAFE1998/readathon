@@ -159,7 +159,7 @@ const InputComponent = (props: InputInfterface) => {
                         onCalendarClose={() => setOpenDate(!openDate)}
                         onClickOutside={() => setOpenDate(!openDate)}                        
                         onCalendarOpen={() => setOpenDate(true)}
-                        minDate={new Date(moment().format("yyyy-MM-DD"))}
+                       
                         placeholderText={moment().format("yyyy-MM-DD")}
                         dateFormat={"dd MMMM yyyy"}
                         selected={value && new Date(value)}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { IconEmail } from '../../assets/icons/Auth/icons-at'
 import { IconsUser } from '../../assets/icons/Auth/icons-user'
 import { StudentForm } from '../../interfaces/studentForm'
@@ -8,11 +8,12 @@ import { ModalFooter, ImportStyle } from "../../HOCS/modalsHocs.styles";
 import { RedBackgroundButton } from '../Lables/redBackgroundButton'
 import { RedOutlineButton } from '../Lables/red-outlline-button'
 import SelectInput from '../Select/select'
+import { UserContext } from '../../Context/authContext'
 
 const StudentFormInputs = (props: any) => {
     const [form, setForm] = useState<StudentForm>(props.value || {})
     const [error, setError] = useState<StudentForm>({});
-
+    const { user } = useContext<any>(UserContext);
     useEffect(() => {
         console.log(props.value);
         if (props.value) {
@@ -21,7 +22,7 @@ const StudentFormInputs = (props: any) => {
     }, [props.value])
 
     const inputChange = (state: string, placeholder: string, value: string) => {
-       
+
         setForm({ ...form, [state]: value });
 
     }
@@ -79,9 +80,13 @@ const StudentFormInputs = (props: any) => {
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
                 {renderInputs("text", "email", "Email", "Email", IconEmail, true)}
             </div>
-            <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderSelect("teacher_id", "Select Teacher", "Teacher", true, "fname")}
-            </div>
+            {
+                !!(user.content == 'organizationContent.') &&
+                <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
+                    {renderSelect("teacher_id", "Select Teacher", "Teacher", true, "fname")}
+                </div>
+
+            }
 
             <ModalFooter>
                 <RedBackgroundButton className="btn-save" onClick={handleSubmit}>Add New</RedBackgroundButton>

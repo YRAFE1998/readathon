@@ -1,16 +1,18 @@
 import numeral from 'numeral'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CampaignStudentFormInput from '../../components/Forms/campaignStudentFormInput'
 import { PageTitle } from '../../components/Lables/pageTitle'
 import { SubTitlePage } from '../../components/Lables/subTitlePage'
 import GenericTable from '../../components/Table/table'
+import { UserContext } from '../../Context/authContext'
 import ModalsHoc from '../../HOCS/modalsHoc'
 import { CampaignStudentInterface } from '../../interfaces/campaignStudentInterface'
-import { deleteCampaingStudentsApi, getAllCampaingStudentsApi } from '../../services/campiagn.service'
+import { deleteCampaingStudentsApi, deleteStudentLogApi, getAllCampaingStudentsApi } from '../../services/campiagn.service'
 import { getAllTeachers } from '../../services/teacher.service'
 import { arrangeCampaginStudentsFeilds } from '../../utils/arrangeCampaginFeilds'
-
+const orginaztionView = ["Id", "students", "campaignId", "compaignStudentId", "teacher_id"];
+const teacherView = ["Id", "students", "campaignId", "compaignStudentId", "teacher_id", "teacher"]
 const CampiagnStudent = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
@@ -20,18 +22,26 @@ const CampiagnStudent = () => {
     const [originalCampaignsStudents, setOriginalCampaignsStudents] = useState([]);
     const [orignalStudentsSearchAndSelect, setOrignalStudentsSearchAndSelect] = useState<any>([]);
     const [searchValue, setSearchValue] = useState<any>("");
-
+    const { user } = useContext<any>(UserContext);
     const campaignId = useParams<any>()?.id;
-    useEffect(() => { getTeachers(); }, []);
+    
+    useEffect(() => {
+        if (user.content== 'teacherContent.') {
+            getStudentCampaings();
+        } else {
+            getTeachers();
+
+        }
+    }, []);
     useEffect(() => { (teachers.length) && getStudentCampaings(); }, [teachers.length])
     useEffect(() => { onSearchValue(searchValue); }, [originalCampaignsStudents])
 
     const getStudentCampaings = () => {
-        getAllCampaingStudentsApi(campaignId).then((Res) => {
+        getAllCampaingStudentsApi(campaignId , user.content).then((Res) => {
             console.log(Res.data.data);
-            setCampaignsStudents(arrangeCampaginStudentsFeilds(Res.data?.data?.students, teachers));
-            setOriginalCampaignsStudents(arrangeCampaginStudentsFeilds(Res.data?.data?.students, teachers));
-            setOrignalStudentsSearchAndSelect(arrangeCampaginStudentsFeilds(Res.data?.data?.students, teachers));
+            setCampaignsStudents(arrangeCampaginStudentsFeilds((Res.data?.data?.students || Res.data.data), teachers));
+            setOriginalCampaignsStudents(arrangeCampaginStudentsFeilds((Res.data?.data?.students || Res.data.data), teachers));
+            setOrignalStudentsSearchAndSelect(arrangeCampaginStudentsFeilds((Res.data?.data?.students || Res.data.data), teachers));
         });
     }
 
@@ -66,7 +76,11 @@ const CampiagnStudent = () => {
     }
 
     const handleDelete = (id: any) => {
-        deleteCampaingStudentsApi(campaignId, { studentId: id }).then((Res) => getStudentCampaings());
+        if (user.content == "teacherContent.") {
+            deleteStudentLogApi(campaignId, id).then((Res) => getStudentCampaings());
+        } else {
+            deleteCampaingStudentsApi(campaignId, { studentId: id }).then((Res) => getStudentCampaings());
+        }
 
     }
 
@@ -82,11 +96,11 @@ const CampiagnStudent = () => {
             <GenericTable
                 data={campaignsStudents}
                 keyItem="Id"
-                itemsExceptions={["Id", "students", "campaignId", "compaignStudentId", "teacher_id"]}
+                itemsExceptions={user.content == "organizationContent." ? orginaztionView : teacherView}
                 singleDelete={true}
-                achivementLink={`/page/studentProgress`}
+                achivementLink={`/page/studentProgress/${campaignId}`}
                 hasAchivement={true}
-                selectFilter={true}
+                selectFilter={!!(user.content == "organizationContent.")}
                 selectFilterArray={teachers}
                 selectFilterItemKey={"Id"}
                 selectFilterItemValue={"firstName"}

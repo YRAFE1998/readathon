@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { PageTitle } from "../../components/Lables//pageTitle";
 import { SubTitlePage } from "../../components/Lables/subTitlePage";
@@ -12,7 +12,9 @@ import StudentFormInputs from "../../components/Forms/StudentFormInputs";
 import { addStudent, deleteStudent, getAllStudents, updateStudent, assignStudentsToTeacher } from '../../services/students.services';
 import { getAllTeachers } from '../../services/teacher.service';
 import AssignToTeacherInputs from '../../components/Forms/assignToTeacherInputs';
-
+import { UserContext } from '../../Context/authContext';
+const orinizationView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id"];
+const teacherView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id", "teacher"]
 const Students = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
@@ -23,16 +25,17 @@ const Students = () => {
     const [openAssignModal, setOpenAssignModal] = useState(false);
     const [teachers, setTeachers] = useState<any>([]);
     const [searchValue, setSearchValue] = useState<any>("");
-    const [selected, setSelected] = useState([])
+    const [selected, setSelected] = useState([]);
+    const {user} = useContext<any>(UserContext);
     useEffect(() => {
-        getTeachers();
+       user.content == "organizationContent." &&  getTeachers();
         getStudets();
     }, [])
     useEffect(() => {
         onSearchValue(searchValue);
     }, [orignalStudents])
     const getStudets = () => {
-        getAllStudents().then((Res) => {
+        getAllStudents(user?.content).then((Res) => {
             const data = Res?.data?.data?.map((v: any) => ({ ...v, firstName: v.fname, lastName: v.lname, teacher: v.teacher?.fname || "" }));
             setStudents(data);
             setOrignalStudents(data);
@@ -56,7 +59,6 @@ const Students = () => {
     const onSelectSearchFilter = (value: any) => {
         if (value && value.length) {
             const arrayOfIds = value.slice().map((v: any) => v.Id);
-            debugger;
             if (arrayOfIds.some((v: any) => v == 0)) {
                 setOrignalStudents(orignalStudentsSearchAndSelect.slice().filter((v: any) => arrayOfIds.includes(v.teacher_id) || !v.teacher_id));
 
@@ -74,11 +76,18 @@ const Students = () => {
             updateStudent(form).then((Res) => getStudets()).finally(() => setOpenModalEdit(false))
         }
     }
-    const handleDeleteStudents = (array: any[]) => {
-        const studentsIds = array.map((v) => v.Id);
-        deleteStudent({students: studentsIds}).then((Res) => {
-            getStudets();
-        })
+    const handleDeleteStudents = (val: any) => {
+        if (user.content == "organizationContent.") {
+            const studentsIds = val.map((v: any) => v.Id);
+            deleteStudent({students: studentsIds}).then((Res) => {
+                getStudets();
+            })
+        } else {
+            deleteStudent(val).then((Res) => {
+                getStudets();
+            })
+        }
+       
     }
     const assignToTeacher = (t: any) => {
         const data = {
@@ -103,17 +112,18 @@ const Students = () => {
             <GenericTable
                 data={students}
                 keyItem="Id"
-                itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id"]}
+                singleDelete={!!!(user.content == "organizationContent.")}
+                itemsExceptions={user.content == "organizationContent." ? orinizationView : teacherView}
                 onEdit={(f: StudentForm) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={(e) => onSearchValue(e)}
                 onDelete={(v) => handleDeleteStudents(v)}
-                selectFilter={true}
+                selectFilter={!!(user.content == "organizationContent.")}
                 selectFilterArray={teachers}
                 selectFilterItemKey={"Id"}
                 selectFilterItemValue={"fname"}
                 onSelectFilter={(v) => onSelectSearchFilter(v)}
-                multipleAssign={true}
+                multipleAssign={!!(user.content == "organizationContent.")}
                 onAssign={(s) => {setSelected(s); setOpenAssignModal(true)}}
             ></GenericTable>
 

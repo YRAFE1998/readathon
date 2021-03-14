@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { ModalFooter } from '../../HOCS/modalsHocs.styles';
 import { LogAchivementInterface } from '../../interfaces/logAchivementsInterface';
 import { logAchivementValiadtionForm, logAchivementValidation } from '../../validations/logAchivementsFormVallidations';
 import InputComponent from '../Input/input';
 import { RedBackgroundButton } from '../Lables/redBackgroundButton';
+import SelectInput from '../Select/select';
 
 const LogAtchivementFormInput = (props: any) => {
     const [form, setForm] = useState<LogAchivementInterface>(props.value || {})
@@ -30,7 +31,6 @@ const LogAtchivementFormInput = (props: any) => {
         else setError({ ...error, [state]: "" });
     }
     const handleSubmit = (e: any) => {
-        debugger;
         const formValid = logAchivementValiadtionForm(form);
         if (formValid.valid) {
             props.submit(form)
@@ -52,26 +52,44 @@ const LogAtchivementFormInput = (props: any) => {
 
         />
     }
+    const renderSelect = (state: (keyof LogAchivementInterface), placeholder: string, name: string, required: boolean, label: string) => {
+        return <SelectInput
+            value={form[state]}
+            error={error[state]}
+            state={form[state]}
+            placeholder={placeholder}
+            required={required}
+            label={"Id"}
+            options={[{ name: "Minutes", Id: "1" }, { name: "Donation", Id: "2" }]}
+
+            dispalyName={"name"}
+            onChange={(v) => inputChange(state, name, v)}
+        />
+    }
 
     return (
-        <div style={{margin: "0px 40px"}}>
+        <div style={{ margin: "0px 40px" }}>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }} >
                 {renderInputs("date", "date", "Date", "Date", null, true)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderInputs("number", "achivement", "Achivement", "Achivement", null, true)}
+                {renderInputs("number", "achievement", "Achivement", "Achivement", null, true)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderInputs("textarea", "desc", "Desriptions", "Desriptions", null, true)}
+                {renderSelect("type", "Select Type", "Teacher", true, "name")}
+            </div>
+            <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
+                {renderInputs("textarea", "description", "Desriptions", "Desriptions", null, true)}
             </div>
 
-            
+
+
             <ModalFooter>
                 <RedBackgroundButton className="btn-save" onClick={handleSubmit}>Add New</RedBackgroundButton>
 
             </ModalFooter>
 
-            
+
 
         </div>
     )
