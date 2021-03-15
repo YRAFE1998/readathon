@@ -81,12 +81,12 @@ const Teachers = () => {
             ></GenericTable>
             <div >
                 <ModalsHoc open={openModal} title="Add New Teacher" onShow={(bool: boolean) => setOpenModal(bool)}>
-                    <TeacherFormInput submit={(f: any) => submitForm(f, "add")} importBtn={true}></TeacherFormInput>
+                    <TeacherFormInput buttonTxt={"Add New"} submit={(f: any) => submitForm(f, "add")} importBtn={true}></TeacherFormInput>
                 </ModalsHoc>
             </div>
             <div>
                 <ModalsHoc open={openModalEdit} title="Edit Teacher" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
-                    <TeacherFormInput submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></TeacherFormInput>
+                    <TeacherFormInput buttonTxt={"Edit"} submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></TeacherFormInput>
                 </ModalsHoc>
             </div>
             <div>

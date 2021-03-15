@@ -129,12 +129,12 @@ const Students = () => {
 
             <div >
                 <ModalsHoc open={openModal} title="Add New Student" onShow={(bool: boolean) => setOpenModal(bool)}>
-                    <StudentFormInputs teachers={teachers} submit={(f: any) => submitForm(f, "add")} importBtn={true}></StudentFormInputs>
+                    <StudentFormInputs buttonTxt={"Add New"} teachers={teachers} submit={(f: any) => submitForm(f, "add")} importBtn={true}></StudentFormInputs>
                 </ModalsHoc>
             </div>
             <div>
                 <ModalsHoc open={openModalEdit} title="Edit Student" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
-                    <StudentFormInputs teachers={teachers} submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></StudentFormInputs>
+                    <StudentFormInputs buttonTxt={"Edit"}  teachers={teachers} submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></StudentFormInputs>
                 </ModalsHoc>
             </div>
             <div>

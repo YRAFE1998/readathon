@@ -17,7 +17,7 @@ const AssignToTeacherInputs = (props: any) => {
 
     const renderSelect = (state: (keyof any), placeholder: string, name: string, required: boolean, label: string) => {
         const data = JSON.parse(JSON.stringify(props.teachers));
-        data.unshift({Id: "", fname: "Un-Assign"})
+        data.unshift({Id: "", fname: "UnAssigned"})
         return <SelectInput
         value={selectedValue}
         state={selectedValue}

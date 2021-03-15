@@ -78,17 +78,17 @@ const Campiagn = () => {
                 onChangePage={() => console.log("page")}
                 onSearch={(v: string) => searchHandler(v)}
                 onDelete={(v: any) => handleDelete(v)}
-
+                manageTitle={"Student"}
             ></GenericTable>
 
             <div >
                 <ModalsHoc open={openModal} title="Add New Campiagn" onShow={(bool: boolean) => setOpenModal(bool)}>
-                    <CampaignFormInputs submit={(v: any) => handleSubmit("add", v)} status={"add"} importBtn={true}></CampaignFormInputs>
+                    <CampaignFormInputs buttonTxt={"Add New"} submit={(v: any) => handleSubmit("add", v)} status={"add"} importBtn={true}></CampaignFormInputs>
                 </ModalsHoc>
             </div>
             <div>
                 <ModalsHoc open={openModalEdit} title="Edit Campiagn" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
-                    <CampaignFormInputs submit={(v: any) => handleSubmit("edit", v)} status={"edit"} importBtn={false} value={editedForm}></CampaignFormInputs>
+                    <CampaignFormInputs buttonTxt={"Edit"} submit={(v: any) => handleSubmit("edit", v)} status={"edit"} importBtn={false} value={editedForm}></CampaignFormInputs>
                 </ModalsHoc>
             </div>
 

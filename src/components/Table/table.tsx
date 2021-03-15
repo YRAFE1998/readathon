@@ -173,7 +173,7 @@ const GenericTable = (props: GenericTableInterface) => {
 
                                 </th>)}
                             {!!props.hasDashboardView && <th>Dashboard</th>}
-                            {!!props.hasManageView && <th>Manage</th>}
+                            {!!props.hasManageView && <th>{props.manageTitle || "Manage"}</th>}
                             {!!props.hasAchivement && <th>Log Achievment</th>}
                             {!props.readOnly && !props.removeEditButton && <th>Edit</th>}
                         </tr>

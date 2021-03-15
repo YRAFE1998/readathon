@@ -75,12 +75,7 @@ const LogAtchivementFormInput = (props: any) => {
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
                 {renderInputs("number", "achievement", "Achivement", "Achivement", null, true)}
             </div>
-            <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderSelect("type", "Select Type", "Teacher", true, "name")}
-            </div>
-            <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderInputs("textarea", "description", "Desriptions", "Desriptions", null, true)}
-            </div>
+           
 
 
 

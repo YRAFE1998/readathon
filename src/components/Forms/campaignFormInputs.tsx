@@ -102,7 +102,7 @@ const CampaignFormInputs = (props: any) => {
                 {renderInputs("textarea", "question", "Why are you raising money?", "Why are you raising money?", null, true)}
             </div>
             <ModalFooter>
-                <RedBackgroundButton className="btn-save" onClick={handleSubmit}>Add New</RedBackgroundButton>
+                <RedBackgroundButton className="btn-save" onClick={handleSubmit}>{props.buttonTxt}</RedBackgroundButton>
 
             </ModalFooter>
 

@@ -89,7 +89,7 @@ const StudentFormInputs = (props: any) => {
             }
 
             <ModalFooter>
-                <RedBackgroundButton className="btn-save" onClick={handleSubmit}>Add New</RedBackgroundButton>
+                <RedBackgroundButton className="btn-save" onClick={handleSubmit}>{props.buttonTxt}</RedBackgroundButton>
 
             </ModalFooter>
             {

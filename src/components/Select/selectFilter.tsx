@@ -22,7 +22,7 @@ const SelectFilter = (props: SelectFilterInterface) => {
         if (props.array?.length) {
             if (props.unAssign) {
                 const data = JSON.parse(JSON.stringify(props.array));
-                data.unshift({[props.keyItem || ""]: "0", [props.ItemValue || ""]: "Un-Assign"});
+                data.unshift({[props.keyItem || ""]: "0", [props.ItemValue || ""]: "UnAssigned"});
                 setDefualtArray(data || []);
                 setOrignalDefualtArray(data || []) 
             } else {

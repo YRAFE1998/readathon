@@ -24,4 +24,5 @@ export interface GenericTableInterface{
     removeEditButton? : boolean;
     removeUnAssignSelectFiler?: boolean;
     removeSearch?: boolean;
+    manageTitle?: string;
 }
