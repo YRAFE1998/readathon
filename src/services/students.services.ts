@@ -32,13 +32,7 @@ export const updateStudent = (data: StudentForm) => {
     }
 }
 export const updateStudentPassword = (data: any) => {
-    var retrievedUser = JSON.parse(localStorage.getItem('user') || '{}');
-    if (retrievedUser.content == "teacherContent.") {
-        return axiosInstance.put(`/api/teacher/delete/myStudent/${data.Id}`, data)
-    } else {
-        return axiosInstance.put(`/api/update/studentPassword/${data.Id}`, data)
-
-    }
+    return axiosInstance.put(`/api/update/studentPassword`, data)
 }
 export const deleteStudent = (data: any) => {
     var retrievedUser = JSON.parse(localStorage.getItem('user') || '{}');

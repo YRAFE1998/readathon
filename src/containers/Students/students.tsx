@@ -9,16 +9,18 @@ import { students } from '../../Mocks/students';
 import { StudentForm } from '../../interfaces/studentForm';
 import ModalsHoc from '../../HOCS/modalsHoc';
 import StudentFormInputs from "../../components/Forms/StudentFormInputs";
-import { addStudent, deleteStudent, getAllStudents, updateStudent, assignStudentsToTeacher } from '../../services/students.services';
+import { addStudent, deleteStudent, getAllStudents, updateStudent, assignStudentsToTeacher, updateStudentPassword } from '../../services/students.services';
 import { getAllTeachers } from '../../services/teacher.service';
 import AssignToTeacherInputs from '../../components/Forms/assignToTeacherInputs';
 import { UserContext } from '../../Context/authContext';
+import ChangePasswordInputs from '../../components/Forms/changePassword';
 const orinizationView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id"];
 const teacherView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id", "teacher"]
 const Students = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
-    const [editedForm, setEditedForm] = useState({})
+    const [openModalChangePassword, setOpenModalShowPassword] = useState(false);
+    const [editedForm, setEditedForm] = useState<any>({})
     const [students, setStudents] = useState<any>([]);
     const [orignalStudents, setOrignalStudents] = useState<any>([]);
     const [orignalStudentsSearchAndSelect, setOrignalStudentsSearchAndSelect] = useState<any>([]);
@@ -97,6 +99,10 @@ const Students = () => {
         assignStudentsToTeacher(data).then((res) => getStudets()).finally(() => setOpenAssignModal(false))
         
     }
+    const handleChangePassword = (value: any) => {
+        const newValue =  {...value, email:editedForm?.email};
+        updateStudentPassword(newValue).then((Res) =>  getTeachers()).finally(() => setOpenModalShowPassword(false))
+    }
     return (
         <div>
             <div className="d-flex justify-content-between">
@@ -125,6 +131,8 @@ const Students = () => {
                 onSelectFilter={(v) => onSelectSearchFilter(v)}
                 multipleAssign={!!(user.content == "organizationContent.")}
                 onAssign={(s) => {setSelected(s); setOpenAssignModal(true)}}
+                showChange={!!(user.content == "organizationContent.")}
+                onPressShow={(v) => {setOpenModalShowPassword(true); setEditedForm(v)}}
             ></GenericTable>
 
             <div >
@@ -135,6 +143,11 @@ const Students = () => {
             <div>
                 <ModalsHoc open={openModalEdit} title="Edit Student" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
                     <StudentFormInputs buttonTxt={"Edit"}  teachers={teachers} submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></StudentFormInputs>
+                </ModalsHoc>
+            </div>
+            <div>
+                <ModalsHoc open={openModalChangePassword} title="Change Password" onShow={(bool: boolean) => setOpenModalShowPassword(bool)}>
+                    <ChangePasswordInputs  onSubmit={(v: any) => handleChangePassword(v)} />
                 </ModalsHoc>
             </div>
             <div>

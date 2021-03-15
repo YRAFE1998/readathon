@@ -8,13 +8,16 @@ import ModalsHoc from '../../HOCS/modalsHoc';
 import TeacherFormInput from '../../components/Forms/TeacherForm';
 import { TeacherForm } from '../../interfaces/teacherForm';
 import SelectTeacher from '../../components/Forms/selectTeacherInput';
-import { addTeacher, deleteTeacher, deleteTeacherWithAssign, getAllTeachers, updateTeacher } from '../../services/teacher.service';
+import { addTeacher, deleteTeacher, deleteTeacherWithAssign, getAllTeachers, updateTeacher, updateTeacherPassword } from '../../services/teacher.service';
 import numeral from 'numeral';
+import ChangePasswordInputs from '../../components/Forms/changePassword';
 
 const Teachers = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
-    const [editedForm, setEditedForm] = useState({})
+    const [openModalChangePassword, setOpenModalShowPassword] = useState(false);
+
+    const [editedForm, setEditedForm] = useState<any>({})
     const [openModalSelectTeacher, setOpenModalSelectTeacher] = useState(false);
     const [teachers, setTeachers] = useState<any>([]);
     const [orignalTeachers, setOrignalTeachers] = useState<any>([]);
@@ -55,6 +58,11 @@ const Teachers = () => {
         deleteTeacherWithAssign(deletedTeacher, data).then((res) => getTeachers())
         .finally(() => setOpenModalSelectTeacher(false))
     }
+
+    const handleChangePassword = (value: any) => {
+        const newValue =  {...value, id:editedForm?.Id};
+        updateTeacherPassword(newValue).then((Res) =>  getTeachers()).finally(() => setOpenModalShowPassword(false))
+    }
     return (
         <div>
             <div className="d-flex justify-content-between">
@@ -78,6 +86,8 @@ const Teachers = () => {
                 onDelete={(v: any) => handleDeleteTeacher(v)}
                 itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "updatedAt", "status", "students"]}
                 singleDelete={true}
+                showChange={true}
+                onPressShow={(v) => {setOpenModalShowPassword(true); setEditedForm(v)}}
             ></GenericTable>
             <div >
                 <ModalsHoc open={openModal} title="Add New Teacher" onShow={(bool: boolean) => setOpenModal(bool)}>
@@ -92,6 +102,11 @@ const Teachers = () => {
             <div>
                 <ModalsHoc open={openModalSelectTeacher} title="Delete Warning !" onShow={(bool: boolean) => setOpenModalSelectTeacher(bool)}>
                     <SelectTeacher teachers={teachers.filter((v: any) => v.Id !== deletedTeacher)} onCancel={() => setOpenModalSelectTeacher(false)} onSubmit={(v: any) => handleDeleteTeacherWithAssign(v)} />
+                </ModalsHoc>
+            </div>
+            <div>
+                <ModalsHoc open={openModalChangePassword} title="Change Password" onShow={(bool: boolean) => setOpenModalShowPassword(bool)}>
+                    <ChangePasswordInputs  onSubmit={(v: any) => handleChangePassword(v)} />
                 </ModalsHoc>
             </div>
         </div>

@@ -176,6 +176,8 @@ const GenericTable = (props: GenericTableInterface) => {
                             {!!props.hasManageView && <th>{props.manageTitle || "Manage"}</th>}
                             {!!props.hasAchivement && <th>Log Achievment</th>}
                             {!props.readOnly && !props.removeEditButton && <th>Edit</th>}
+                            {!props.readOnly && props.showChange && <th>Change</th>}
+
                         </tr>
                     </thead>
                     <tbody>
@@ -211,6 +213,8 @@ const GenericTable = (props: GenericTableInterface) => {
                                 {!!props.hasManageView && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
                                 {!!props.hasAchivement && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}?name=${item.firstName}&email=${item.email}`)}>View</td>}
                                 {!props.readOnly && !props.removeEditButton && <td className="edit-btn td-link" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
+                                {!props.readOnly && props.showChange && <td className="td-link"  style={{ color: ThemeColor.successColor }}  onClick={() => props.onPressShow && props.onPressShow(item)}>Change</td>}
+
 
                             </tr>
 

@@ -19,5 +19,4 @@ export const deleteTeacher = (id: string) => {
 }
 export const deleteTeacherWithAssign = (deletedTeacher: string, assignTeacher : any) => {
     return axiosInstance.post(`/api/assignAndDelete/teacher/${deletedTeacher}`, assignTeacher)
-
 }

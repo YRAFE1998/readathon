@@ -25,4 +25,7 @@ export interface GenericTableInterface{
     removeUnAssignSelectFiler?: boolean;
     removeSearch?: boolean;
     manageTitle?: string;
+    showChange?: boolean;
+    onPressShow?: (params: any) => void;
+
 }
