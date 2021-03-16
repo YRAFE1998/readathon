@@ -19,7 +19,7 @@ const CircleDashboardCard = (props: CircleDashboardCardInterface) => {
                 <p className="sub-header">{props.form} of {props.to}</p>
 
                 <div className="text-center m-b-40">
-                    <CircularProgressbar value={10} text={`${10}%`}
+                    <CircularProgressbar value={props.progress} text={`${Math.round(props.progress)}%`}
                         styles={{
                             root: {
                                 width: "127px",
