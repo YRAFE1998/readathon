@@ -26,8 +26,13 @@ export const getAllCampaingStudentsApi = (id: string, role: string) => {
 export const deleteCampaingStudentsApi = (id: string, data: any) => {
     return axiosInstance.put(`/api/delete/campaign/students/${id}`, data)
 }
-export const getStudentProgressApi = (id: string, studentId: string) => {
-    return axiosInstance.get(`/api/teacher/get/studentAchievement/${id}/${studentId}`)
+export const getStudentProgressApi = (id: string, studentId: string, role: string) => {
+    if (role == "teacherContent.") {
+        return axiosInstance.get(`/api/teacher/get/studentAchievement/${id}/${studentId}`)
+    } else {
+        return axiosInstance.get(`/api/organization/get/studentAchievement/${id}/${studentId}`)
+    }
+
 }
 export const addStudentLogApi = (id: string, studentId: string, data: any, type?: string) => {
     return axiosInstance.post(`/api/teacher/addAchievement/${id}/${studentId}`, data);

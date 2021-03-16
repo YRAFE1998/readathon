@@ -34,7 +34,7 @@ const InputComponent = (props: InputInfterface) => {
                         value ?
                             <img className="imageUpload" src={value} alt="img" />
                             : <label htmlFor={`${props.state}file`} >
-                                { <span className="iconRender"> {IconInput && <IconInput />}</span> }
+                                {<span className="iconRender"> {IconInput && <IconInput />}</span>}
                             </label>
                     }
                     <input
@@ -59,7 +59,7 @@ const InputComponent = (props: InputInfterface) => {
         </>
 
     }
- 
+
     const renderTextArea = () => {
         return <>
             <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
@@ -121,11 +121,16 @@ const InputComponent = (props: InputInfterface) => {
                         value={props.type == "number" && value ? numeral(value).format("0,0") : value}
                         onChange={(e) => {
                             if (props.type == "number") {
+                                const re = /^[0-9\b]+$/;
                                 const val = e?.target?.value;
-                                props?.onChange(numeral(val).value() || "");
-                                setvalue(numeral(val).value());
+                                const numberVal = numeral(val).value()?.toString() || "";
+                                if (!e.target.value  || re.test(numberVal)) {
+                                    props?.onChange(numeral(val).value() || "");
+                                    setvalue(numeral(val).value());
+                                }
+
                             } else {
-                                
+
                                 props?.onChange(e?.target?.value || "");
                                 setvalue(e?.target?.value);
                             }
@@ -157,9 +162,9 @@ const InputComponent = (props: InputInfterface) => {
                     <DatePicker
                         open={openDate}
                         onCalendarClose={() => setOpenDate(!openDate)}
-                        onClickOutside={() => setOpenDate(!openDate)}                        
+                        onClickOutside={() => setOpenDate(!openDate)}
                         onCalendarOpen={() => setOpenDate(true)}
-                       
+
                         placeholderText={moment().format("yyyy-MM-DD")}
                         dateFormat={"dd MMMM yyyy"}
                         selected={value && new Date(value)}
