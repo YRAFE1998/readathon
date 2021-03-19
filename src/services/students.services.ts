@@ -4,6 +4,8 @@ import { axiosInstance } from "./axiosInstance";
 export const getAllStudents = (role: string) => {
     if (role == "teacherContent.") {
         return axiosInstance.get("/api/teacher/get/allMystudents")
+    } else if (role == "studentContent.") {
+        return axiosInstance.get("/api/student/get/dashboard");
     } else {
         return axiosInstance.get("/api/get/all/student");
     }
@@ -13,7 +15,7 @@ export const addStudent = (data: StudentForm) => {
     data.status = "Active";
     if (retrievedUser.content == "teacherContent.") {
         data.teacher_id = retrievedUser.Id;
-        return axiosInstance.post("/api/teacher/update/student", data);
+        return axiosInstance.post("/api/teacher/add/student", data);
 
     } else {
         return axiosInstance.post("/api/add/student", data);

@@ -7,6 +7,7 @@ import { Navbar, Nav, NavDropdown, DropdownButton, Dropdown } from 'react-bootst
 import { Link, NavLink, useHistory, useLocation } from 'react-router-dom';
 import { UserContext } from '../../Context/authContext';
 import { handlePagesView } from '../../containers/PageRoute/handlePagesView';
+import { FacebookShareButton, FacebookIcon } from "react-share";
 
 const Header = (props: any) => {
     const location = useLocation().pathname;
@@ -42,6 +43,14 @@ const Header = (props: any) => {
 
                                     }
                                 })
+                            }
+                            {
+                                !!(user.content == "studentContent.") &&
+                                <Nav.Link>
+                                    <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/#/page/students" >
+                                        <span style={{ fontWeight: 600 }}>Share</span>
+                                    </FacebookShareButton >
+                                </Nav.Link>
                             }
 
 

@@ -10,4 +10,5 @@ export interface InputInfterface {
     required?: boolean;
     selectedCountry?: any;
     onBlur?: (v: any) => void;
+    readonly?:boolean;
 }

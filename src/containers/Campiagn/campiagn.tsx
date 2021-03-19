@@ -1,5 +1,6 @@
 import numeral from 'numeral'
 import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router'
 import CampaignFormInputs from '../../components/Forms/campaignFormInputs'
 import { PageTitle } from '../../components/Lables/pageTitle'
 import { RedBackgroundButton } from '../../components/Lables/redBackgroundButton'
@@ -18,18 +19,25 @@ const Campiagn = () => {
     const [campaigns, setCampaigns] = useState([]);
     const [orignalCampaigns, setOriginalCampaigns] = useState([]);
     const {user} = useContext<any>(UserContext);
+    const studentId = useParams<any>().id;
+    
     useEffect(() => {
         getAllCampaings();
     }, [])
     const getAllCampaings = () =>
-        allCampaignApi(user.content).then((Res) => {
-            setCampaigns(arrangeCampaginFeilds(Res.data.data));
-            setOriginalCampaigns(arrangeCampaginFeilds(Res.data.data))
+        allCampaignApi(user.content, studentId).then((Res) => {
+            if (user.content == "studentContent.") {
+                setCampaigns(arrangeCampaginFeilds(Res.data.data?.campaigns));
+                setOriginalCampaigns(arrangeCampaginFeilds(Res.data.data?.campaigns))
+            } else {
+                
+                setCampaigns(arrangeCampaginFeilds(Res.data.data));
+                setOriginalCampaigns(arrangeCampaginFeilds(Res.data.data))
+            }
         })
 
   
     const handleSubmit = (action: string, form: any) => {
-        debugger;
         if (action == "add") {
             addCampaignApi(form).then((Res) => getAllCampaings()).finally(() => setOpenModal(false));
         } else {
@@ -68,8 +76,8 @@ const Campiagn = () => {
                 data={campaigns}
                 keyItem="Id"
                 singleDelete={true}
-                hasDashboardView={true}
-                hasManageView={true}
+                hasDashboardView={!!(user.content == 'teacherContent.')}
+                hasManageView={!!!(user.content == 'studentContent.')}
                 itemsExceptions={["Id", "theType", "organization_id", "question", "title", "actualDonation", "targetAchievement", "actualAchievement", "createdAt", "updatedAt"]}
                 mangeLink={`/page/campaign-student`}
                 dashboardLink={`/page/campiagnDashboard`}
@@ -79,6 +87,10 @@ const Campiagn = () => {
                 onSearch={(v: string) => searchHandler(v)}
                 onDelete={(v: any) => handleDelete(v)}
                 manageTitle={"Student"}
+                readOnly={!!(user.content == 'studentContent.')}
+                hasAchivement={!!(user.content == "studentContent.")}
+                achivementTitle="Log"
+                achivementLink={`/page/studentProgress/${studentId}`}
             ></GenericTable>
 
             <div >

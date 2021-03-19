@@ -29,7 +29,7 @@ export const arrangeCampaginStudentsFeilds = (data: any, teachers: any[]) => {
         fname: v?.fname,
         lname: v?.lname,
         email: v?.email,
-        teacher: teachers.filter((ele) => ele.Id == v?.teacher_id)?.[0]?.fname || "",
+        teacher: teachers?.filter((ele) => ele.Id == v?.teacher_id)?.[0]?.fname || "",
         moneyRaised: v?.campaignstudents?.moneyRaised,
         achievement: v?.campaignstudents?.targetAchievement,
         compaignStudentId: v?.campaignstudents?.Id,

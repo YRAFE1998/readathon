@@ -38,6 +38,7 @@ const InputComponent = (props: InputInfterface) => {
                             </label>
                     }
                     <input
+                        readOnly={props.readonly}
                         id={`${props.state}file`}
                         type={"file"}
                         style={{ visibility: "hidden" }}
@@ -93,6 +94,7 @@ const InputComponent = (props: InputInfterface) => {
                     <div className="typeHead">  + 1</div>
                 </div>
                 <input
+                    readOnly={props.readonly}
                     value={value}
                     onChange={(e) => {
                         props?.onChange(`${e?.target?.value.toString()}` || "");
@@ -124,7 +126,7 @@ const InputComponent = (props: InputInfterface) => {
                                 const re = /^[0-9\b]+$/;
                                 const val = e?.target?.value;
                                 const numberVal = numeral(val).value()?.toString() || "";
-                                if (!e.target.value  || re.test(numberVal)) {
+                                if (!e.target.value || re.test(numberVal)) {
                                     props?.onChange(numeral(val).value() || "");
                                     setvalue(numeral(val).value());
                                 }
@@ -140,6 +142,8 @@ const InputComponent = (props: InputInfterface) => {
                         type={props.type == 'password' ? passwordType : "text"}
                         style={{ width: props.type == 'date' ? "100%" : "" }}
                         placeholder={props.placeholder}
+                        readOnly={props.readonly}
+
                         className="input" />
 
                     <span className="iconRender" onClick={() => props.type == 'password' && setPasswordType(passwordType == 'password' ? "text" : "password")}>
@@ -160,6 +164,7 @@ const InputComponent = (props: InputInfterface) => {
                 <InputPalceholderStyle style={{ color: props?.required && props?.error ? `${ThemeColor.colorError}` : "" }}>{props.placeholder} {props?.required && "*"}</InputPalceholderStyle>
                 <InputStyleComponent style={{ border: props?.required && props?.error ? `1px solid ${ThemeColor.colorError}` : "" }}>
                     <DatePicker
+                        readOnly={props.readonly}
                         open={openDate}
                         onCalendarClose={() => setOpenDate(!openDate)}
                         onClickOutside={() => setOpenDate(!openDate)}

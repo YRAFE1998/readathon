@@ -16,6 +16,7 @@ export interface GenericTableInterface{
     onEdit?: (params?: any) => void;
     mangeLink?: string;
     achivementLink?: string;
+    achivementTitle?:string;
     dashboardLink?: string;
     selectFilterItemValue?: string;
     onSelectFilter?: (params: any) => void;
@@ -27,5 +28,6 @@ export interface GenericTableInterface{
     manageTitle?: string;
     showChange?: boolean;
     onPressShow?: (params: any) => void;
+    
 
 }

@@ -28,9 +28,9 @@ const Students = () => {
     const [teachers, setTeachers] = useState<any>([]);
     const [searchValue, setSearchValue] = useState<any>("");
     const [selected, setSelected] = useState([]);
-    const {user} = useContext<any>(UserContext);
+    const { user } = useContext<any>(UserContext);
     useEffect(() => {
-       user.content == "organizationContent." &&  getTeachers();
+        user.content == "organizationContent." && getTeachers();
         getStudets();
     }, [])
     useEffect(() => {
@@ -81,7 +81,7 @@ const Students = () => {
     const handleDeleteStudents = (val: any) => {
         if (user.content == "organizationContent.") {
             const studentsIds = val.map((v: any) => v.Id);
-            deleteStudent({students: studentsIds}).then((Res) => {
+            deleteStudent({ students: studentsIds }).then((Res) => {
                 getStudets();
             })
         } else {
@@ -89,7 +89,7 @@ const Students = () => {
                 getStudets();
             })
         }
-       
+
     }
     const assignToTeacher = (t: any) => {
         const data = {
@@ -97,11 +97,11 @@ const Students = () => {
             teacher_id: t || ""
         }
         assignStudentsToTeacher(data).then((res) => getStudets()).finally(() => setOpenAssignModal(false))
-        
+
     }
     const handleChangePassword = (value: any) => {
-        const newValue =  {...value, email:editedForm?.email};
-        updateStudentPassword(newValue).then((Res) =>  getTeachers()).finally(() => setOpenModalShowPassword(false))
+        const newValue = { ...value, email: editedForm?.email };
+        updateStudentPassword(newValue).then((Res) => getTeachers()).finally(() => setOpenModalShowPassword(false))
     }
     return (
         <div>
@@ -110,16 +110,20 @@ const Students = () => {
                     <PageTitle>Students</PageTitle>
                     <SubTitlePage>{students.length} Student</SubTitlePage>
                 </div>
-                <div>
-                    <RedOutlineButton> Import Students</RedOutlineButton>
-                    <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Student</RedBackgroundButton>
-                </div>
+                {
+                    !!!(user.content === "studentContent.") &&
+
+                    <div>
+                        <RedOutlineButton> Import Students</RedOutlineButton>
+                        <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Student</RedBackgroundButton>
+                    </div>
+                }
             </div>
             <GenericTable
                 data={students}
                 keyItem="Id"
                 singleDelete={!!!(user.content == "organizationContent.")}
-                itemsExceptions={user.content == "organizationContent." ? orinizationView : teacherView}
+                itemsExceptions={user.content == "teacherContent." ? teacherView : orinizationView}
                 onEdit={(f: StudentForm) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={(e) => onSearchValue(e)}
@@ -130,9 +134,13 @@ const Students = () => {
                 selectFilterItemValue={"fname"}
                 onSelectFilter={(v) => onSelectSearchFilter(v)}
                 multipleAssign={!!(user.content == "organizationContent.")}
-                onAssign={(s) => {setSelected(s); setOpenAssignModal(true)}}
+                onAssign={(s) => { setSelected(s); setOpenAssignModal(true) }}
                 showChange={!!(user.content == "organizationContent.")}
-                onPressShow={(v) => {setOpenModalShowPassword(true); setEditedForm(v)}}
+                readOnly={!!(user.content == "studentContent.")}
+                hasAchivement={!!(user.content == "studentContent.")}
+                achivementTitle="Campaign"
+                achivementLink="/page/campaign"
+                onPressShow={(v) => { setOpenModalShowPassword(true); setEditedForm(v) }}
             ></GenericTable>
 
             <div >
@@ -142,12 +150,12 @@ const Students = () => {
             </div>
             <div>
                 <ModalsHoc open={openModalEdit} title="Edit Student" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
-                    <StudentFormInputs buttonTxt={"Edit"}  teachers={teachers} submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></StudentFormInputs>
+                    <StudentFormInputs buttonTxt={"Edit"} teachers={teachers} submit={(f: any) => submitForm(f, "edit")} importBtn={false} value={editedForm}></StudentFormInputs>
                 </ModalsHoc>
             </div>
             <div>
                 <ModalsHoc open={openModalChangePassword} title="Change Password" onShow={(bool: boolean) => setOpenModalShowPassword(bool)}>
-                    <ChangePasswordInputs  onSubmit={(v: any) => handleChangePassword(v)} />
+                    <ChangePasswordInputs onSubmit={(v: any) => handleChangePassword(v)} />
                 </ModalsHoc>
             </div>
             <div>

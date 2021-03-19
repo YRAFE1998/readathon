@@ -39,8 +39,9 @@ const StudentFormInputs = (props: any) => {
             setError({ ...error, ...formValid })
         }
     }
-    const renderInputs = (type: string, state: (keyof StudentForm), placeholder: string, name: string, Icon: React.FC, required: boolean) => {
+    const renderInputs = (type: string, state: (keyof StudentForm), placeholder: string, name: string, Icon: React.FC, required: boolean, readonly: boolean) => {
         return <InputComponent
+        readonly={readonly}
             error={error[state]}
             state={form[state]}
             type={type}
@@ -72,13 +73,13 @@ const StudentFormInputs = (props: any) => {
     return (
         <div style={{ padding: "0px 40px" }}>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }} >
-                {renderInputs("text", "fname", "First Name", "First Name", IconsUser, true)}
+                {renderInputs("text", "fname", "First Name", "First Name", IconsUser, true, false)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderInputs("text", "lname", "Last Name", "Last Name", IconsUser, true)}
+                {renderInputs("text", "lname", "Last Name", "Last Name", IconsUser, true, false)}
             </div>
             <div className={"inputSpaces"} style={{ marginBottom: "20px" }}>
-                {renderInputs("text", "email", "Email", "Email", IconEmail, true)}
+                {renderInputs("text", "email", "Email", "Email", IconEmail, true, (props.buttonTxt == "Add New" ? false : true))}
             </div>
             {
                 !!(user.content == 'organizationContent.') &&

@@ -12,7 +12,7 @@ import { UserContext } from '../../Context/authContext'
 import ModalsHoc from '../../HOCS/modalsHoc'
 import { campaignTypes } from '../../Mocks/campiagns'
 import { studentProgresses } from '../../Mocks/studentProgress'
-import { addStudentLogApi, getStudentProgressApi, deleteStudentLogApi } from '../../services/campiagn.service'
+import { addStudentLogApi, getStudentProgressApi, deleteStudentLogApi, addStudentLogApiFromParent } from '../../services/campiagn.service'
 
 
 const StudentProgress = () => {
@@ -39,7 +39,12 @@ const StudentProgress = () => {
         })
     }
     const handleSubmit = (action: string, form: any) => {
-        addStudentLogApi(campaign, studentId, form).then((Res) => getProgress()).finally(() => setOpenModal(false))
+        if (user.content == "teacherContent.") {
+            addStudentLogApi(campaign, studentId, form).then((Res) => getProgress()).finally(() => setOpenModal(false))
+        } else {
+            addStudentLogApiFromParent(campaign, studentId, form).then((Res) => getProgress()).finally(() => setOpenModal(false))
+
+        }
     }
     const filterByTypes = (value: any) => {
         const arrayOfNames = value.slice().map((v: any) => v.name);
@@ -55,7 +60,8 @@ const StudentProgress = () => {
             <div className="d-flex justify-content-between">
                 <div>
                     <PageTitle>Student Progress</PageTitle>
-                    <SubTitlePage>{name}({email})</SubTitlePage>
+                    
+                    <SubTitlePage>{!!name && name} {!!email && `(${email})`}</SubTitlePage>
                 </div>
                 {
                     !!!(user.content == 'organizationContent.') &&
