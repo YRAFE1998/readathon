@@ -1,6 +1,7 @@
 import numeral from 'numeral'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import { FacebookShareButton } from 'react-share'
 import CampaignFormInputs from '../../components/Forms/campaignFormInputs'
 import { PageTitle } from '../../components/Lables/pageTitle'
 import { RedBackgroundButton } from '../../components/Lables/redBackgroundButton'
@@ -18,9 +19,9 @@ const Campiagn = () => {
     const [editedForm, setEditedForm] = useState({});
     const [campaigns, setCampaigns] = useState([]);
     const [orignalCampaigns, setOriginalCampaigns] = useState([]);
-    const {user} = useContext<any>(UserContext);
+    const { user } = useContext<any>(UserContext);
     const studentId = useParams<any>().id;
-    
+
     useEffect(() => {
         getAllCampaings();
     }, [])
@@ -30,13 +31,13 @@ const Campiagn = () => {
                 setCampaigns(arrangeCampaginFeilds(Res.data.data?.campaigns));
                 setOriginalCampaigns(arrangeCampaginFeilds(Res.data.data?.campaigns))
             } else {
-                
+
                 setCampaigns(arrangeCampaginFeilds(Res.data.data));
                 setOriginalCampaigns(arrangeCampaginFeilds(Res.data.data))
             }
         })
 
-  
+
     const handleSubmit = (action: string, form: any) => {
         if (action == "add") {
             addCampaignApi(form).then((Res) => getAllCampaings()).finally(() => setOpenModal(false));
@@ -66,10 +67,10 @@ const Campiagn = () => {
                 {
                     !!(user.content == "organizationContent.") &&
                     <div>
-                    <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Campaign</RedBackgroundButton>
-                </div>
+                        <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Campaign</RedBackgroundButton>
+                    </div>
                 }
-                
+
             </div>
 
             <GenericTable
@@ -91,6 +92,8 @@ const Campiagn = () => {
                 hasAchivement={!!(user.content == "studentContent.")}
                 achivementTitle="Log"
                 achivementLink={`/page/studentProgress/${studentId}`}
+                hasShare={!!(user.content == 'studentContent.')}
+                
             ></GenericTable>
 
             <div >

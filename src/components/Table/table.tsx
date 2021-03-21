@@ -17,6 +17,7 @@ import { pageNumbers } from '../../utils/pageShowesNumbers'
 import DeleteModalContent from '../Forms/deleteModalContent'
 import { handleSortGenirec } from '../../utils/sort'
 import numeral from "numeral";
+import { FacebookShareButton } from 'react-share'
 const GenericTable = (props: GenericTableInterface) => {
     const [page, setPage] = useState(1)
     const [chunkedData, setChunkedData] = useState<any>();
@@ -174,9 +175,11 @@ const GenericTable = (props: GenericTableInterface) => {
                                 </th>)}
                             {!!props.hasDashboardView && <th>Dashboard</th>}
                             {!!props.hasManageView && <th>{props.manageTitle || "Manage"}</th>}
-                            {!!props.hasAchivement && <th>{props.achivementTitle ||"Log Achievment"}</th>}
+                            {!!props.hasAchivement && <th>{props.achivementTitle || "Log Achievment"}</th>}
                             {!props.readOnly && !props.removeEditButton && <th>Edit</th>}
                             {!props.readOnly && props.showChange && <th>Change</th>}
+                            {props.hasShare && <th>Share</th>}
+
 
                         </tr>
                     </thead>
@@ -211,9 +214,15 @@ const GenericTable = (props: GenericTableInterface) => {
                                         {val ? JSON.parse(JSON.stringify(typeof val == "number" ? numeral(val).format("0,0") : val)) : "___"}</td>)}
                                 {!!props.hasDashboardView && <td className="td-link" style={{ color: ThemeColor.red }} onClick={() => history.push(`${props.dashboardLink}/${item[props.keyItem || ""]}`)}>View</td>}
                                 {!!props.hasManageView && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.mangeLink}/${item[props.keyItem || ""]}`)}>Manage</td>}
-                                {!!props.hasAchivement && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}?${!!item.name && `name=${item.firstName}` }${!!item.email && `&email=${item.email}`}`)}>View</td>}
+                                {!!props.hasAchivement && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}?${!!item.name && `name=${item.firstName}`}${!!item.email && `&email=${item.email}`}`)}>View</td>}
                                 {!props.readOnly && !props.removeEditButton && <td className="edit-btn td-link" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
-                                {!props.readOnly && props.showChange && <td className="td-link"  style={{ color: ThemeColor.successColor }}  onClick={() => props.onPressShow && props.onPressShow(item)}>Change</td>}
+                                {!props.readOnly && props.showChange && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => props.onPressShow && props.onPressShow(item)}>Change</td>}
+                                {props.hasShare && <td className="edit-btn td-link" onClick={() => history.push("/page/share")} >
+                                    {/* <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/#/page/share" >
+                                        <span style={{ fontWeight: 600 }}>Share</span>
+                                    </FacebookShareButton > */}
+                                    Share
+                                </td>}
 
 
                             </tr>

@@ -26,6 +26,10 @@ export const getAllCampaingStudentsApi = (id: string, role: string) => {
         return axiosInstance.get(`/api/get/campaign/students/${id}`)
     }
 }
+
+export const sendClassApi = (id: string, data: any) => {
+    return axiosInstance.post(`/api/teacher/sendmail/campaignStudents/${id}`, data);
+}
 export const deleteCampaingStudentsApi = (id: string, data: any) => {
     return axiosInstance.put(`/api/delete/campaign/students/${id}`, data)
 }

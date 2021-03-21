@@ -1,20 +1,26 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
-import Draft from 'react-wysiwyg-typescript'
+import { Helmet } from "react-helmet";
 
-import { FacebookShareButton, FacebookIcon } from "react-share";
+import { useParams } from 'react-router';
+import { FacebookShareButton } from 'react-share';
 export const Share = () => {
-    const [editorState, setEditorState] = useState<any>()
+    const [editorState, setEditorState] = useState<any>();
+    const params = useParams();
+    useEffect(() => {
+        document.title = "My Title"
+    })
     return (
         <>
             <div >
-                <FacebookShareButton title={editorState} id="share-btn" color={"blue"} url="http://40.74.38.157:8080/#/page/students" >
-                    asdasd
+                <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/page/share" >
+                    <span style={{ fontWeight: 600 }}>Share</span>
                 </FacebookShareButton >
-                <Draft
-                    editorState={editorState}
-                    onEditorStateChange={(editorState: any) => { setEditorState(editorState) }}
-                />
+
+                <Helmet>
+                    <title>My Title</title>
+                    <meta name="description" content="Helmet application" />
+                </Helmet>
             </div>
         </>
     )

@@ -28,6 +28,8 @@ export interface GenericTableInterface{
     manageTitle?: string;
     showChange?: boolean;
     onPressShow?: (params: any) => void;
+    hasShare?: boolean;
+
     
 
 }

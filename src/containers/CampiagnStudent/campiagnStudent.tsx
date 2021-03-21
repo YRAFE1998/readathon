@@ -2,13 +2,15 @@ import numeral from 'numeral'
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import CampaignStudentFormInput from '../../components/Forms/campaignStudentFormInput'
+import SendClassInputs from '../../components/Forms/sendClassInputs'
 import { PageTitle } from '../../components/Lables/pageTitle'
+import { RedOutlineButton } from '../../components/Lables/red-outlline-button'
+import { RedBackgroundButton } from '../../components/Lables/redBackgroundButton'
 import { SubTitlePage } from '../../components/Lables/subTitlePage'
 import GenericTable from '../../components/Table/table'
 import { UserContext } from '../../Context/authContext'
 import ModalsHoc from '../../HOCS/modalsHoc'
-import { CampaignStudentInterface } from '../../interfaces/campaignStudentInterface'
-import { deleteCampaingStudentsApi, deleteStudentLogApi, getAllCampaingStudentsApi } from '../../services/campiagn.service'
+import { deleteCampaingStudentsApi, deleteStudentLogApi, getAllCampaingStudentsApi, sendClassApi } from '../../services/campiagn.service'
 import { getAllTeachers } from '../../services/teacher.service'
 import { arrangeCampaginStudentsFeilds } from '../../utils/arrangeCampaginFeilds'
 const orginaztionView = ["Id", "students", "campaignId", "compaignStudentId", "teacher_id"];
@@ -16,6 +18,7 @@ const teacherView = ["Id", "students", "campaignId", "compaignStudentId", "teach
 const CampiagnStudent = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
+    const [openModalSendClass, setOpenModalSendClass] = useState(false);
     const [editedForm, setEditedForm] = useState({})
     const [teachers, setTeachers] = useState([]);
     const [campaignsStudents, setCampaignsStudents] = useState([]);
@@ -24,9 +27,9 @@ const CampiagnStudent = () => {
     const [searchValue, setSearchValue] = useState<any>("");
     const { user } = useContext<any>(UserContext);
     const campaignId = useParams<any>()?.id;
-    
+
     useEffect(() => {
-        if (user.content== 'teacherContent.') {
+        if (user.content == 'teacherContent.') {
             getStudentCampaings();
         } else {
             getTeachers();
@@ -37,7 +40,7 @@ const CampiagnStudent = () => {
     useEffect(() => { onSearchValue(searchValue); }, [originalCampaignsStudents])
 
     const getStudentCampaings = () => {
-        getAllCampaingStudentsApi(campaignId , user.content).then((Res) => {
+        getAllCampaingStudentsApi(campaignId, user.content).then((Res) => {
             console.log(Res.data.data);
             setCampaignsStudents(arrangeCampaginStudentsFeilds((Res.data?.data?.students || Res.data.data), teachers));
             setOriginalCampaignsStudents(arrangeCampaginStudentsFeilds((Res.data?.data?.students || Res.data.data), teachers));
@@ -91,6 +94,12 @@ const CampiagnStudent = () => {
                     <PageTitle>Campaign Students</PageTitle>
                     <SubTitlePage>{numeral(campaignsStudents.length).format("0,0")} Campaign</SubTitlePage>
                 </div>
+                {
+
+                    user.content == "teacherContent." &&
+                    <RedOutlineButton style={{ padding: "0px 25px" }} onClick={() => setOpenModalSendClass(true)}>Send Class</RedOutlineButton>
+
+                }
 
             </div>
             <GenericTable
@@ -120,6 +129,13 @@ const CampiagnStudent = () => {
             <div>
                 <ModalsHoc open={openModalEdit} title="Edit Student" onShow={(bool: boolean) => setOpenModalEdit(bool)}>
                     <CampaignStudentFormInput submit={() => console.log("edit")} importBtn={false} value={editedForm}></CampaignStudentFormInput>
+                </ModalsHoc>
+            </div>
+            <div>
+                <ModalsHoc open={openModalSendClass} title="Send To Class" onShow={(bool: boolean) => setOpenModalSendClass(bool)}>
+                    <SendClassInputs
+                        submit={(data: any) => sendClassApi(campaignId, data).finally(()=> setOpenModalSendClass(false))}
+                    ></SendClassInputs>
                 </ModalsHoc>
             </div>
         </div>
