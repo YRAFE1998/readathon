@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { Helmet } from "react-helmet";
 
 import { useParams } from 'react-router';
 import { FacebookShareButton } from 'react-share';
@@ -17,10 +16,7 @@ export const Share = () => {
                     <span style={{ fontWeight: 600 }}>Share</span>
                 </FacebookShareButton >
 
-                <Helmet>
-                    <title>My Title</title>
-                    <meta name="description" content="Helmet application" />
-                </Helmet>
+                
             </div>
         </>
     )

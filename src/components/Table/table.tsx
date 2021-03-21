@@ -217,11 +217,10 @@ const GenericTable = (props: GenericTableInterface) => {
                                 {!!props.hasAchivement && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}?${!!item.name && `name=${item.firstName}`}${!!item.email && `&email=${item.email}`}`)}>View</td>}
                                 {!props.readOnly && !props.removeEditButton && <td className="edit-btn td-link" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
                                 {!props.readOnly && props.showChange && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => props.onPressShow && props.onPressShow(item)}>Change</td>}
-                                {props.hasShare && <td className="edit-btn td-link" onClick={() => history.push("/page/share")} >
-                                    {/* <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/#/page/share" >
+                                {props.hasShare && <td className="edit-btn td-link"  >
+                                    <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/#/page/share" >
                                         <span style={{ fontWeight: 600 }}>Share</span>
-                                    </FacebookShareButton > */}
-                                    Share
+                                    </FacebookShareButton >
                                 </td>}
 
 

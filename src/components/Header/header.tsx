@@ -44,14 +44,14 @@ const Header = (props: any) => {
                                     }
                                 })
                             }
-                            {
+                            {/* {
                                 !!(user.content == "studentContent.") &&
                                 <Nav.Link>
                                     <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/#/page/students" >
                                         <span style={{ fontWeight: 600 }}>Share</span>
                                     </FacebookShareButton >
                                 </Nav.Link>
-                            }
+                            } */}
 
 
                         </Nav>
