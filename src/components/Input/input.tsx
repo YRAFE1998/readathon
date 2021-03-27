@@ -123,7 +123,6 @@ const InputComponent = (props: InputInfterface) => {
                         value={props.type == "number" && value ? numeral(value).format("0,0") : value}
                         onChange={(e) => {
                             if (props.type == "number") {
-                                debugger;
                                 const re = /^[0-9\b]+$/;
                                 const val = e?.target?.value;
                                 const numberVal = numeral(val).value()?.toString() || "";
