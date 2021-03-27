@@ -18,6 +18,7 @@ import DeleteModalContent from '../Forms/deleteModalContent'
 import { handleSortGenirec } from '../../utils/sort'
 import numeral from "numeral";
 import { FacebookShareButton } from 'react-share'
+import { EmptyStateStyle } from '../Lables/emptyState'
 const GenericTable = (props: GenericTableInterface) => {
     const [page, setPage] = useState(1)
     const [chunkedData, setChunkedData] = useState<any>();
@@ -115,8 +116,17 @@ const GenericTable = (props: GenericTableInterface) => {
         return !!selected.filter((v) => v[props.keyItem || ""] === item[props.keyItem || ""]).length
     }
 
-    return (
-        <div>
+    const viewGenericTabel = () => {
+        if (props.data?.length) {
+            return tableView()
+        }
+        // else {
+        //     return <EmptyStateStyle>There Is No Data Yet</EmptyStateStyle>
+        // }
+    }
+
+    const tableView = () => {
+        return (<div>
             <TableStyles>
                 <div className="search-container-div d-md-flex justify-content-between align-items-center">
                     <div className="d-md-flex align-items-center">
@@ -179,7 +189,10 @@ const GenericTable = (props: GenericTableInterface) => {
                             {!props.readOnly && !props.removeEditButton && <th>Edit</th>}
                             {!props.readOnly && props.showChange && <th>Change</th>}
                             {props.hasShare && <th>Share</th>}
-
+                            {props.studentReport && <th>Student Report</th>}
+                            {props.teacherReport && <th>Teacher Report</th>}
+                            {props.supporterReport && <th>Supporter Report</th>}
+                            {props.changeImage && <th>Image</th>}
 
                         </tr>
                     </thead>
@@ -217,12 +230,25 @@ const GenericTable = (props: GenericTableInterface) => {
                                 {!!props.hasAchivement && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.achivementLink}/${item[props.keyItem || ""]}?${!!item.name && `name=${item.firstName}`}${!!item.email && `&email=${item.email}`}`)}>View</td>}
                                 {!props.readOnly && !props.removeEditButton && <td className="edit-btn td-link" onClick={() => props.onEdit && props.onEdit(item)}>Edit</td>}
                                 {!props.readOnly && props.showChange && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => props.onPressShow && props.onPressShow(item)}>Change</td>}
+
+                                {props.studentReport && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.studentReportLink}/${item[props.keyItem || ""]}`)}>View</td>}
+                                {props.teacherReport && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.teacherReportLink}/${item[props.keyItem || ""]}`)}>View</td>}
+                                {props.supporterReport && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.supporterReportLink}/${item[props.keyItem || ""]}`)}>View</td>}
+
                                 {props.hasShare && <td className="edit-btn td-link"  >
                                     <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/#/page/share" >
                                         <span style={{ fontWeight: 600 }}>Share</span>
                                     </FacebookShareButton >
                                 </td>}
 
+                                {props.changeImage  && <td className="edit-btn td-link"  >
+                                    <label htmlFor="fileStu">Upload</label>
+                                    <input type="file" name="" id="fileStu" hidden onChange={(e: any) => {
+                                        let file = e.target.files[0];
+                                        props.uploadImage && props.uploadImage(item[props.keyItem || ""], file)
+                                    }} />
+                                    
+                                </td>}
 
                             </tr>
 
@@ -235,8 +261,11 @@ const GenericTable = (props: GenericTableInterface) => {
             </TableStyles >
 
 
-        </div>
-    )
+        </div>)
+    }
+
+    return (<>{viewGenericTabel()}</>)
+
 }
 
 export default GenericTable

@@ -12,7 +12,7 @@ export const Share = () => {
     return (
         <>
             <div >
-                <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/page/share" >
+                <FacebookShareButton className="item" id="share-btn" url="https://giving-tree-dea70.web.app/?name=eslam&title=hello" >
                     <span style={{ fontWeight: 600 }}>Share</span>
                 </FacebookShareButton >
 

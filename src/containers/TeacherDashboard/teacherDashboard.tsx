@@ -137,6 +137,7 @@ const TeacherDashboard = () => {
                 onSearch={(v: string) => searchHandler(v)}
                 manageTitle={"Student"}
                 readOnly={true}
+                
             ></GenericTable>
 
         </div>

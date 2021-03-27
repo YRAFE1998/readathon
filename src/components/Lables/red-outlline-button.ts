@@ -27,10 +27,15 @@ text-align: center;
 
 color: ${ThemeColor.red};
 background: transparent;
+label{
+    padding: 0px;
+    margin: 0px;
+}
 &:focus{
     outline:  none;
 border: solid 1px ${ThemeColor.red};
 color: ${ThemeColor.red};
 background: transparent;
+
 }
 `;

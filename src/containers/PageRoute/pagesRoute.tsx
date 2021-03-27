@@ -12,7 +12,9 @@ const TeacherDashboard = React.lazy(() => import("../TeacherDashboard/teacherDas
 const StudentProgress = React.lazy(() => import('../StudentProgress/studentProgress'));
 const CampiagnDashboard = React.lazy(() => import('../CampiagnDashboard/campiagnDashboard'));
 const Share = React.lazy(() => import('../Share/share'));
-
+const TeacherReport = React.lazy(() => import('../TeacherReport/teacherReport'));
+const StudentReport = React.lazy(() => import('../StudentReport/studentReport'));
+const SupportReport = React.lazy(() => import('../SupporterReport/supporterReport'));
 
 
 const Profile = React.lazy(() => import('../Profile/profile'))
@@ -37,7 +39,9 @@ export const DashboardModule = () => {
                             <Route path={"/page/studentProgress/:id/:studentId"} component={StudentProgress}></Route>
                             <Route path={"/page/campiagnDashboard/:id"} component={CampiagnDashboard}></Route>
                             <Route path={"/page/share"} component={Share}></Route>
-
+                            <Route path={"/page/teacherReport/:id"} component={TeacherReport}></Route>
+                            <Route path={"/page/stundetReport/:id"} component={StudentReport}></Route>
+                            <Route path={"/page/supporterReport/:id"} component={SupportReport}></Route>
                             <Route path={"/page/profile"} component={Profile}></Route>
                         </Switch>
                     </Col>

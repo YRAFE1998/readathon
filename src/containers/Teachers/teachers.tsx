@@ -8,7 +8,7 @@ import ModalsHoc from '../../HOCS/modalsHoc';
 import TeacherFormInput from '../../components/Forms/TeacherForm';
 import { TeacherForm } from '../../interfaces/teacherForm';
 import SelectTeacher from '../../components/Forms/selectTeacherInput';
-import { addTeacher, deleteTeacher, deleteTeacherWithAssign, getAllTeachers, updateTeacher, updateTeacherPassword } from '../../services/teacher.service';
+import { addTeacher, deleteTeacher, deleteTeacherWithAssign, getAllTeachers, importTeacherApi, updateTeacher, updateTeacherPassword } from '../../services/teacher.service';
 import numeral from 'numeral';
 import ChangePasswordInputs from '../../components/Forms/changePassword';
 
@@ -51,28 +51,37 @@ const Teachers = () => {
     const handleDeleteTeacher = (id: string) => {
         setDeletedTeacher(id);
         deleteTeacher(id).then((Res) => getTeachers())
-        .catch((err) => setOpenModalSelectTeacher(true))
+            .catch((err) => setOpenModalSelectTeacher(true))
     }
     const handleDeleteTeacherWithAssign = (id: string) => {
-        const data = {teacher_id: id || ""};
+        const data = { teacher_id: id || "" };
         deleteTeacherWithAssign(deletedTeacher, data).then((res) => getTeachers())
-        .finally(() => setOpenModalSelectTeacher(false))
+            .finally(() => setOpenModalSelectTeacher(false))
     }
 
     const handleChangePassword = (value: any) => {
-        const newValue =  {...value, id:editedForm?.Id};
-        updateTeacherPassword(newValue).then((Res) =>  getTeachers()).finally(() => setOpenModalShowPassword(false))
+        const newValue = { ...value, id: editedForm?.Id };
+        updateTeacherPassword(newValue).then((Res) => getTeachers()).finally(() => setOpenModalShowPassword(false))
     }
     return (
         <div>
             <div className="d-flex justify-content-between">
                 <div>
-                
+
                     <PageTitle>Teachers</PageTitle>
                     <SubTitlePage>{numeral(teachers.length).format("0,0")} Teacher</SubTitlePage>
                 </div>
                 <div>
-                    <RedOutlineButton> Import Teachers</RedOutlineButton>
+                    <input type="file" name="" id="fileImport" hidden onChange={(e: any) => {
+                        let file = e.target.files[0];  
+                        let formData = new FormData();
+                        formData.append("file", file);    
+                        importTeacherApi(formData).finally(() => getTeachers())                            
+                      
+                    }} />
+                    <RedOutlineButton>
+                        <label htmlFor="fileImport">Import Teachers</label>
+                    </RedOutlineButton>
                     <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Teacher</RedBackgroundButton>
                 </div>
             </div>
@@ -87,7 +96,7 @@ const Teachers = () => {
                 itemsExceptions={["Id", "password", "createdAt", "fname", "lname", "organization_id", "updatedAt", "status", "students"]}
                 singleDelete={true}
                 showChange={true}
-                onPressShow={(v) => {setOpenModalShowPassword(true); setEditedForm(v)}}
+                onPressShow={(v) => { setOpenModalShowPassword(true); setEditedForm(v) }}
             ></GenericTable>
             <div >
                 <ModalsHoc open={openModal} title="Add New Teacher" onShow={(bool: boolean) => setOpenModal(bool)}>
@@ -106,7 +115,7 @@ const Teachers = () => {
             </div>
             <div>
                 <ModalsHoc open={openModalChangePassword} title="Change Password" onShow={(bool: boolean) => setOpenModalShowPassword(bool)}>
-                    <ChangePasswordInputs  onSubmit={(v: any) => handleChangePassword(v)} />
+                    <ChangePasswordInputs onSubmit={(v: any) => handleChangePassword(v)} />
                 </ModalsHoc>
             </div>
         </div>

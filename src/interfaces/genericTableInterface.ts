@@ -1,4 +1,4 @@
-export interface GenericTableInterface{
+export interface GenericTableInterface {
     itemsExceptions?: any[];
     data?: any[];
     onChangePage: (params?: any) => void;
@@ -16,20 +16,26 @@ export interface GenericTableInterface{
     onEdit?: (params?: any) => void;
     mangeLink?: string;
     achivementLink?: string;
-    achivementTitle?:string;
+    achivementTitle?: string;
     dashboardLink?: string;
     selectFilterItemValue?: string;
     onSelectFilter?: (params: any) => void;
     multipleAssign?: boolean;
     onAssign?: (params: any) => void;
-    removeEditButton? : boolean;
+    removeEditButton?: boolean;
     removeUnAssignSelectFiler?: boolean;
     removeSearch?: boolean;
     manageTitle?: string;
     showChange?: boolean;
     onPressShow?: (params: any) => void;
     hasShare?: boolean;
-
-    
+    studentReport?: boolean;
+    studentReportLink?: string;
+    teacherReport?: boolean;
+    teacherReportLink?: string;
+    supporterReport?: boolean;
+    supporterReportLink?: string;
+    changeImage?: boolean;
+    uploadImage?: (params: any, params2: any) => void;
 
 }

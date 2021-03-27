@@ -9,13 +9,15 @@ import { students } from '../../Mocks/students';
 import { StudentForm } from '../../interfaces/studentForm';
 import ModalsHoc from '../../HOCS/modalsHoc';
 import StudentFormInputs from "../../components/Forms/StudentFormInputs";
-import { addStudent, deleteStudent, getAllStudents, updateStudent, assignStudentsToTeacher, updateStudentPassword } from '../../services/students.services';
+import { addStudent, deleteStudent, getAllStudents, updateStudent, assignStudentsToTeacher, updateStudentPassword, importStudentApi, uploadStudentImageApi } from '../../services/students.services';
 import { getAllTeachers } from '../../services/teacher.service';
 import AssignToTeacherInputs from '../../components/Forms/assignToTeacherInputs';
 import { UserContext } from '../../Context/authContext';
 import ChangePasswordInputs from '../../components/Forms/changePassword';
-const orinizationView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id"];
-const teacherView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id", "teacher"]
+const orinizationView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id", "image"];
+const teacherView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id", "teacher", "image"];
+const studentView = ["Id", "password", "createdAt", "fname", "lname", "organization_id", "organization", "updatedAt", "status", "teacher_id", ];
+
 const Students = () => {
     const [openModal, setOpenModal] = useState(false);
     const [openModalEdit, setOpenModalEdit] = useState(false);
@@ -114,7 +116,18 @@ const Students = () => {
                     !!!(user.content === "studentContent.") &&
 
                     <div>
-                        <RedOutlineButton> Import Students</RedOutlineButton>
+
+                        <input type="file" name="" id="fileImport" hidden onChange={(e: any) => {
+                            let file = e.target.files[0];
+                            let formData = new FormData();
+                            formData.append("file", file);
+                            importStudentApi(formData).finally(() => getStudets())
+
+                        }} />
+                        <RedOutlineButton>
+                            <label htmlFor="fileImport">Import Students</label>
+                        </RedOutlineButton>
+
                         <RedBackgroundButton onClick={() => setOpenModal(true)}>Add New Student</RedBackgroundButton>
                     </div>
                 }
@@ -123,7 +136,7 @@ const Students = () => {
                 data={students}
                 keyItem="Id"
                 singleDelete={!!!(user.content == "organizationContent.")}
-                itemsExceptions={user.content == "teacherContent." ? teacherView : orinizationView}
+                itemsExceptions={user.content == "teacherContent." ? teacherView : user.content == "organizationContent." ? orinizationView : studentView}
                 onEdit={(f: StudentForm) => { setOpenModalEdit(true); setEditedForm(f) }}
                 onChangePage={() => console.log("page")}
                 onSearch={(e) => onSearchValue(e)}
@@ -140,6 +153,12 @@ const Students = () => {
                 hasAchivement={!!(user.content == "studentContent.")}
                 achivementTitle="Campaign"
                 achivementLink="/page/campaign"
+                changeImage={!!(user.content == "studentContent.")}
+                uploadImage={(id, file) => {
+                    let formData = new FormData();
+                    formData.append("profile", file);
+                    uploadStudentImageApi(formData, id).finally(() => getStudets())
+                }}
                 onPressShow={(v) => { setOpenModalShowPassword(true); setEditedForm(v) }}
             ></GenericTable>
 

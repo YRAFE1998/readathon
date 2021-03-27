@@ -49,3 +49,11 @@ export const deleteStudent = (data: any) => {
 export const assignStudentsToTeacher = (data: any) => {
     return axiosInstance.put(`/api/assign/student`, data)
 }
+
+export const importStudentApi = (data: any) => {
+    return axiosInstance.post(`/api/organization/import/students`, data);
+}
+
+export const uploadStudentImageApi = (data: any, id: string) => {
+    return axiosInstance.post(`/api/student/addImage/${id}`, data);
+}

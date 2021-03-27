@@ -20,3 +20,7 @@ export const deleteTeacher = (id: string) => {
 export const deleteTeacherWithAssign = (deletedTeacher: string, assignTeacher : any) => {
     return axiosInstance.post(`/api/assignAndDelete/teacher/${deletedTeacher}`, assignTeacher)
 }
+
+export const importTeacherApi = (data: any) => {
+    return axiosInstance.post(`/api/organization/import/teachers`, data);
+}
