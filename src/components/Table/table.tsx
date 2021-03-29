@@ -8,7 +8,7 @@ import { TableStyles, DeleteModalStyle, PaginationStyles } from './table.styles'
 import { ThemeColor } from '../../utils/colors'
 import IconsArrowLeft from '../../assets/icons/Main/icons-arrow-left'
 import IconsArrowRight from '../../assets/icons/Main/icons-arrow-right'
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { DeleteIcon } from '../../assets/icons/Main/deleteIcon'
 import SelectFilter from '../Select/selectFilter'
 import { GenericTableInterface } from '../../interfaces/genericTableInterface'
@@ -125,7 +125,7 @@ const GenericTable = (props: GenericTableInterface) => {
         //     return <EmptyStateStyle>There Is No Data Yet</EmptyStateStyle>
         // }
     }
-   
+
     const tableView = () => {
         return (<div>
             <TableStyles>
@@ -237,24 +237,29 @@ const GenericTable = (props: GenericTableInterface) => {
                                 {props.supporterReport && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.supporterReportLink}/${item[props.keyItem || ""]}`)}>View</td>}
 
                                 {props.hasShare && <td className="edit-btn td-link"  >
-                                   <a 
+                                    {/* <a 
                                    className="edit-btn td-link"  
                                    target="_blank"
                                    href={`${baseURL}/#/share?${`name=${props.additionalData.fname} ${props.additionalData.lname}&`}${`image=${baseURL}/${props.additionalData.image}&`}${`campaignId=${item[props.keyItem || ""]}&`}${`studentId=${props.additionalData.Id}`}`} > Share
-                                   </a>
-                                   {/* <FacebookShareButton className="item" id="share-btn" 
+                                   </a> */}
+                                    <Link className="edit-btn td-link" to={`/page/editor/${`${item[props.keyItem || ""]}`}/${props.additionalData.Id}`}>
+                                        Share
+        </Link>
+
+
+                                    {/* <FacebookShareButton className="item" id="share-btn" 
                                     url={`${baseURL}?${`name=${props.additionalData.fname} ${props.additionalData.lname}`}${`image=${baseURL}/${props.additionalData.image}`}${`campaignId=${item[props.keyItem || ""]}`}${`studentId=${props.additionalData.Id}`}`} >
                                         <span style={{ fontWeight: 600 }}>Share</span>
                                     </FacebookShareButton > */}
                                 </td>}
 
-                                {props.changeImage  && <td className="edit-btn td-link"  >
+                                {props.changeImage && <td className="edit-btn td-link"  >
                                     <label htmlFor="fileStu">Upload</label>
                                     <input type="file" name="" id="fileStu" hidden onChange={(e: any) => {
                                         let file = e.target.files[0];
                                         props.uploadImage && props.uploadImage(item[props.keyItem || ""], file)
                                     }} />
-                                    
+
                                 </td>}
 
                             </tr>
