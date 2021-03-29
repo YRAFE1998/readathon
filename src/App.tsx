@@ -10,6 +10,7 @@ import ProtectedRoute from "./HOCS/ProtectedRoute";
 import { LoaderStyles } from "./HOCS/loader.styles";
 import ScrollToTop from "./HOCS/scrollTop";
 import Share from "./containers/Share/share";
+import DonationPage from "./containers/DonationPage/donationPage";
 const Dashboard = React.lazy(() => import('./containers/PageRoute/pagesRoute'));
 const NotFound = React.lazy(() => import('./containers/Not-Found/not-found'));
 const Auth = React.lazy(() => import('./containers/Auth/auth'));
@@ -32,6 +33,8 @@ function App() {
 
             <Switch>
               <Route path={"/share"} component={Share}></Route>
+              <Route path={"/donation"} component={DonationPage}></Route>
+
 
               <ProtectedRoute>
                 <Route path={"/page"} component={Dashboard} />

@@ -6,6 +6,7 @@ import CheckoutForm from "../../components/Forms/checkoutForms";
 import { useLocation, useParams } from 'react-router';
 import { FacebookShareButton } from 'react-share';
 import { RedBackgroundButton } from '../../components/Lables/redBackgroundButton';
+import { baseURL } from '../../utils/baseUrl';
 const stripePromise = loadStripe('pk_live_51IZLFAAZXrFYZHGJFDEXMmZPKXL3YYDTPziTPassmkBUjIBKSWyEBl0QRHcALQhqKncjfHA8HB5eyNJfcSa6nS2Z00tCyi303y');
 
 export const Share = () => {
@@ -40,9 +41,11 @@ export const Share = () => {
                     </div>
 
                     <div>
-                        <FacebookShareButton className="shareitemStu" id="share-btn" url="https://giving-tree-dea70.web.app" >
+                        <FacebookShareButton className="shareitemStu" id="share-btn" url={`${baseURL}/#/share?${`name=${name}&`}${`image=${baseURL}/${image}&`}${`campaignId=${campaignId}&`}${`studentId=${studentId}`}`} >
                             <span style={{ fontWeight: 600, textAlign:"center", width: "100%" }}> <RedBackgroundButton style={{padding: "10px 20px"}}>Share Link</RedBackgroundButton> </span>
                         </FacebookShareButton >
+
+                      
                         </div>
 
                 </div>
