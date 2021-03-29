@@ -19,6 +19,7 @@ const Campiagn = () => {
     const [editedForm, setEditedForm] = useState({});
     const [campaigns, setCampaigns] = useState([]);
     const [orignalCampaigns, setOriginalCampaigns] = useState([]);
+    const [studentData, setStudentData] = useState({});
     const { user } = useContext<any>(UserContext);
     const studentId = useParams<any>().id;
 
@@ -27,7 +28,10 @@ const Campiagn = () => {
     }, [])
     const getAllCampaings = () =>
         allCampaignApi(user.content, studentId).then((Res) => {
+
             if (user.content == "studentContent.") {
+                console.log(Res.data.data);
+                setStudentData(Res.data.data);
                 setCampaigns(arrangeCampaginFeilds(Res.data.data?.campaigns));
                 setOriginalCampaigns(arrangeCampaginFeilds(Res.data.data?.campaigns))
             } else {
@@ -93,6 +97,7 @@ const Campiagn = () => {
                 achivementTitle="Log"
                 achivementLink={`/page/studentProgress/${studentId}`}
                 hasShare={!!(user.content == 'studentContent.')}
+                additionalData={!!(user.content == 'studentContent.') && studentData}
                 
             ></GenericTable>
 

@@ -19,6 +19,7 @@ import { handleSortGenirec } from '../../utils/sort'
 import numeral from "numeral";
 import { FacebookShareButton } from 'react-share'
 import { EmptyStateStyle } from '../Lables/emptyState'
+import { baseURL } from '../../utils/baseUrl'
 const GenericTable = (props: GenericTableInterface) => {
     const [page, setPage] = useState(1)
     const [chunkedData, setChunkedData] = useState<any>();
@@ -124,7 +125,7 @@ const GenericTable = (props: GenericTableInterface) => {
         //     return <EmptyStateStyle>There Is No Data Yet</EmptyStateStyle>
         // }
     }
-
+   
     const tableView = () => {
         return (<div>
             <TableStyles>
@@ -236,9 +237,15 @@ const GenericTable = (props: GenericTableInterface) => {
                                 {props.supporterReport && <td className="td-link" style={{ color: ThemeColor.successColor }} onClick={() => history.push(`${props.supporterReportLink}/${item[props.keyItem || ""]}`)}>View</td>}
 
                                 {props.hasShare && <td className="edit-btn td-link"  >
-                                    <FacebookShareButton className="item" id="share-btn" url="http://40.74.38.157:8080/#/page/share" >
+                                   <a 
+                                   className="edit-btn td-link"  
+                                   target="_blank"
+                                   href={`${baseURL}/#/share?${`name=${props.additionalData.fname} ${props.additionalData.lname}&`}${`image=${baseURL}/${props.additionalData.image}&`}${`campaignId=${item[props.keyItem || ""]}&`}${`studentId=${props.additionalData.Id}`}`} > Share
+                                   </a>
+                                   {/* <FacebookShareButton className="item" id="share-btn" 
+                                    url={`${baseURL}?${`name=${props.additionalData.fname} ${props.additionalData.lname}`}${`image=${baseURL}/${props.additionalData.image}`}${`campaignId=${item[props.keyItem || ""]}`}${`studentId=${props.additionalData.Id}`}`} >
                                         <span style={{ fontWeight: 600 }}>Share</span>
-                                    </FacebookShareButton >
+                                    </FacebookShareButton > */}
                                 </td>}
 
                                 {props.changeImage  && <td className="edit-btn td-link"  >

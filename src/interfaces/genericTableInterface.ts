@@ -37,5 +37,6 @@ export interface GenericTableInterface {
     supporterReportLink?: string;
     changeImage?: boolean;
     uploadImage?: (params: any, params2: any) => void;
+    additionalData?: any;
 
 }

@@ -79,7 +79,7 @@ const StudentProgress = () => {
                 data={studentProgresses}
                 keyItem="id"
                 readOnly={true}
-                itemsExceptions={["Id", "achievement", "type", "description", "createdAt", "updatedAt", "teacher_id", "student_id", "campaign_id", "studentAch"]}
+                itemsExceptions={["Id", "achievement", "type", "description", "createdAt", "updatedAt", "teacher_id", "student_id", "campaign_id", "studentAch", "supporter_id"]}
                 onChangePage={() => console.log("page")}
                 onSearch={() => console.log("search")}
                 selectFilter={true}
