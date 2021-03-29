@@ -55,5 +55,5 @@ export const importStudentApi = (data: any) => {
 }
 
 export const uploadStudentImageApi = (data: any, id: string) => {
-    return axiosInstance.post(`/api/student/addImage/${id}`, data);
+    return axiosInstance.put(`/api/student/addImage/${id}`, data);
 }
