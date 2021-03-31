@@ -16,7 +16,7 @@ const ContentEditor = () => {
     return (
         <div>
             <SunEditor
-                onChange={(e) => setContent(e)}
+                onChange={(e) => console.log(e)}
                 setOptions={{
                     showPathLabel: false,
                     charCounter: true,
