@@ -1,8 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import './App.scss';
 import { HashRouter, Switch, Route, Redirect, } from "react-router-dom";
-import Header from "./components/Header/header";
-import Footer from "./components/Footer/foorter";
 import AlertComponent from "./HOCS/alert";
 import AuthContext from "./Context/authContext";
 import Loader from "./HOCS/loader";

@@ -2,7 +2,8 @@ import moment from 'moment';
 import numeral from 'numeral';
 import React, { useContext, useEffect, useState } from 'react'
 import { useHistory } from 'react-router';
-import CircleDashboardCard from '../../components/cards/circle-dashboard-card';
+import CircleDashboardCard from '../../components/circle-dashboard/circle-dashboard-card'
+
 import CampaginDashboard from '../../components/Lables/campaginDashboard';
 import CustomsTopLabel from '../../components/Lables/customsTopLabel';
 import { PageTitle } from '../../components/Lables/pageTitle';

@@ -3,7 +3,6 @@ import { PageTitle } from '../../components/Lables/pageTitle';
 import { SubTitlePage } from '../../components/Lables/subTitlePage';
 import { useHistory, useParams } from 'react-router-dom';
 import GenericTable from '../../components/Table/table';
-import CircleDashboardCard from '../../components/cards/circle-dashboard-card';
 import CampaginDashboard from '../../components/Lables/campaginDashboard';
 import CustomsTopLabel from '../../components/Lables/customsTopLabel';
 import { getStudentReport, getTeacherDashboardApi, getTeacherReport } from '../../services/teacherDashboard.services';
