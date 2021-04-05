@@ -2,7 +2,7 @@ import React, { Suspense } from 'react'
 
 import { Switch, Route, Redirect, useLocation, useHistory, } from "react-router-dom";
 import { Row, Col, Button } from 'react-bootstrap';
-const Home = React.lazy(() => import('../Home/home'));
+const Home = React.lazy(() => import('../Dashboard/home'));
 const Teachers = React.lazy(() => import('../Teachers/teachers'));
 const Students = React.lazy(() => import('../Students/students'))
 const Campaigns = React.lazy(() => import('../Campiagn/campiagn'));

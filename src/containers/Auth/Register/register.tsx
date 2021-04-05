@@ -92,7 +92,7 @@ export const Register = () => {
                 <form onSubmit={handleSubmit} >
                     <CollapseHoc header={"Account Information"} onClickNextStep={() => handleNextStep(1)} stepConfig={steps[0]}>
                         <div className={"inputSpaces"}>
-                            {renderInputs("text", "name", "Contact Name", "Contact Name", IconEmail, true)}
+                            {renderInputs("text", "name", "Your Name", "Contact Name", IconEmail, true)}
                         </div>
 
                         <div className={"inputSpaces"}>

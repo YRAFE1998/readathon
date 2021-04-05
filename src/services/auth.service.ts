@@ -10,7 +10,8 @@ export const register = (data: any) => {
     return axiosInstance.post("/api/add/organization", dataAppend);
 }
 export const login = (data: LoginForm) => {
-    return axiosInstance.post("/api/auth/signin", data)
+    return axiosInstance.post("/api/auth/signin", data);
+    
 }
 export const resetPasswordApi = (data: ResetPasswordForm, token: string) => {
 

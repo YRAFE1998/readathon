@@ -11,3 +11,74 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: "SourceSansPro-Regular";
+  src: local("SourceSansPro-Regular"),
+    url("./assets/fonts/SourceSansPro-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Sofiaprofont";
+  src: local("Sofiaprofont"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ Regular\ Az.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Sofiaprofont-bold";
+  src: local("Sofiaprofont-bold"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ Bold\ Az.otf") format("truetype");
+}
+/*
+@font-face {
+  font-family: "Sofiaprofont-italic";
+  src: local("Sofiaprofont-italic"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ Italic\ Az.otf") format("truetype");
+}
+*/
+@font-face {
+  font-family: "Sofiaprofont-semibold";
+  src: local("Sofiaprofont-semibold"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ Semi\ Bold\ Az.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Sofiaprofont-light";
+  src: local("Sofiaprofont-light"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ Light\ Az.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Sofiaprofont-black";
+  src: local("Sofiaprofont-black"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ Black\ Az.otf") format("truetype");
+}
+
+
+@font-face {
+  font-family: "Sofiaprofont-extralight";
+  src: local("Sofiaprofont-extralight"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ ExtraLight\ Az.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Sofiaprofont-ultralight";
+  src: local("Sofiaprofont-ultralight"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ UltraLight\ Az.otf") format("truetype");
+}
+
+@font-face {
+  font-family: "Sofiaprofont-medium";
+  src: local("Sofiaprofont-medium"),
+    url("./assets/fonts/Sofia-Pro-Font/Sofia\ Pro\ Medium\ Az.otf") format("truetype");
+}
+
+
+
+
+
+
+
+
+
+
