@@ -1,0 +1,2 @@
+(this["webpackJsonpread-thon"]=this["webpackJsonpread-thon"]||[]).push([[24],{341:function(n,t,o){"use strict";o.r(t),o.d(t,"NotFound",(function(){return r}));o(0);var e=o(1),r=function(){return Object(e.jsx)("div",{children:"Not Found"})};t.default=r}}]);
+//# sourceMappingURL=24.adc47f1f.chunk.js.map

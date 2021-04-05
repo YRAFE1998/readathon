@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <g id="Group_2489" data-name="Group 2489" transform="translate(-495 -2262)">
+    <rect id="Rectangle_55" data-name="Rectangle 55" width="100" height="100" transform="translate(495 2262)" fill="#ecf0ff" opacity="0"/>
+    <g id="Notes" transform="translate(512.992 2280)">
+      <path id="Path_11760" data-name="Path 11760" d="M61,2H59a3,3,0,0,0-3,3V55c0,.34-.15-.06,3.11,6.45a1,1,0,0,0,1.78,0C64.15,55,64,55.34,64,55V5A3,3,0,0,0,61,2ZM59.14,57.05l-.89-1.79a6,6,0,0,1,3.5,0l-.89,1.79a8.24,8.24,0,0,0-1.72,0ZM62,13H58V11h4ZM58,53.27V15h4V53.27A8,8,0,0,0,58,53.27ZM58,5a1,1,0,0,1,1-1h2a1,1,0,0,1,1,1V9H58Z" fill="#2b3d5f"/>
+      <path id="Path_11761" data-name="Path 11761" d="M47,0H5C-1.09,0-1.81,12.27,4,13.86V63a1,1,0,0,0,1,1H47a1,1,0,0,0,1-1V52h3a1,1,0,0,0,1-1V7C52,3.07,49.8,0,47,0ZM2,7C2,4.29,3.37,2,5,2H43.47a9.24,9.24,0,0,0,0,10H5C3.37,12,2,9.71,2,7Zm44,4.68A5,5,0,0,1,44.06,8H46ZM46,62H6V14H46Zm4-12H48V7a1,1,0,0,0-1-1H44.06c.29-2.25,1.52-4,2.94-4,1.63,0,3,2.29,3,5Z" fill="#2b3d5f"/>
+      <path id="Path_11762" data-name="Path 11762" d="M41,22H11a1,1,0,0,0,0,2H41a1,1,0,0,0,0-2Z" fill="#2b3d5f"/>
+      <path id="Path_11763" data-name="Path 11763" d="M41,28H24a1,1,0,0,0,0,2H41a1,1,0,0,0,0-2Z" fill="#2b3d5f"/>
+      <path id="Path_11764" data-name="Path 11764" d="M11,30h9a1,1,0,0,0,0-2H11a1,1,0,0,0,0,2Z" fill="#2b3d5f"/>
+      <path id="Path_11765" data-name="Path 11765" d="M41,34H35a1,1,0,0,0,0,2h6a1,1,0,0,0,0-2Z" fill="#2b3d5f"/>
+      <path id="Path_11766" data-name="Path 11766" d="M11,36H31a1,1,0,0,0,0-2H11a1,1,0,0,0,0,2Z" fill="#2b3d5f"/>
+      <path id="Path_11767" data-name="Path 11767" d="M41,40H20a1,1,0,0,0,0,2H41a1,1,0,0,0,0-2Z" fill="#2b3d5f"/>
+      <path id="Path_11768" data-name="Path 11768" d="M11,42h5a1,1,0,0,0,0-2H11a1,1,0,0,0,0,2Z" fill="#2b3d5f"/>
+      <path id="Path_11769" data-name="Path 11769" d="M41,46H40a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Z" fill="#2b3d5f"/>
+      <path id="Path_11770" data-name="Path 11770" d="M11,48H36a1,1,0,0,0,0-2H11a1,1,0,0,0,0,2Z" fill="#2b3d5f"/>
+      <path id="Path_11771" data-name="Path 11771" d="M41,52H28a1,1,0,0,0,0,2H41a1,1,0,0,0,0-2Z" fill="#2b3d5f"/>
+      <path id="Path_11772" data-name="Path 11772" d="M24,52H11a1,1,0,0,0,0,2H24a1,1,0,0,0,0-2Z" fill="#2b3d5f"/>
+    </g>
+  </g>
+</svg>
