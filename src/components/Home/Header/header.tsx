@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Container } from 'reactstrap';
+import {HeadernavItems} from '../../../utils/headenavinfo';
 import {
     Collapse,
     Navbar,
@@ -8,46 +9,40 @@ import {
     Nav,
     NavItem,
     NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem,
-    NavbarText
 } from 'reactstrap';
 import Coloredbutton from './coloredbutton';
 import HeadernavItem from './headernav';
 import { Linkbutton } from './outlinebutton';
 
-
-interface HomeheaderInterface{
-
-}
-
 export const Homeheader = (props: any)=> {
 
     const [isOpen, setIsOpen] = useState(false);
+    const pageindex = props.page;
+    const navcontent = HeadernavItems.map((item) =>{
+      return(
+      <NavItem>
+        <NavLink href={item.path}><HeadernavItem active={pageindex==item.index}>{item.name}</HeadernavItem></NavLink>
+      </NavItem>
+      );
+    });
 
+    
     const toggle = () => setIsOpen(!isOpen);
     
     return (
       <Container>
-        <Navbar color="white" expand="md">
+        <Navbar color="white" light expand="md" className="py-4">
         <NavbarBrand href="/">Logo</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            <NavItem>
-              <NavLink href="/"><HeadernavItem active={true}>Home</HeadernavItem></NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/"><HeadernavItem active={false}>How It Works</HeadernavItem></NavLink>
-            </NavItem>
+            {navcontent}
           </Nav>
           <div className="ml-auto">
-              <Linkbutton>
+              <Linkbutton href="/#/auth/login">
                Log in
                </Linkbutton>
-              <Coloredbutton>
+              <Coloredbutton href="/#/auth/register">
               Sign up
               </Coloredbutton>
           </div>

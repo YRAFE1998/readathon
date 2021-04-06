@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const Fundraisercontainer = styled.div`
-    /*background: linear-gradient(#FFFFFF,#FAFBFF);*/
-    /*padding:0px;*/
-    /*margin: 0px 10px;*/
+    padding: 5px;
 
 `;
 
@@ -13,8 +11,7 @@ export const FundraiserCard = styled.div`
     width:100%;
     background:white;
     padding-bottom:10px;
-    box-shadow: 0px 10px #fafbff;
-
+    filter: drop-shadow(0px 1px 2px #88a1c8);
 `;
 
 export const FundraiserCardimgheader = styled.img`
@@ -24,7 +21,7 @@ export const FundraiserCardimgheader = styled.img`
 `;
 
 export const FundraiserCardtitle = styled.h5`
-    font-family:Sofiaprofont-light;
+    font-family:Sofiaprofont;
     color:#FDA14D;
     padding: 0px 10px;
     margin-top:5px;
@@ -33,7 +30,7 @@ export const FundraiserCardtitle = styled.h5`
 `;
 
 export const FundraiserCardsubtitle = styled.h5`
-    font-family:Sofiaprofont-light;
+    font-family:Sofiaprofont-semibold;
     color:#2B3D5F;
     padding: 0px 10px;
     margin-top:5px;
@@ -44,12 +41,12 @@ export const FundraiserCardtext = styled.h5`
     font-family:Sofiaprofont-light;
     color:#88A1C8 ;
     padding: 0px 10px;
-    margin-top:5px;
-
+    margin-top:15px;
+    margin-bottom:15px;
 `;
 
 export const FundraiserCardsubtext = styled.h6`
-    font-family:Sofiaprofont-extralight;
+    font-family:Sofiaprofont-light;
     color:#2B3D5F ;
     padding: 0px 10px;
     margin-top:5px;
@@ -70,4 +67,3 @@ export const Fundraisercardendtext = styled.h5`
     margin-top:5px;
 
 `;
-

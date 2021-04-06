@@ -14,6 +14,7 @@ const Dashboard = React.lazy(() => import('./containers/PageRoute/pagesRoute'));
 const NotFound = React.lazy(() => import('./containers/Not-Found/not-found'));
 const Auth = React.lazy(() => import('./containers/Auth/auth'));
 const Homepage = React.lazy(() => import('./containers/Home/home'));
+const Howitworkspage = React.lazy(() => import('./containers/Howitworks/howitworks'));
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
 
             <Switch>
               <Route exact path={"/"} component={Homepage}></Route>
+              <Route path={"/howitworks"} component={Howitworkspage}></Route>
               <Route path={"/share"} component={Share}></Route>
               <Route path={"/donation"} component={DonationPage}></Route>
 

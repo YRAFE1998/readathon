@@ -4,4 +4,91 @@
     padding: 10px;
     ;
   }
+  .rightcontainerimage{
+    width: 135%;
+    /*height: 700px;*/
+    object-fit: contain;
+
+}
+@media(max-width:775px){
+  .rightcontainerimage{
+    width: 100%;
+    /*height: 700px;*/
+    object-fit: contain;
+
+}
+}
+
+@media (min-width:1000px) {
   
+}
+
+  a:hover{
+    filter: opacity(0.7);
+    text-decoration: none;
+  }
+
+  button:hover{
+    filter: opacity(0.7);
+  }
+  body{
+  font-family: "Sofiaprofont";
+  }
+  .b-15{
+    border-radius: 15px;
+  }
+
+  .b-30{
+    border-radius: 30px;
+  }
+
+  .bgr-green{
+    background-color: #37B899;
+  }
+  .bgr-blue{
+    background-color: #2B3D5F;
+  }
+
+  .dropshadow{
+    filter: drop-shadow(2px 0px 5px #88a1c8);
+  }
+
+  .bgr-paleorange{
+    background-color: #FFEBD9;
+  }
+
+  .bgr-lightwhite{
+    background-color: #FAFBFF;
+  }
+
+  .txt-orange{
+    color:#FDA14D;
+  }
+  
+  .txt-lightcyan{
+    color:#88A1C8 
+  }
+
+  .txt-cyan{
+    color:#2B3D5F;  
+  }
+  .txt-sofia{
+    font-family: "Sofiaprofont";
+  }
+
+  .txt-sofiabold{
+    font-family: "Sofiaprofont-bold";
+  }
+
+  .txt-sofiablack{
+    font-family: "Sofiaprofont-black";
+  }
+
+  .txt-sofialight{
+    font-family: "Sofiaprofont-light";
+  }
+
+  .txt-sofiaextralight{
+    font-family: "Sofiaprofont-extralight";
+  }
+

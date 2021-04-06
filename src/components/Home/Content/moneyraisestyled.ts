@@ -4,10 +4,15 @@ export const ContinueButton = styled.button`
     background-color:#E1FEF7;
     border-radius:15px;
     color:#37B899;
-    padding:15px 50px !important;
+    @media (max-width:800px){
+        padding:15px 5px !important;
+    }
+    @media (min-width:801px){
+        padding:15px 50px !important;
+        font-size:22px;
+    }
     border-style:none;
     width:100%;
-    font-size:22px;
     font-family: Sofiaprofont-semibold;
 `;
 

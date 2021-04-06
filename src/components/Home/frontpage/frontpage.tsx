@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Container,Col, Row } from 'reactstrap';
-import './home.css';
-import { Leftfirstsubtitle,Leftfirsttext,Leftfirsttitle,Leftfirstbutton} from './leftfirst';
+import { Leftfirstsubtitle,Leftfirsttext,Leftfirsttitle} from './leftfirst';
+import {GetStartedButton} from '../../Buttons/getStartednow';
 
 
 export const Frontpage = (props: any)=> {
@@ -13,8 +13,8 @@ export const Frontpage = (props: any)=> {
     return (
       <Container>
         <Row className="d-flex">
-            <Col  xs="12" md="6" className="align-self-center mt-md-0 mt-5">
-                <Leftfirsttitle className="mb-4">
+            <Col  xs="12" md="6" className="align-self-center mt-md-0 mt-5 order-2 order-md-1">
+                <Leftfirsttitle className="mb-5" style={{lineHeight:"inherit"}}>
                 Fundraising for the Islamic schools has never been easier
                 </Leftfirsttitle>
                 <Leftfirstsubtitle className="mb-3">
@@ -28,11 +28,14 @@ export const Frontpage = (props: any)=> {
                 more funds.
 
                 </Leftfirsttext>
-                <Leftfirstbutton>
-                    Get Started Today
-                </Leftfirstbutton>
+                <Row>
+                <Col xs="12" className="text-center text-md-left mt-5">
+                <GetStartedButton/>
+                </Col>
+                </Row>
+
             </Col>
-            <Col xs="12" md="6" className="mt-md-0 mt-5">
+            <Col xs="12" md="6" className="mt-md-0 mt-5 order-1 order-md-2">
 
               <img src='/assets/Exported Assets/Group 2673@2x.png' className="rightcontainerimage" />
             </Col>

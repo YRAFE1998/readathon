@@ -1,7 +1,6 @@
 import { Container,Col, Row } from 'reactstrap';
-import './home.css';
-import {Leftfirstbutton} from './leftfirst';
-import {Mutedtext, Title} from './frontpage2styled';
+import {Mutedtext, Title} from '../textstyled';
+import {GetStartedButton} from '../../Buttons/getStartednow';
 
 
 export const Frontpage2 = (props: any)=> {    
@@ -26,7 +25,7 @@ export const Frontpage2 = (props: any)=> {
                 <Mutedtext className="mt-4">Risk-Free no obligation</Mutedtext>
                 </Col>
             <Col xs="12" className="my-5" >
-            <Leftfirstbutton >Get Started Today</Leftfirstbutton>
+            <GetStartedButton />
             </Col>
         </Row>
       </Container>
